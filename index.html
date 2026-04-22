@@ -96,7 +96,7 @@
 
   .kb-badges {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-top: 20px;
     flex-wrap: wrap;
   }
@@ -105,9 +105,23 @@
     background: var(--card);
     border: 1px solid var(--border);
     border-radius: 4px;
-    padding: 4px 12px;
+    padding: 5px 11px;
     font-family: 'DM Mono', monospace;
     font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    user-select: none;
+    transition: all .15s;
+  }
+
+  .kb-badge.owned {
+    background: rgba(66,245,167,0.1);
+    border-color: rgba(66,245,167,0.4);
+    color: var(--accent2);
+  }
+
+  .kb-badge:hover {
+    border-color: var(--accent2);
     color: var(--accent2);
   }
 
@@ -157,10 +171,18 @@
     min-height: calc(100vh - 220px);
   }
 
+  main.no-sidebar {
+    grid-template-columns: 1fr;
+  }
+
   /* DAY SIDEBAR */
   .day-sidebar {
     border-right: 1px solid var(--border);
     padding: 24px 0;
+  }
+
+  main.no-sidebar .day-sidebar {
+    display: none;
   }
 
   .day-btn {
@@ -540,6 +562,7 @@
       border-bottom: 1px solid var(--border);
       padding: 12px 0;
     }
+    main.no-sidebar .day-sidebar { display: none; }
     .day-btn { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
     .day-btn.active { border-left-color: transparent; border-bottom-color: var(--accent); }
     .content { padding: 20px; }
@@ -570,16 +593,17 @@
     font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: var(--accent);
   }
   .cal-grid {
-    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 20px;
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 20px;
+    width: 100%;
   }
   .cal-dow {
-    text-align: center; font-family: 'DM Mono', monospace; font-size: 10px;
-    color: var(--muted); letter-spacing: 1px; padding: 4px 0;
+    text-align: center; font-family: 'DM Mono', monospace; font-size: 9px;
+    color: var(--muted); letter-spacing: 0; padding: 4px 0;
   }
   .cal-day {
-    background: var(--card); border: 1px solid var(--border); border-radius: 6px;
-    min-height: 58px; padding: 6px; cursor: pointer; transition: border-color .15s;
-    position: relative;
+    background: var(--card); border: 1px solid var(--border); border-radius: 5px;
+    min-height: 52px; padding: 4px 3px; cursor: pointer; transition: border-color .15s;
+    position: relative; overflow: hidden;
   }
   .cal-day:hover { border-color: var(--accent); }
   .cal-day.empty { background: transparent; border-color: transparent; cursor: default; }
@@ -587,17 +611,25 @@
   .cal-day.has-training { border-color: rgba(200,245,66,0.4); }
   .cal-day.has-mobility { border-color: rgba(66,245,167,0.4); }
   .cal-day.done { background: rgba(200,245,66,0.07); }
+  .cal-day.cal-other-cycle { background: var(--surface); }
   .cal-day-num {
-    font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted);
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
   }
   .cal-day.today .cal-day-num { color: var(--accent); font-weight: 600; }
   .cal-day-pill {
-    font-size: 9px; font-family: 'DM Mono', monospace; letter-spacing: 0.5px;
-    border-radius: 3px; padding: 2px 5px; margin-top: 3px; display: inline-block;
+    font-size: 9px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px;
+    border-radius: 3px; padding: 2px 4px; margin-top: 3px; display: block;
+    text-align: center; white-space: nowrap; overflow: hidden;
   }
+  .pill-a    { background: rgba(200,245,66,0.18); color: var(--accent); border: 1px solid rgba(200,245,66,0.3); }
+  .pill-b    { background: rgba(66,180,245,0.15); color: #42b8f5; border: 1px solid rgba(66,180,245,0.3); }
+  .pill-c    { background: rgba(245,168,66,0.15); color: var(--accent3); border: 1px solid rgba(245,168,66,0.3); }
+  .pill-d    { background: rgba(245,100,66,0.12); color: #f57842; border: 1px solid rgba(245,100,66,0.25); }
+  .pill-mobility { background: rgba(66,245,167,0.12); color: var(--accent2); border: 1px solid rgba(66,245,167,0.25); }
+  .pill-rest { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
+  .pill-deload { background: rgba(245,168,66,0.15); color: var(--accent3); border: 1px solid rgba(245,168,66,0.3); }
+  .pill-pause { background: rgba(245,66,66,0.12); color: #ff7070; border: 1px solid rgba(245,66,66,0.25); }
   .pill-train { background: rgba(200,245,66,0.15); color: var(--accent); }
-  .pill-mobility { background: rgba(66,245,167,0.12); color: var(--accent2); }
-  .pill-rest { background: rgba(255,255,255,0.05); color: var(--muted); }
   .pill-done { background: rgba(200,245,66,0.25); color: #0d0f0e; }
   .cal-done-dot {
     width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
@@ -709,6 +741,19 @@
   }
   .empty-state .big { font-size: 36px; }
 
+
+  /* SUB NAV */
+  .sub-btn {
+    background: none; border: none; border-bottom: 3px solid transparent;
+    color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 13px;
+    font-weight: 500; padding: 12px 18px; cursor: pointer; white-space: nowrap;
+    transition: all .15s;
+  }
+  .sub-btn:hover { color: var(--text); }
+  .sub-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .sub-panel { display: none; }
+  .sub-panel.active { display: block; }
+
 </style>
 </head>
 <body>
@@ -719,22 +764,15 @@
   <p class="header-sub">
     4 dni treningowe · Nacisk na plecy, szyję, łopatki i klatkę piersiową · Progresja liniowo-falowa · Mobility w dni odpoczynku
   </p>
-  <div class="kb-badges">
-    <span class="kb-badge">4 kg</span>
-    <span class="kb-badge">6 kg</span>
-    <span class="kb-badge">8 kg</span>
-    <span class="kb-badge">12 kg</span>
-    <span class="kb-badge">16 kg</span>
-  </div>
+  <div style="margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">MOJE KETTLEBELLE — kliknij żeby zaznaczyć/odznaczyć</div>
+  <div class="kb-badges" id="kb-badges-container"></div>
 </header>
 
 <!-- PHASE NAV -->
 <nav class="phase-nav">
-  <button class="phase-btn active" onclick="switchPhase('overview')">Przegląd</button>
-  <button class="phase-btn" onclick="switchPhase('phase1')">Faza 1 — Rozruch (4 tyg.)</button>
-  <button class="phase-btn" onclick="switchPhase('phase2')">Faza 2 — Program Docelowy</button>
-  <button class="phase-btn" onclick="switchPhase('mobility')">Mobility (dni rest)</button>
-  <button class="phase-btn" onclick="switchPhase('tracker')">📊 Progresja</button>
+  <button class="phase-btn active" onclick="switchPhase('overview')">📖 Przegląd</button>
+  <button class="phase-btn" onclick="switchPhase('cycle')">🎯 Bieżący Cykl</button>
+  <button class="phase-btn" onclick="switchPhase('tracker')">📈 Progres</button>
   <button class="phase-btn" onclick="switchPhase('calendar')">📅 Kalendarz</button>
 </nav>
 
@@ -751,6 +789,18 @@
 
     <!-- =================== OVERVIEW =================== -->
     <div class="phase-panel active" id="panel-overview">
+
+      <!-- SUB NAV -->
+      <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px;overflow-x:auto;scrollbar-width:none">
+        <button class="sub-btn active" onclick="switchSub('sub-info')">ℹ️ O programie</button>
+        <button class="sub-btn" onclick="switchSub('sub-phase1')">Faza 1</button>
+        <button class="sub-btn" onclick="switchSub('sub-phase2')">Faza 2</button>
+        <button class="sub-btn" onclick="switchSub('sub-mobility')">Mobility</button>
+        <button class="sub-btn" onclick="switchSub('sub-progression')">Progresja</button>
+      </div>
+
+      <!-- SUB PANELS -->
+      <div id="sub-info" class="sub-panel active">
       <div class="section-title">Jak działa ten program</div>
 
       <div class="overview-grid">
@@ -765,7 +815,7 @@
             <li><strong style="color:var(--accent)">Cz</strong> — Trening C (Plecy — siła)</li>
             <li><strong style="color:var(--accent)">Pt</strong> — Trening D (Full body)</li>
             <li><strong style="color:var(--accent2)">Sb</strong> — Mobility REST</li>
-            <li><strong style="color:var(--accent2)">Nd</strong> — REST aktywny / mobility</li>
+            <li><strong style="color:var(--accent2)">Nd</strong> — Mobility (regeneracja)</li>
           </ul>
         </div>
 
@@ -819,42 +869,55 @@
           <div class="week-label">Faza 1</div>
           <div class="day-cell train">Trening A</div>
           <div class="day-cell train">Trening B</div>
-          <div class="day-cell rest">Mobility</div>
+          <div class="day-cell rest">Mob. I</div>
           <div class="day-cell train">Trening C</div>
           <div class="day-cell train">Trening D</div>
-          <div class="day-cell rest">Mobility</div>
-          <div class="day-cell rest">Mobility</div>
+          <div class="day-cell rest">Mob. II</div>
+          <div class="day-cell rest">Mob. III</div>
         </div>
         <div class="week-row">
           <div class="week-label">Faza 2</div>
           <div class="day-cell train">Trening A</div>
           <div class="day-cell train">Trening B</div>
-          <div class="day-cell rest">Mobility</div>
+          <div class="day-cell rest">Mob. I</div>
           <div class="day-cell train">Trening C</div>
           <div class="day-cell train">Trening D</div>
-          <div class="day-cell rest">Mobility</div>
-          <div class="day-cell rest">Mobility</div>
+          <div class="day-cell rest">Mob. II</div>
+          <div class="day-cell rest">Mob. III</div>
         </div>
       </div>
 
       <div class="note-box">
-        <strong>Wskazówka:</strong> Pn + Wt = treningi, Śr = mobility, Cz + Pt = treningi, Sb + Nd = odpoczynek/mobility. Jeśli musisz przesunąć dzień — zachowaj przynajmniej 1 dzień przerwy między Treningiem B a C.
+        <strong>Wskazówka:</strong> Pn + Wt = treningi, Śr = Mobility I (biodra + core), Cz + Pt = treningi, Sb = Mobility II (klatka + rotacje), Nd = Mobility III (regeneracja + wyciszenie).
       </div>
-    </div>
 
-    <!-- =================== PHASE 1 =================== -->
-    <div class="phase-panel" id="panel-phase1">
-      <div id="days-phase1"></div>
-    </div>
+      </div><!-- /sub-info -->
 
-    <!-- =================== PHASE 2 =================== -->
-    <div class="phase-panel" id="panel-phase2">
-      <div id="days-phase2"></div>
-    </div>
+      <!-- SUB: FAZA 1 -->
+      <div id="sub-phase1" class="sub-panel">
+        <div id="days-phase1-inner"></div>
+      </div>
 
-    <!-- =================== MOBILITY =================== -->
-    <div class="phase-panel" id="panel-mobility">
-      <div id="mobility-content"></div>
+      <!-- SUB: FAZA 2 -->
+      <div id="sub-phase2" class="sub-panel">
+        <div id="days-phase2-inner"></div>
+      </div>
+
+      <!-- SUB: MOBILITY -->
+      <div id="sub-mobility" class="sub-panel">
+        <div id="mobility-content"></div>
+      </div>
+
+      <!-- SUB: PROGRESSION -->
+      <div id="sub-progression" class="sub-panel">
+        <div id="progression-content"></div>
+      </div>
+
+    </div><!-- /panel-overview -->
+
+    <!-- =================== CYCLE PLAN =================== -->
+    <div class="phase-panel" id="panel-cycle">
+      <div id="cycle-content"></div>
     </div>
 
     <!-- =================== CALENDAR =================== -->
@@ -1404,77 +1467,105 @@ function buildP2D() {
 //  MOBILITY CONTENT
 // ==========================================
 
+let currentMobVariant = 1;
+
+function showMobilityVariant(v) {
+  currentMobVariant = v;
+  document.getElementById('mobility-content').innerHTML = buildMobility();
+}
+
 function buildMobility() {
+  const v = currentMobVariant;
+  const tabs = [1,2,3].map(i => `
+    <button onclick="showMobilityVariant(${i})" style="flex:1;padding:10px;background:${i===v?'rgba(66,245,167,0.15)':'var(--card)'};border:1px solid ${i===v?'var(--accent2)':'var(--border)'};color:${i===v?'var(--accent2)':'var(--muted)'};border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">
+      ${i===1?'Śr — Biodra + Core':i===2?'Sb — Klatka + Rotacje':'Nd — Regeneracja'}
+    </button>`).join('');
+
+  const philosophy = `<div class="note-box" style="margin-bottom:24px">
+    <strong>Filozofia:</strong> Sesje mobility to praca nad jakością ruchu i redukcja napięć. Wykonuj spokojnie, z oddechem, bez forsowania. Poczucie "dobrego bólu" jest ok — ostry ból nigdy.
+  </div>`;
+
+  if (v === 1) return `
+  ${dayTitle('MOBILITY I', 'ŚRODA — BIODRA + CORE', '~35 min')}
+  <div style="display:flex;gap:8px;margin-bottom:20px">${tabs}</div>
+  ${philosophy}
+  ${block('mobility', 'BLOK 1 — Oddychanie i aktywacja (5 min)', stretchList([
+    {name:'90-90 breathing — leżenie, kolana ugięte, ręce na brzuchu. Wdech 4s, zatrzymanie 2s, wydech 6s', time:'2 min'},
+    {name:'Supine dead bug — aktywacja głębokiego core', time:'8 e/s'},
+    {name:'Glute bridge z izometrią 5 sek na górze', time:'10 powt.'},
+  ]), true)}
+  ${block('mobility', 'BLOK 2 — Biodra i miednica (12 min)', stretchList([
+    {name:'90/90 hip sit — obracaj tułów nad przednią i tylną nogą', time:'60 sek e/s'},
+    {name:'Pigeon pose progresywny — puls + statyczny', time:'90 sek e/s'},
+    {name:'Kneeling hip flexor stretch z posteriornym tilt miednicy', time:'60 sek e/s'},
+    {name:'Deep squat hold z łokciami rozpychającymi kolana', time:'90 sek'},
+    {name:'Hip CARs (kółka biodrem stojąc przy ścianie)', time:'5 e/s'},
+    {name:'Frog stretch — powolne pełzanie w przód i tył', time:'60 sek'},
+  ]), true)}
+  ${block('mobility', 'BLOK 3 — Core i kręgosłup lędźwiowy (10 min)', stretchList([
+    {name:'Cat-Cow z zatrzymaniami i głębokim oddechem', time:'10 powt.'},
+    {name:'Dead bug pogłębiony — extend and return', time:'8 e/s'},
+    {name:'Side-lying rotation (kolana razem, obróć górne ramię)', time:'60 sek e/s'},
+    {name:'McGill side plank — utrzymanie 20 sek', time:'5 e/s'},
+    {name:'Pallof press izometryczny (użyj KB jako oporu lub taśmy)', time:'10 sek × 6 e/s'},
+  ]), true)}
+  ${block('mobility', 'BLOK 4 — Wyciszenie (5 min)', stretchList([
+    {name:'Supine knee-to-chest obustronny', time:'60 sek'},
+    {name:'Supine spinal twist', time:'45 sek e/s'},
+    {name:'Savasana z relaksacją progresywną', time:'2 min'},
+  ]), true)}`;
+
+  if (v === 2) return `
+  ${dayTitle('MOBILITY II', 'SOBOTA — KLATKA + ROTACJE', '~35 min')}
+  <div style="display:flex;gap:8px;margin-bottom:20px">${tabs}</div>
+  ${philosophy}
+  ${block('mobility', 'BLOK 1 — Oddychanie i rozgrzewka (5 min)', stretchList([
+    {name:'Box breathing z rozluźnieniem szczęki i barków', time:'2 min'},
+    {name:'Arm circles — rosnące koła, obie ręce naprzemiennie', time:'20 powt.'},
+    {name:'Inchworm walk-out bez push-up', time:'5 powt.'},
+  ]), true)}
+  ${block('mobility', 'BLOK 2 — Klatka piersiowa i kręgosłup piersiowy (12 min)', stretchList([
+    {name:'Thoracic extension na podłodze (zwinięty koc pod Th)', time:'5 pozycji × 10 powt.'},
+    {name:'Open book / book opener — rotacja leżąc na boku', time:'60 sek e/s'},
+    {name:'Thoracic CARs stojąc (pełne koła klatką)', time:'5 e/s'},
+    {name:'Doorway pec stretch — 3 kąty (niski, środkowy, wysoki)', time:'30 sek każdy'},
+    {name:'Quadruped thread the needle z utrzymaniem', time:'45 sek e/s'},
+  ]), true)}
+  ${block('mobility', 'BLOK 3 — Łopatki i barki (10 min)', stretchList([
+    {name:'Wall angels pogłębione — pełen zakres przy ścianie', time:'15 powt.'},
+    {name:'Scapular CARs w klęku podpartym', time:'6 e/s'},
+    {name:'Shoulder CARs (pełne powolne koła ramieniem)', time:'3 e/s'},
+    {name:'Sleeper stretch — tylna torebka stawu ramiennego', time:'45 sek e/s'},
+    {name:'Cross-body shoulder stretch', time:'30 sek e/s'},
+  ]), true)}
+  ${block('mobility', 'BLOK 4 — Wyciszenie (5 min)', stretchList([
+    {name:'Child\'s pose z rękoma wyciągniętymi bokiem (lat stretch)', time:'60 sek e/s'},
+    {name:'Prone chest opener — sphinx z lekkim skrętem', time:'45 sek e/s'},
+    {name:'Happy baby pose z kołysaniem', time:'90 sek'},
+  ]), true)}`;
+
   return `
-  ${dayTitle('MOBILITY SESSION', 'DNI ODPOCZYNKU / 3× TYGODNIOWO', '~35–45 min')}
-
-  <div class="note-box" style="margin-bottom:24px">
-    <strong>Filozofia:</strong> Sesje mobility to nie rozciąganie po treningu — to praca nad jakością ruchu i redukcja napięć. Każde ćwiczenie wykonuj spokojnie, z oddechem, bez forsowania zakresu. Poczucie "dobrego bólu" jest ok — ostry ból nigdy.
-  </div>
-
-  ${block('mobility', 'BLOK 1 — Oddychanie i centracja (5 min)', `
-    ${stretchList([
-      {name:'90-90 breathing — leżenie, kolana ugięte, ręce na brzuchu. Wdech 4s, zatrzymanie 2s, wydech 6s', time:'2 min'},
-      {name:'Box breathing z rozluźnieniem szczęki i barków', time:'2 min'},
-      {name:'Supine dead bug — aktywacja głębokiego core', time:'6 e/s'},
-    ])}
-  `, true)}
-
-  ${block('mobility', 'BLOK 2 — Biodra i miednica (10 min)', `
-    ${stretchList([
-      {name:'90/90 hip sit — siedząc, obracaj tułów nad przednią i tylną nogą', time:'60 sek e/s'},
-      {name:'Pigeon pose progresywny — puls + statyczny', time:'90 sek e/s'},
-      {name:'Kneeling hip flexor stretch z posteriornym tilt miednicy', time:'60 sek e/s'},
-      {name:'Deep squat hold z elbows pushing knees', time:'90 sek'},
-      {name:'Hip CARs (kółka biodrem stojąc przy ścianie)', time:'5 e/s'},
-      {name:'Frog stretch — pełzanie w przód i tył', time:'60 sek'},
-    ])}
-  `, true)}
-
-  ${block('mobility', 'BLOK 3 — Core i kręgosłup lędźwiowy (8 min)', `
-    ${stretchList([
-      {name:'Cat-Cow z zatrzymaniami i oddechem w każdej pozycji', time:'10 powt.'},
-      {name:'Dead bug pogłębiony — extend and return', time:'8 e/s'},
-      {name:'Side-lying rotation (kolana razem, obróć górne ramię)', time:'60 sek e/s'},
-      {name:'Pallof press (z oporem – ciągnij elastic/taśmę)', time:'10 e/s'},
-      {name:'McGill side plank — utrzymanie 20 sek, 5× e/s', time:'5 e/s'},
-    ])}
-  `, true)}
-
-  ${block('mobility', 'BLOK 4 — Klatka piersiowa i kręgosłup piersiowy (8 min)', `
-    ${stretchList([
-      {name:'Thoracic extension na wałku lub zaświnięte kocyki', time:'5 pozycji × 10 powt.'},
-      {name:'Open book / book opener — rotacja leżąc', time:'60 sek e/s'},
-      {name:'Thoracic CARs stojąc (koła klatką)', time:'5 e/s'},
-      {name:'Doorway pec stretch — 3 kąty (niski, środkowy, wysoki)', time:'30 sek każdy'},
-      {name:'Quadruped thread the needle', time:'45 sek e/s'},
-    ])}
-  `, true)}
-
-  ${block('mobility', 'BLOK 5 — Łopatki, barki i szyja (8 min)', `
-    ${stretchList([
-      {name:'Wall angels pogłębione — pełen zakres', time:'15 powt.'},
-      {name:'Scapular CARs w klęku podpartym', time:'6 e/s'},
-      {name:'Shoulder CARs (pełne koła ramieniem)', time:'3 e/s powoli'},
-      {name:'Neck CARs — pełny zakres powoli (nodding + rotation + side bend)', time:'3 e/s'},
-      {name:'Suboccipital release — palce pod kością potyliczną, leżenie 2 min', time:'2 min'},
-      {name:'Levator scapulae + upper trap bilateral stretch', time:'30 sek e/s'},
-    ])}
-  `, true)}
-
-  ${block('mobility', 'BLOK 6 — Integracja i wyciszenie (5 min)', `
-    ${stretchList([
-      {name:'Happy baby pose z kołysaniem bocznym', time:'60 sek'},
-      {name:'Supine spinal twist obustronny', time:'45 sek e/s'},
-      {name:'Savasana / leżenie z relaksacją progresywną', time:'2 min'},
-    ])}
-  `, true)}
-
-  <div class="note-box">
-    <strong>Kolejność:</strong> Zawsze zaczynaj od oddychania. Bloki 2-5 możesz ułożyć wg odczuwanych potrzeb danego dnia. Blok 6 zawsze na końcu.<br><br>
-    <strong>Jeśli masz mniej czasu:</strong> Priorytet mają bloki 1, 2 i 5 (biodra + łopatki/szyja) — rób minimum tych trzech.
-  </div>
-  `;
+  ${dayTitle('MOBILITY III', 'NIEDZIELA — REGENERACJA', '~30 min')}
+  <div style="display:flex;gap:8px;margin-bottom:20px">${tabs}</div>
+  ${philosophy}
+  ${block('mobility', 'BLOK 1 — Oddychanie i wyciszenie układu nerwowego (8 min)', stretchList([
+    {name:'90-90 breathing z wydłużonym wydechem (wdech 4s, wydech 8s)', time:'4 min'},
+    {name:'Box breathing — 4s wdech, 4s zatrzymanie, 4s wydech, 4s pauza', time:'3 min'},
+    {name:'Suboccipital release — palce pod kością potyliczną w leżeniu', time:'2 min'},
+  ]), true)}
+  ${block('mobility', 'BLOK 2 — Pełne ciało — długie rozciąganie (15 min)', stretchList([
+    {name:'Pigeon pose — długi, bez pulsu, totalny relaks', time:'2 min e/s'},
+    {name:'Supine hamstring stretch z paskiem/ręcznikiem', time:'60 sek e/s'},
+    {name:'Figure-4 stretch na plecach', time:'60 sek e/s'},
+    {name:'Kneeling hip flexor — głęboki, z rękami nad głową', time:'60 sek e/s'},
+    {name:'Seated forward fold — głowa opuszczona, bez siłowania', time:'90 sek'},
+    {name:'Neck lateral flexion + rotation — aktywna, powolna', time:'5 e/s każdy kierunek'},
+  ]), true)}
+  ${block('mobility', 'BLOK 3 — Wyciszenie i integracja (7 min)', stretchList([
+    {name:'Lying spinal twist — bez pośpiechu, poczuj każdy kręg', time:'60 sek e/s'},
+    {name:'Child\'s pose z głębokim oddechem', time:'2 min'},
+    {name:'Savasana z relaksacją progresywną od stóp do głowy', time:'3 min'},
+  ]), true)}`;
 }
 
 // ==========================================
@@ -1484,6 +1575,11 @@ function buildMobility() {
 function buildProgression(inline) {
   return `
   ${inline ? '' : dayTitle('PROGRESJA', 'OD ROZRUCHU DO PROGRAMU DOCELOWEGO', '')}
+  <div class="note-box" style="margin-bottom:20px">
+    <strong>Aktualna struktura programu:</strong> Faza 1 (4 tygodnie rozruchu) → Faza 2 (cykle po 6 tygodni, w nieskończoność).
+    Tydzień 6 każdego cyklu Fazy 2 to automatyczny <strong style="color:var(--accent3)">deload</strong>: połowa serii, ciężar -1 KB, powtórzenia bez zmian.
+    Progresja między cyklami zależy od posiadanych kettlebelli — aplikacja automatycznie dobiera ciężar, powtórzenia lub serie.
+  </div>
 
   <div class="section-title">FAZA 1 — Rozruch (Tydzień 1–4)</div>
 
@@ -1501,52 +1597,68 @@ function buildProgression(inline) {
       <div class="prog-desc">Dodaj 1 serię do każdego ćwiczenia głównego (→ 4 serie). Ciężar utrzymany lub lekko wyżej. RPE 7.</div>
     </div>
     <div class="prog-card">
-      <div class="prog-week">TYG 4 — DELOAD</div>
-      <div class="prog-desc">Wróć do 3 serii, ciężar z tyg 1. Technika + oddech + mobilność. Przygotowanie do Fazy 2.</div>
+      <div class="prog-week">TYG 4</div>
+      <div class="prog-desc">Konsolidacja. Utrzymaj ciężary z tygodnia 3. Skup się na jakości ruchu i płynności. RPE 7. Przygotowanie do Fazy 2 — Cykl 1.</div>
     </div>
   </div>
 
   <div class="divider"></div>
-  <div class="section-title">FAZA 2 — Program Docelowy (od Tyg 5)</div>
+  <div class="section-title">FAZA 2 — Program Docelowy (cykle po 6 tygodni)</div>
 
   <div class="progression-grid">
     <div class="prog-card">
-      <div class="prog-week">TYG 5–6</div>
-      <div class="prog-desc">Nowe ćwiczenia i wyższe obciążenia z Fazy 2. 4 serie. RPE 7-8. Nauka nowych wzorców (clean, TGU z wyższym ciężarem).</div>
+      <div class="prog-week">TYG 1</div>
+      <div class="prog-desc">Start cyklu. Wchodzisz z ciężarami wynikającymi z progresji (Cykl 1 = baza z Fazy 2, każdy kolejny cykl wyżej). RPE 7. Skupienie na formie i tempie.</div>
     </div>
     <div class="prog-card">
-      <div class="prog-week">TYG 7–8</div>
-      <div class="prog-desc">Progresja liniowa: jeśli ostatnia seria była łatwa — zwiększ ciężar w kolejnym tygodniu. Dodaj 1 powt. jeśli nie możesz wskoczyć wyżej.</div>
+      <div class="prog-week">TYG 2</div>
+      <div class="prog-desc">Solidna praca. Te same ciężary co w tygodniu 1. Poprawa płynności i kontroli ruchu. RPE 7–8.</div>
     </div>
     <div class="prog-card">
-      <div class="prog-week">TYG 9–10</div>
-      <div class="prog-desc">Intensifikacja: zamień ostatnią serię każdego ćwiczenia na AMRAP (jak najwęcej powt. do RPE 9). Zapisuj wyniki.</div>
+      <div class="prog-week">TYG 3</div>
+      <div class="prog-desc">Wzrost intensywności. Tempo pracy rośnie, skracaj przerwy o 10–15 sek. RPE 8. Ostatnia seria każdego ćwiczenia powinna być wymagająca.</div>
     </div>
     <div class="prog-card">
-      <div class="prog-week">TYG 11–12</div>
-      <div class="prog-desc">Progresja falowa: Tyg 11 ciężki (RPE 8-9), Tyg 12 deload do RPE 6. Następnie możesz powtórzyć cykl z wyższym ciężarem.</div>
+      <div class="prog-week">TYG 4</div>
+      <div class="prog-desc">Szczytowy tydzień. Maksymalna koncentracja i intensywność. RPE 8–9. Zapisz w głowie jak czujesz się przy tych ciężarach — to punkt odniesienia.</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-week">TYG 5</div>
+      <div class="prog-desc">Utrzymanie. Ciężary bez zmian, RPE wraca do 7–8. Ciało konsoliduje adaptacje z tygodnia 4. Dobra technika, bez heroizmu.</div>
+    </div>
+    <div class="prog-card" style="border-color:rgba(245,168,66,0.4);background:rgba(245,168,66,0.04)">
+      <div class="prog-week" style="color:var(--accent3)">TYG 6 — DELOAD 🔄</div>
+      <div class="prog-desc">Automatyczny deload: serie ×0.5, ciężar -1 poziom KB, powtórzenia bez zmian. RPE 5–6. Ciało odpoczywa i superkompensuje — następny cykl będzie silniejszy.</div>
     </div>
   </div>
 
+  <div class="note-box" style="margin-top:16px">
+    <strong>Progresja między cyklami</strong> jest automatyczna i zależy od Twoich kettlebelli:<br>
+    1. Jeśli następny KB jest dostępny (max +4kg) → <strong style="color:var(--accent2)">zwiększ ciężar</strong><br>
+    2. Jeśli nie ma wyższego KB → <strong style="color:var(--accent2)">+2 powtórzenia</strong> na serię<br>
+    3. Gdy powtórzenia osiągną 15 → <strong style="color:var(--accent2)">+1 seria</strong>, reset powtórzeń<br>
+    4. Gdy wszystko maxed → skok do następnego dostępnego KB
+  </div>
+
   <div class="divider"></div>
-  <div class="section-title">TABELA PROGRESJI — CIĘŻAR</div>
+  <div class="section-title">TABELA PROGRESJI — CIĘŻAR STARTOWY</div>
 
   <table class="ex-table" style="margin-top:0">
     <thead><tr>
       <th>Ćwiczenie</th>
-      <th>Start Faza 1</th>
-      <th>Koniec Faza 1</th>
-      <th>Start Faza 2</th>
-      <th>Cel (12 tyg.)</th>
+      <th>Faza 1</th>
+      <th>F2 Cykl 1 (baza)</th>
+      <th>F2 Cykl 2+</th>
     </tr></thead>
     <tbody>
-      <tr><td><div class="ex-name">KB Swing</div></td><td class="ex-weight">12kg</td><td class="ex-weight">16kg</td><td class="ex-weight">16kg</td><td class="ex-weight">16kg × 20 powt.</td></tr>
-      <tr><td><div class="ex-name">KB Row (1 ręka)</div></td><td class="ex-weight">8kg</td><td class="ex-weight">12kg</td><td class="ex-weight">12–16kg</td><td class="ex-weight">16kg × 10</td></tr>
-      <tr><td><div class="ex-name">KB Floor Press</div></td><td class="ex-weight">8kg</td><td class="ex-weight">12kg</td><td class="ex-weight">12–16kg</td><td class="ex-weight">16kg × 8</td></tr>
-      <tr><td><div class="ex-name">KB Press overhead</div></td><td class="ex-weight">8kg</td><td class="ex-weight">12kg</td><td class="ex-weight">12kg</td><td class="ex-weight">12–16kg × 8</td></tr>
-      <tr><td><div class="ex-name">KB Deadlift</div></td><td class="ex-weight">12kg</td><td class="ex-weight">16kg</td><td class="ex-weight">16kg</td><td class="ex-weight">16kg × 5 + 1-noga</td></tr>
-      <tr><td><div class="ex-name">TGU</div></td><td class="ex-weight">6kg</td><td class="ex-weight">8kg</td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 3 e/s</td></tr>
-      <tr><td><div class="ex-name">KB Halo</div></td><td class="ex-weight">6kg</td><td class="ex-weight">8kg</td><td class="ex-weight">8kg</td><td class="ex-weight">8kg płynny</td></tr>
+      <tr><td><div class="ex-name">KB Swing (jedna ręka)</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 5×10</td><td class="ex-weight">auto ↑</td></tr>
+      <tr><td><div class="ex-name">KB Bent-Over Row</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 4×10</td><td class="ex-weight">auto ↑</td></tr>
+      <tr><td><div class="ex-name">KB Floor Press</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 4×8</td><td class="ex-weight">auto ↑</td></tr>
+      <tr><td><div class="ex-name">KB Press Overhead</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 4×8</td><td class="ex-weight">auto ↑</td></tr>
+      <tr><td><div class="ex-name">KB Deadlift</div></td><td class="ex-weight">12–16kg</td><td class="ex-weight">16kg × 5×5</td><td class="ex-weight">auto ↑</td></tr>
+      <tr><td><div class="ex-name">KB Clean</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 4×6</td><td class="ex-weight">auto ↑</td></tr>
+      <tr><td><div class="ex-name">TGU</div></td><td class="ex-weight">6–8kg</td><td class="ex-weight">8kg × 3×3</td><td class="ex-weight">auto ↑</td></tr>
+      <tr><td><div class="ex-name">KB Windmill</div></td><td class="ex-weight">6–8kg</td><td class="ex-weight">8kg × 3×5</td><td class="ex-weight">auto ↑</td></tr>
     </tbody>
   </table>
 
@@ -1566,9 +1678,7 @@ let currentDayP2 = 'p2-a';
 
 function renderDays(phase, days, containerId, sidebarId) {
   const container = document.getElementById(containerId);
-  const sidebar = document.getElementById('daySidebar');
-
-  // Build content
+  if (!container) return;
   container.innerHTML = days.map(d => `
     <div class="day-content ${d.id === (phase==='phase1'?currentDayP1:currentDayP2) ? 'active' : ''}" id="content-${d.id}">
       ${d.content}
@@ -1576,8 +1686,43 @@ function renderDays(phase, days, containerId, sidebarId) {
   `).join('');
 }
 
+function renderDaysInto(phase, days, containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  // Add day selector tabs + content
+  const currentDay = phase === 'phase1' ? currentDayP1 : currentDayP2;
+  const tabsHtml = days.map(d =>
+    `<button class="day-btn ${d.id===currentDay?'active':''}" onclick="switchDaySub('${phase}','${d.id}')">
+      <span class="day-dot"></span>
+      <span>${d.label}<span class="day-type">${d.sub}</span></span>
+    </button>`
+  ).join('');
+  const contentHtml = days.map(d =>
+    `<div class="day-content ${d.id===currentDay?'active':''}" id="sub-content-${d.id}">${d.content}</div>`
+  ).join('');
+  container.innerHTML = `
+    <div style="display:flex;gap:0;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);margin-bottom:20px">${tabsHtml}</div>
+    ${contentHtml}`;
+}
+
+function switchDaySub(phase, dayId) {
+  if (phase === 'phase1') currentDayP1 = dayId;
+  else currentDayP2 = dayId;
+  const days = phase === 'phase1' ? phase1Days : phase2Days;
+  days.forEach(d => {
+    const el = document.getElementById('sub-content-' + d.id);
+    if (el) el.classList.toggle('active', d.id === dayId);
+  });
+  // update tab buttons
+  const container = document.getElementById(phase==='phase1'?'days-phase1-inner':'days-phase2-inner');
+  if (container) container.querySelectorAll('.day-btn').forEach((btn,i) => {
+    btn.classList.toggle('active', days[i].id === dayId);
+  });
+}
+
 function renderSidebar(phase) {
   const sidebar = document.getElementById('daySidebar');
+  const mainEl = document.querySelector('main');
   let days, currentDay;
 
   if (phase === 'phase1') {
@@ -1588,9 +1733,11 @@ function renderSidebar(phase) {
     currentDay = currentDayP2;
   } else {
     sidebar.innerHTML = '';
+    mainEl.classList.add('no-sidebar');
     return;
   }
 
+  mainEl.classList.remove('no-sidebar');
   sidebar.innerHTML = days.map(d => `
     <button class="day-btn ${d.isRest?'rest':''} ${d.id===currentDay?'active':''}" onclick="switchDay('${phase}','${d.id}')">
       <span class="day-dot"></span>
@@ -1607,7 +1754,7 @@ function switchPhase(phase) {
 
   // Nav buttons
   document.querySelectorAll('.phase-btn').forEach((btn, i) => {
-    const phases = ['overview','phase1','phase2','mobility','tracker','calendar'];
+    const phases = ['overview','cycle','tracker','calendar'];
     btn.classList.toggle('active', phases[i] === phase);
   });
 
@@ -1616,23 +1763,29 @@ function switchPhase(phase) {
     p.classList.toggle('active', p.id === `panel-${phase}`);
   });
 
-  // Sidebar
-  renderSidebar(phase);
+  // Sidebar — only overview sub-panels use internal day switching, main nav never shows sidebar
+  renderSidebar(null);
 
   // Init content if needed
-  if (phase === 'phase1' && !document.getElementById('days-phase1').innerHTML) {
-    renderDays('phase1', phase1Days, 'days-phase1');
+  if (phase === 'overview') {
+    // init sub-panels lazily
+    if (!document.getElementById('days-phase1-inner').innerHTML) {
+      renderDaysInto('phase1', phase1Days, 'days-phase1-inner');
+    }
+    if (!document.getElementById('days-phase2-inner').innerHTML) {
+      renderDaysInto('phase2', phase2Days, 'days-phase2-inner');
+    }
+    if (!document.getElementById('mobility-content').innerHTML) {
+      document.getElementById('mobility-content').innerHTML = buildMobility();
+    }
+    if (!document.getElementById('progression-content').innerHTML) {
+      document.getElementById('progression-content').innerHTML = buildProgression(true);
+    }
   }
-  if (phase === 'phase2' && !document.getElementById('days-phase2').innerHTML) {
-    renderDays('phase2', phase2Days, 'days-phase2');
-  }
-  if (phase === 'mobility' && !document.getElementById('mobility-content').innerHTML) {
-    document.getElementById('mobility-content').innerHTML = buildMobility();
-  }
+  if (phase === 'cycle') { buildCyclePlan(); }
   if (phase === 'calendar') { buildCalendar(); }
-  if (phase === 'tracker') { if(!document.getElementById('tracker-content').innerHTML) buildTracker(); else buildTracker(selectedTrackEx); }
+  if (phase === 'tracker') { buildTracker(selectedProgressEx||'KB Swing (jedna ręka)'); }
   // save phase preference for training days
-  if (phase === 'phase1' || phase === 'phase2') localStorage.setItem('ib_phase_pref', phase);
 }
 
 function switchDay(phase, dayId) {
@@ -1670,8 +1823,6 @@ phase2Days = [
 
 // Init UI
 switchPhase('overview');
-renderDays('phase1', phase1Days, 'days-phase1');
-renderDays('phase2', phase2Days, 'days-phase2');
 
 // ==========================================
 //  SCHEDULE — 7-day rolling plan
@@ -1679,13 +1830,13 @@ renderDays('phase2', phase2Days, 'days-phase2');
 
 // Training pattern: A, REST(mob), B, REST(mob), C, D, REST(mob)  → cycle of 7
 const WEEK_PATTERN = [
-  { type:'train', label:'Trening A', sub:'Plecy + Pull',   phase1:'phase1', day:'p1-a', phase2:'p2-a' },
-  { type:'train', label:'Trening B', sub:'Klatka + Push',  phase1:'phase1', day:'p1-b', phase2:'p2-b' },
-  { type:'mob',   label:'Mobility',  sub:'Odpoczynek aktywny' },
-  { type:'train', label:'Trening C', sub:'Plecy — siła',   phase1:'phase1', day:'p1-c', phase2:'p2-c' },
-  { type:'train', label:'Trening D', sub:'Full Body',       phase1:'phase1', day:'p1-d', phase2:'p2-d' },
-  { type:'mob',   label:'Mobility',  sub:'Odpoczynek aktywny' },
-  { type:'rest',  label:'Odpoczynek', sub:'Wolny dzień' },
+  { type:'train', label:'Trening A', short:'A', pillClass:'pill-a', sub:'Plecy + Pull',   phase1:'phase1', day:'p1-a', phase2:'p2-a' },
+  { type:'train', label:'Trening B', short:'B', pillClass:'pill-b', sub:'Klatka + Push',  phase1:'phase1', day:'p1-b', phase2:'p2-b' },
+  { type:'mob',   label:'Mobility I', short:'Mobility', pillClass:'pill-mobility', mobVariant:1, sub:'Biodra + Core' },
+  { type:'train', label:'Trening C', short:'C', pillClass:'pill-c', sub:'Plecy — siła',   phase1:'phase1', day:'p1-c', phase2:'p2-c' },
+  { type:'train', label:'Trening D', short:'D', pillClass:'pill-d', sub:'Full Body',       phase1:'phase1', day:'p1-d', phase2:'p2-d' },
+  { type:'mob',   label:'Mobility',  short:'Mobility', pillClass:'pill-mobility', sub:'Odpoczynek aktywny' },
+  { type:'mob',   label:'Mobility III', short:'Mobility', pillClass:'pill-mobility', mobVariant:3, sub:'Regeneracja' },
 ];
 
 // Programme start date stored in localStorage
@@ -1697,17 +1848,28 @@ function getStartDate() {
 function setStartDate(d) {
   localStorage.setItem('ib_start', d.toISOString().split('T')[0]);
 }
+// Map day-of-week (0=Sun,1=Mon,...6=Sat) to pattern index
+// Pn(1)=A, Wt(2)=B, Śr(3)=Mob, Cz(4)=C, Pt(5)=D, Sb(6)=Mob, Nd(0)=Rest
+const DOW_TO_PATTERN = { 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 0:6 };
+
 function getDayOffset(date) {
   const start = getStartDate();
   if (!start) return null;
-  const diff = Math.floor((date - start) / 86400000);
+  // normalize both to midnight to avoid timezone issues
+  const d = new Date(date); d.setHours(0,0,0,0);
+  const s = new Date(start); s.setHours(0,0,0,0);
+  const diff = Math.floor((d - s) / 86400000);
   if (diff < 0) return null;
   return diff;
 }
 function getPatternForDate(date) {
+  if (!getStartDate()) return null;
+  // only show pattern from start date onwards
   const off = getDayOffset(date);
   if (off === null) return null;
-  return WEEK_PATTERN[off % 7];
+  // use day-of-week, Mon=0 in our pattern
+  const dow = date.getDay(); // 0=Sun,1=Mon,...
+  return WEEK_PATTERN[DOW_TO_PATTERN[dow]];
 }
 
 // Completed days
@@ -1749,7 +1911,7 @@ function buildCalendar() {
     const done = isDone(ds);
     const label = pat ? pat.label : '—';
     const sub = pat ? pat.sub : (startDate ? '' : 'Ustaw start →');
-    const pillClass = pat ? (pat.type==='train'?'pill-train':pat.type==='mob'?'pill-mobility':'pill-rest') : 'pill-rest';
+    const pillClass = pat ? pat.pillClass : 'pill-rest';
     return `<div class="sched-card ${isToday?'today-card':''}" onclick="openDayModal('${ds}')">
       <div class="sched-date">${isToday?'DZIŚ':fmtShort(d)}</div>
       <div class="sched-label" style="${done?'color:var(--accent2)':''}">${done?'✓ '+label:label}</div>
@@ -1769,39 +1931,92 @@ function buildCalendar() {
   // empty cells before
   for (let i = 0; i < startDow; i++) cells += `<div class="cal-day empty"></div>`;
   // day cells
+  // Determine current cycle date range for highlighting
+  const curStatus = getProgramStatus();
+  let cycleStart = null, cycleEnd = null;
+  if (curStatus && getStartDate()) {
+    const s = new Date(getStartDate()); s.setHours(0,0,0,0);
+    if (curStatus.phase === 'phase1') {
+      cycleStart = new Date(s);
+      cycleEnd = new Date(s); cycleEnd.setDate(s.getDate() + 27);
+    } else {
+      const f2start = new Date(s); f2start.setDate(s.getDate() + 28);
+      const cycleOffset = (curStatus.cycle - 1) * 42;
+      cycleStart = new Date(f2start); cycleStart.setDate(f2start.getDate() + cycleOffset);
+      cycleEnd = new Date(cycleStart); cycleEnd.setDate(cycleStart.getDate() + 41);
+    }
+  }
+
   for (let day = 1; day <= lastDay.getDate(); day++) {
     const d = new Date(calYear, calMonth, day);
     const ds = fmtDate(d);
     const isToday = ds === fmtDate(today);
-    const pat = getPatternForDate(d);
+    const fp = getPhaseForDate(d);
+    const inCurrentCycle = cycleStart && cycleEnd && d >= cycleStart && d <= cycleEnd;
+    const pat = inCurrentCycle ? getPatternForDate(d) : null;
     const done = isDone(ds);
     let cls = 'cal-day';
     if (isToday) cls += ' today';
-    if (pat && pat.type==='train') cls += ' has-training';
-    if (pat && pat.type==='mob') cls += ' has-mobility';
+    if (!inCurrentCycle && fp) cls += ' cal-other-cycle';
+    if (inCurrentCycle && pat && pat.type==='train') cls += ' has-training';
+    if (inCurrentCycle && pat && pat.type==='mob') cls += ' has-mobility';
     if (done) cls += ' done';
-    const pill = pat ? `<div class="cal-day-pill ${pat.type==='train'?'pill-train':pat.type==='mob'?'pill-mobility':'pill-rest'}">${pat.label.substring(0,8)}</div>` : '';
+    const fp2 = getPhaseForDate(d);
+    const isDeload = fp2 && fp2.phase==='phase2' && fp2.isDeload && inCurrentCycle;
+    const paused = isPaused();
+    const pillClass = isDeload ? 'pill-deload' : (pat ? pat.pillClass : '');
+    const pillLabel = isDeload ? 'Deload' : (pat ? pat.short : '');
+    const pill = inCurrentCycle && pat ? `<div class="cal-day-pill ${pillClass}">${pillLabel}</div>` : '';
     const dot = done ? `<div class="cal-done-dot"></div>` : '';
-    cells += `<div class="${cls}" onclick="openDayModal('${ds}')">
+    cells += `<div class="${cls}" onclick="${inCurrentCycle||isToday?`openDayModal('${ds}')`:''}" style="${!inCurrentCycle&&fp?'opacity:0.3;cursor:default':''}">
       <div class="cal-day-num">${day}</div>${pill}${dot}
     </div>`;
   }
 
-  const setupHtml = !startDate ? `
+  // find next Monday
+  const todayD = new Date(); todayD.setHours(0,0,0,0);
+  const dow = todayD.getDay(); // 0=Sun
+  const daysToMon = dow === 1 ? 0 : (8 - dow) % 7 || 7;
+  const nextMon = new Date(todayD); nextMon.setDate(todayD.getDate() + daysToMon);
+  const nextMonStr = fmtDate(nextMon);
+  const isMonday = dow === 1;
+
+  const status = getProgramStatus();
+  const curPhase = status ? status.phase : (getStartDate() ? 'phase1' : null);
+
+  // Status bar
+  const phaseToggle = buildStatusBar(status, { showLink: true, showProgressBar: true });
+
+  const paused = isPaused();
+  const pauseData = getPauseData();
+  const today2 = fmtDate(new Date());
+
+  const pauseSection = startDate ? `
+    <div style="margin-top:10px">
+      ${paused ? `
+        <div style="background:rgba(245,66,66,0.08);border:1px solid rgba(245,66,66,0.2);border-radius:6px;padding:12px;margin-bottom:8px">
+          <div style="font-family:'Bebas Neue',sans-serif;color:#ff7070;font-size:16px;letter-spacing:1px">⏸ PROGRAM WSTRZYMANY od ${pauseData.pausedOn}</div>
+          <div style="font-size:12px;color:var(--muted);margin:6px 0">Podaj datę powrotu żeby wznowić:</div>
+          <input type="date" id="resume-date-input" value="${today2}" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:7px 10px;font-size:13px;width:100%;margin-bottom:8px">
+          <button class="modal-btn btn-primary" style="margin-top:0" onclick="resumeProgram(document.getElementById('resume-date-input').value)">▶ Wznów program</button>
+        </div>` :
+        `<button class="modal-btn btn-secondary" style="margin-top:0" onclick="pauseProgram()">⏸ Wstrzymaj program (kontuzja / urlop)</button>`
+      }
+    </div>` : '';
+
+  const setupHtml = `
     <div class="note-box" style="margin-bottom:20px">
-      <strong>Ustaw datę startu programu</strong><br>
-      Wybierz dzień, od którego zaczynasz — kalendarz dopasuje plan automatycznie.
+      <strong>${startDate ? 'Data startu programu' : 'Ustaw datę startu programu'}</strong><br>
+      Plan (A/B/Mobility/C/D) jest przypisany do dni tygodnia — możesz zacząć w dowolnym dniu.
       <br><br>
-      <input type="date" id="start-date-input" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:8px 12px;font-size:14px;width:100%;margin-bottom:10px">
-      <button class="modal-btn btn-primary" onclick="saveStartDate()">Zapisz datę startu</button>
-    </div>` : `
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-      <div style="font-size:13px;color:var(--muted)">Start programu: <strong style="color:var(--accent)">${fmtDisplay(startDate)}</strong></div>
-      <button onclick="resetStartDate()" style="background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline">zmień</button>
+      <input type="date" id="start-date-input" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:8px 12px;font-size:14px;width:100%;margin-bottom:8px" value="${startDate ? fmtDate(startDate) : nextMonStr}">
+      <button class="modal-btn btn-primary" style="margin-top:4px" onclick="saveStartDate()">${startDate ? 'Zmień datę startu' : 'Zapisz datę startu'}</button>
+      ${pauseSection}
     </div>`;
 
   el.innerHTML = `
     ${dayTitle('KALENDARZ', 'TWÓJ PLAN TRENINGOWY', '')}
+    ${phaseToggle}
     ${setupHtml}
     <div class="section-title" style="font-size:20px">Najbliższe dni</div>
     <div class="sched-strip">${stripHtml}</div>
@@ -1813,16 +2028,15 @@ function buildCalendar() {
     <div class="cal-grid">${cells}</div>
     <div class="note-box">
       <strong>Legenda:</strong>
-      <span class="cal-day-pill pill-train" style="margin-left:8px">Trening</span>
-      <span class="cal-day-pill pill-mobility" style="margin-left:4px">Mobility</span>
-      <span class="cal-day-pill pill-rest" style="margin-left:4px">Odpoczynek</span>
+      <span class="cal-day-pill pill-a" style="margin-left:8px;display:inline-block">A</span>
+      <span class="cal-day-pill pill-b" style="margin-left:4px;display:inline-block">B</span>
+      <span class="cal-day-pill pill-c" style="margin-left:4px;display:inline-block">C</span>
+      <span class="cal-day-pill pill-d" style="margin-left:4px;display:inline-block">D</span>
+      <span class="cal-day-pill pill-mobility" style="margin-left:4px;display:inline-block">Mobility</span>
       &nbsp;· Zielona kropka = ukończony
     </div>
   `;
 
-  // set today's date in input if present
-  const inp = document.getElementById('start-date-input');
-  if (inp) inp.value = fmtDate(today);
 }
 
 function calPrev() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} buildCalendar(); }
@@ -1850,7 +2064,7 @@ function openDayModal(dateStr) {
   let content = `<div style="display:flex;align-items:flex-start;justify-content:space-between">
     <div>
       <div class="modal-title">${pat ? pat.label : fmtDisplay(date)}</div>
-      <div class="modal-sub">${fmtDisplay(date)}${pat ? ' · ' + pat.sub : ''}</div>
+      <div class="modal-sub">${(()=>{ const fp=getPhaseForDate(date); if(!fp) return fmtDisplay(date); if(fp.phase==='phase1') return fmtDisplay(date)+' · <span style="color:var(--accent);font-family:\'DM Mono\',monospace;font-size:11px">FAZA 1</span>'; return fmtDisplay(date)+' · <span style="color:var(--accent2);font-family:\'DM Mono\',monospace;font-size:11px">FAZA 2 · CYK '+fp.cycle+'</span>'; })()}${pat ? ' · ' + pat.sub : ''}</div>
     </div>
     <button class="modal-close" onclick="closeModal()">×</button>
   </div>`;
@@ -1866,12 +2080,17 @@ function openDayModal(dateStr) {
 
     let navBtn = '';
     if (pat.type === 'train') {
-      const phase = getCurrentPhase();
+      const fp = getPhaseForDate(date);
+      const phase = fp ? fp.phase : 'phase1';
       const dayId = phase === 'phase2' ? pat.phase2 : pat.day;
-      navBtn = `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('${phase === 'phase2' ? 'phase2' : 'phase1'}');switchDay('${phase === 'phase2' ? 'phase2' : 'phase1'}','${dayId}')">→ Otwórz plan treningu</button>`;
+      navBtn = `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('${phase}');switchDay('${phase}','${dayId}')">→ Otwórz plan treningu</button>`;
+      if (fp && fp.phase === 'phase2') {
+        navBtn += `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('cycle')">🎯 Plan cyklu ${fp.cycle}</button>`;
+      }
       navBtn += `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('tracker');buildTracker('${pat.label}')">📊 Zaloguj wyniki</button>`;
     } else if (pat.type === 'mob') {
-      navBtn = `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('mobility')">→ Otwórz sesję Mobility</button>`;
+      const mv = pat.mobVariant || 1;
+      navBtn = `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('mobility');showMobilityVariant(${mv})">→ Otwórz sesję Mobility</button>`;
     }
 
     content += doneBtn + navBtn;
@@ -1881,9 +2100,163 @@ function openDayModal(dateStr) {
   overlay.classList.add('open');
 }
 
+
+// ─── PAUSE / RESUME ───────────────────────────────────
+function getPauseData() {
+  try { return JSON.parse(localStorage.getItem('ib_pause') || 'null'); } catch { return null; }
+}
+function setPauseData(data) {
+  if (data) localStorage.setItem('ib_pause', JSON.stringify(data));
+  else localStorage.removeItem('ib_pause');
+}
+
+function pauseProgram() {
+  const pd = getPauseData();
+  if (pd && pd.paused) return; // already paused
+  setPauseData({ paused: true, pausedOn: fmtDate(new Date()) });
+  buildCalendar();
+}
+
+function resumeProgram(resumeDateStr) {
+  const pd = getPauseData();
+  if (!pd || !pd.paused) return;
+  const pausedOn = new Date(pd.pausedOn + 'T00:00:00');
+  const resumeOn = new Date(resumeDateStr + 'T00:00:00');
+  const pauseDays = Math.floor((resumeOn - pausedOn) / 86400000);
+  // Shift start date forward by pauseDays
+  const start = getStartDate();
+  if (start) {
+    const newStart = new Date(start);
+    newStart.setDate(newStart.getDate() + pauseDays);
+    setStartDate(newStart);
+  }
+  setPauseData(null);
+  buildCalendar();
+}
+
+function isPaused() {
+  const pd = getPauseData();
+  return pd && pd.paused;
+}
+
+// ─── CYCLE RESET ──────────────────────────────────────
+// Offset stored in localStorage — shifts effective cycle number
+function getCycleOffset() {
+  return parseInt(localStorage.getItem('ib_cycle_offset') || '0');
+}
+function setCycleOffset(n) {
+  localStorage.setItem('ib_cycle_offset', String(n));
+}
+function resetCycleBack(steps) {
+  setCycleOffset(getCycleOffset() - steps);
+  buildCyclePlan();
+  buildCalendar();
+}
+function resetCycleForward(steps) {
+  setCycleOffset(getCycleOffset() + steps);
+  buildCyclePlan();
+  buildCalendar();
+}
+function clearCycleOffset() {
+  setCycleOffset(0);
+  buildCyclePlan();
+  buildCalendar();
+}
+
+// ─── PHASE SYSTEM ────────────────────────────────────
+// Returns {phase, cycle, weekInCycle, totalDays}
+function getProgramStatus() {
+  const start = getStartDate();
+  if (!start) return null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  const s = new Date(start); s.setHours(0,0,0,0);
+  const totalDays = Math.floor((today - s) / 86400000);
+  if (totalDays < 0) return null;
+  if (totalDays < 28) {
+    return { phase:'phase1', cycle:1, weekInCycle: Math.floor(totalDays/7)+1, totalDays };
+  }
+  // Faza 2: cykl po 42 dni (6 tyg)
+  const f2days = totalDays - 28;
+  const rawCycle = Math.floor(f2days / 42) + 1;
+  const cycle = Math.max(1, rawCycle + getCycleOffset());
+  const weekInCycle = Math.floor((f2days % 42) / 7) + 1;
+  return { phase:'phase2', cycle, weekInCycle, totalDays, isDeload: isDeloadWeek(weekInCycle) };
+}
+
+function getPhaseForDate(date) {
+  const start = getStartDate();
+  if (!start) return null;
+  const d = new Date(date); d.setHours(0,0,0,0);
+  const s = new Date(start); s.setHours(0,0,0,0);
+  const diff = Math.floor((d - s) / 86400000);
+  if (diff < 0) return null;
+  if (diff < 28) return { phase:'phase1', cycle:1 };
+  const f2days = diff - 28;
+  const rawCycle = Math.floor(f2days / 42) + 1;
+  const cycle = Math.max(1, rawCycle + getCycleOffset());
+  const weekInCycle = Math.floor((f2days % 42) / 7) + 1;
+  return { phase:'phase2', cycle, weekInCycle, isDeload: isDeloadWeek(weekInCycle) };
+}
+
 function getCurrentPhase() {
-  // check localStorage for user preference
-  return localStorage.getItem('ib_phase_pref') || 'phase1';
+  const status = getProgramStatus();
+  if (!status) return localStorage.getItem('ib_phase_pref') || 'phase1';
+  return status.phase;
+}
+
+function setCalPhase(phase) {
+  localStorage.setItem('ib_phase_pref', phase);
+  buildCalendar();
+}
+
+// Progression engine — picks next KB weight or adds reps/sets
+function getProgression(baseSets, baseReps, baseWeight, cycle) {
+  const owned = getOwnedKBs().sort((a,b) => a-b);
+  let weight = baseWeight;
+  let reps = baseReps;
+  let sets = baseSets;
+
+  for (let c = 1; c < cycle; c++) {
+    const nextKB = owned.find(w => w > weight);
+    if (nextKB && nextKB <= weight + 4) {
+      weight = nextKB;
+    } else if (reps < 15) {
+      reps += 2;
+    } else if (sets < 5) {
+      sets += 1;
+      reps = baseReps;
+    } else {
+      const nextAny = owned.find(w => w > weight);
+      if (nextAny) { weight = nextAny; reps = baseReps; sets = baseSets; }
+    }
+  }
+  return { weight, reps, sets };
+}
+
+// Deload: serie ×0.5, ciężar -1 poziom KB, powtórzenia bez zmian
+function getDeload(baseSets, baseReps, baseWeight, cycle) {
+  const { weight, reps, sets } = getProgression(baseSets, baseReps, baseWeight, cycle);
+  const owned = getOwnedKBs().sort((a,b) => a-b);
+  const prevKB = [...owned].reverse().find(w => w < weight) || weight;
+  return {
+    weight: prevKB,
+    reps: reps,
+    sets: Math.max(1, Math.round(sets * 0.5)),
+    isDeload: true
+  };
+}
+
+// Is the given week (1-based) within a cycle a deload week?
+function isDeloadWeek(weekInCycle) {
+  return weekInCycle === 6;
+}
+
+// Return progression OR deload depending on week
+function getWeekPlan(baseSets, baseReps, baseWeight, cycle, weekInCycle) {
+  if (isDeloadWeek(weekInCycle)) {
+    return getDeload(baseSets, baseReps, baseWeight, cycle);
+  }
+  return getProgression(baseSets, baseReps, baseWeight, cycle);
 }
 
 function closeModal() {
@@ -1900,163 +2273,6 @@ function toggleDone(dateStr, done) {
 // ==========================================
 
 // Key exercises to track
-const TRACK_EXERCISES = [
-  'KB Swing (jedna ręka)',
-  'KB Deadlift',
-  'KB Bent-Over Row',
-  'KB Floor Press',
-  'KB Press Overhead',
-  'KB Goblet Squat',
-  'KB Clean',
-  'TGU (Turkish Get-Up)',
-  'KB Windmill',
-  'KB Halo',
-];
-
-let selectedTrackEx = TRACK_EXERCISES[0];
-let chartInstance = null;
-
-function getLog() {
-  try { return JSON.parse(localStorage.getItem('ib_log') || '{}'); } catch { return {}; }
-}
-function saveLog(log) { localStorage.setItem('ib_log', JSON.stringify(log)); }
-
-function logEntry(exercise, weight, reps, sets) {
-  const log = getLog();
-  if (!log[exercise]) log[exercise] = [];
-  log[exercise].push({
-    date: fmtDate(new Date()),
-    weight: parseFloat(weight) || 0,
-    reps: parseInt(reps) || 0,
-    sets: parseInt(sets) || 0,
-    volume: (parseFloat(weight)||0) * (parseInt(reps)||0) * (parseInt(sets)||0)
-  });
-  saveLog(log);
-}
-
-function deleteEntry(exercise, idx) {
-  const log = getLog();
-  if (log[exercise]) { log[exercise].splice(idx,1); saveLog(log); }
-  buildTracker(exercise);
-}
-
-function buildTracker(preselect) {
-  if (preselect) selectedTrackEx = preselect;
-  const el = document.getElementById('tracker-content');
-
-  // Exercise selector buttons
-  const dropdownHtml = TRACK_EXERCISES.map(ex =>
-    `<option value="${ex}" ${ex===selectedTrackEx?'selected':''}>${ex}</option>`
-  ).join('');
-
-  // Log form — dropdown included as first row
-  const formHtml = `
-  <div class="tracker-ex-list">
-    <div class="tracker-ex-card">
-      <div class="tracker-inputs" style="grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
-        <div class="tracker-input-group" style="grid-column:1/-1">
-          <span class="tracker-input-label">ĆWICZENIE</span>
-          <select class="tracker-input" id="t-exercise" onchange="selectedTrackEx=this.value;buildTracker(this.value)" style="cursor:pointer">
-            ${dropdownHtml}
-          </select>
-        </div>
-        <div class="tracker-input-group">
-          <span class="tracker-input-label">CIĘŻAR (kg)</span>
-          <input class="tracker-input" type="number" id="t-weight" placeholder="12" min="0" max="100" step="0.5">
-        </div>
-        <div class="tracker-input-group">
-          <span class="tracker-input-label">POWTÓRZENIA</span>
-          <input class="tracker-input" type="number" id="t-reps" placeholder="10" min="1" max="100">
-        </div>
-        <div class="tracker-input-group">
-          <span class="tracker-input-label">SERIE</span>
-          <input class="tracker-input" type="number" id="t-sets" placeholder="3" min="1" max="20">
-        </div>
-      </div>
-    </div>
-  </div>
-  <button class="save-btn" onclick="saveEntry()">💾 Zapisz wynik</button>`;
-
-  // Chart
-  const log = getLog();
-  const entries = log[selectedTrackEx] || [];
-
-  let chartHtml = '';
-  let historyHtml = '';
-
-  if (entries.length === 0) {
-    chartHtml = `<div class="empty-state"><div class="big">🏋️</div>Brak danych dla tego ćwiczenia.<br>Zaloguj pierwszy wynik powyżej!</div>`;
-  } else {
-    chartHtml = `<div class="chart-wrap">
-      <div class="chart-title">OBJĘTOŚĆ (kg × powt × serie)</div>
-      <canvas id="vol-chart" class="prog-chart" height="160"></canvas>
-    </div>
-    <div class="chart-wrap">
-      <div class="chart-title">CIĘŻAR (kg)</div>
-      <canvas id="weight-chart" class="prog-chart" height="120"></canvas>
-    </div>`;
-
-    const recent = entries.slice(-20);
-    historyHtml = `<div class="section-title" style="font-size:18px;margin-top:24px">Historia</div>
-    <div class="history-list">
-      ${[...recent].reverse().map((e,i) => {
-        const realIdx = recent.length - 1 - i;
-        return `<div class="history-row">
-          <div>
-            <div class="history-date">${e.date}</div>
-            <div style="font-size:13px;margin-top:2px">${e.sets} serie × ${e.reps} powt. @ <span class="history-val">${e.weight} kg</span></div>
-          </div>
-          <button class="history-del" onclick="deleteEntry('${selectedTrackEx.replace(/'/g,"\\'")}',${recent.length-1-i})" title="Usuń">🗑</button>
-        </div>`;
-      }).join('')}
-    </div>`;
-  }
-
-  el.innerHTML = `
-    ${dayTitle('PROGRESJA', 'PLAN + ŚLEDZENIE WYNIKÓW', '')}
-    <details style="margin-bottom:24px">
-      <summary style="cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--accent);padding:12px 0;border-bottom:1px solid var(--border);list-style:none;display:flex;align-items:center;justify-content:space-between">
-        PLAN PROGRESJI <span style="font-size:14px;color:var(--muted);font-family:'DM Sans',sans-serif">▾ rozwiń</span>
-      </summary>
-      <div style="padding-top:16px">${buildProgression(true)}</div>
-    </details>
-    <div class="section-title" style="font-size:20px">Loguj wyniki</div>
-    ${formHtml}
-    ${chartHtml}
-    ${historyHtml}
-  `;
-
-  // Draw charts after render
-  if (entries.length > 0) {
-    setTimeout(() => drawCharts(entries), 50);
-  }
-}
-
-function saveEntry() {
-  const w = document.getElementById('t-weight').value;
-  const r = document.getElementById('t-reps').value;
-  const s = document.getElementById('t-sets').value;
-  if (!w && !r) { alert('Wpisz przynajmniej ciężar i powtórzenia'); return; }
-  logEntry(selectedTrackEx, w, r, s || 1);
-  buildTracker(selectedTrackEx);
-  // show confirmation flash
-  const btn = document.querySelector('.save-btn');
-  if (btn) { btn.textContent = '✓ Zapisano!'; btn.style.background='var(--accent2)'; setTimeout(()=>{btn.textContent='💾 Zapisz wynik';btn.style.background='';},1500); }
-}
-
-function drawCharts(entries) {
-  const labels = entries.slice(-20).map(e => e.date.slice(5)); // MM-DD
-  const volumes = entries.slice(-20).map(e => e.volume);
-  const weights = entries.slice(-20).map(e => e.weight);
-
-  const volCanvas = document.getElementById('vol-chart');
-  const wCanvas = document.getElementById('weight-chart');
-  if (!volCanvas || !wCanvas) return;
-
-  drawLineChart(volCanvas, labels, volumes, '#c8f542', 'Objętość');
-  drawLineChart(wCanvas, labels, weights, '#42f5a7', 'Ciężar');
-}
-
 function drawLineChart(canvas, labels, data, color, label) {
   const ctx = canvas.getContext('2d');
   const W = canvas.offsetWidth || 300;
@@ -2178,6 +2394,417 @@ document.getElementById('install-btn').addEventListener('click', async () => {
 window.addEventListener('appinstalled', () => {
   document.getElementById('install-banner').style.display = 'none';
 });
+
+// ==========================================
+//  KETTLEBELL MANAGER
+// ==========================================
+
+const ALL_KB_WEIGHTS = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36];
+const DEFAULT_OWNED = [4, 6, 8, 12, 16];
+
+function getOwnedKBs() {
+  try {
+    const s = localStorage.getItem('ib_kbs');
+    return s ? JSON.parse(s) : DEFAULT_OWNED;
+  } catch { return DEFAULT_OWNED; }
+}
+
+function saveOwnedKBs(arr) {
+  localStorage.setItem('ib_kbs', JSON.stringify(arr));
+}
+
+function toggleKB(weight) {
+  const owned = getOwnedKBs();
+  const idx = owned.indexOf(weight);
+  if (idx === -1) owned.push(weight);
+  else owned.splice(idx, 1);
+  owned.sort((a,b) => a-b);
+  saveOwnedKBs(owned);
+  renderKBBadges();
+}
+
+function renderKBBadges() {
+  const container = document.getElementById('kb-badges-container');
+  if (!container) return;
+  const owned = getOwnedKBs();
+  container.innerHTML = ALL_KB_WEIGHTS.map(w =>
+    `<span class="kb-badge ${owned.includes(w) ? 'owned' : ''}" onclick="toggleKB(${w})">${w} kg</span>`
+  ).join('');
+}
+
+// Init KB badges after all functions defined
+renderKBBadges();
+
+
+// ══════════════════════════════════════════════════
+//  CYCLE PLAN BUILDER
+// ══════════════════════════════════════════════════
+
+// Base weights/reps for Phase 2 exercises (cycle 1 baseline)
+const CYCLE_BASE = [
+  // Trening A
+  { day:'A', name:'KB Swing (jedna ręka)',          sets:5, reps:10, weight:12 },
+  { day:'A', name:'KB Bent-Over Row (jedna ręka)',  sets:4, reps:10, weight:12 },
+  { day:'A', name:'KB High Pull → Press (combo)',   sets:4, reps:6,  weight:12 },
+  { day:'A', name:'KB Gorilla Row',                 sets:4, reps:8,  weight:12 },
+  { day:'A', name:'KB Renegade Row',                sets:3, reps:8,  weight:12 },
+  // Trening B
+  { day:'B', name:'KB Floor Press (jedna ręka)',    sets:4, reps:8,  weight:12 },
+  { day:'B', name:'KB Press Overhead (jedna ręka)', sets:4, reps:8,  weight:12 },
+  { day:'B', name:'KB Push-up (ręce na KB)',        sets:4, reps:10, weight:8  },
+  { day:'B', name:'KB Bottoms-Up Press',            sets:3, reps:6,  weight:8  },
+  // Trening C
+  { day:'C', name:'KB Swing (jedna ręka) — siłowy', sets:6, reps:8,  weight:16 },
+  { day:'C', name:'KB Deadlift (obie ręce)',         sets:5, reps:5,  weight:16 },
+  { day:'C', name:'KB Romanian Deadlift (1-noga)',   sets:4, reps:8,  weight:12 },
+  { day:'C', name:'KB Clean',                        sets:4, reps:6,  weight:12 },
+  // Trening D
+  { day:'D', name:'KB Goblet Squat',                sets:3, reps:12, weight:12 },
+  { day:'D', name:'KB Single Arm Press',            sets:3, reps:8,  weight:12 },
+  { day:'D', name:'KB Windmill',                    sets:3, reps:5,  weight:8  },
+  { day:'D', name:'TGU (Turkish Get-Up)',            sets:3, reps:3,  weight:8  },
+];
+
+// ==========================================
+//  PROGRESS VISUALISATION
+// ==========================================
+
+let selectedProgressEx = 'KB Swing (jedna ręka)';
+
+function buildTracker(preselect) {
+  if (preselect) selectedProgressEx = preselect;
+  const el = document.getElementById('tracker-content');
+  if (!el) return;
+  const status = getProgramStatus();
+
+  if (!getStartDate()) {
+    el.innerHTML = dayTitle('PROGRES', 'HISTORIA I WIZUALIZACJA', '') +
+      `<div class="note-box">Najpierw ustaw datę startu w zakładce 📅 Kalendarz.</div>`;
+    return;
+  }
+
+  const isPhase1 = !status || status.phase === 'phase1';
+  const currentCycle = status && status.phase === 'phase2' ? status.cycle : 0;
+  const allExercises = [...new Set(CYCLE_BASE.map(e => e.name))];
+
+  const dropdownHtml = allExercises.map(ex =>
+    `<option value="${ex}" ${ex === selectedProgressEx ? 'selected' : ''}>${ex}</option>`
+  ).join('');
+
+  // Build chart points per cycle
+  let chartPoints = [];
+  const ex = CYCLE_BASE.find(e => e.name === selectedProgressEx);
+  if (ex) {
+    if (isPhase1) {
+      const w = status ? status.weekInCycle : 1;
+      for (let i = 1; i <= w; i++) {
+        chartPoints.push({ label:'F1·W'+i, weight:ex.weight, reps:ex.reps, sets:ex.sets, volume:ex.weight*ex.reps*ex.sets });
+      }
+    } else {
+      for (let c = 1; c <= currentCycle; c++) {
+        const p = getProgression(ex.sets, ex.reps, ex.weight, c);
+        chartPoints.push({ label:'C'+c, weight:p.weight, reps:p.reps, sets:p.sets, volume:p.weight*p.reps*p.sets });
+      }
+    }
+  }
+
+  // History rows
+  const histRows = (() => {
+    if (!ex) return '';
+    const rows = [];
+    rows.push(`<div class="history-row">
+      <div>
+        <div class="history-date">Faza 1</div>
+        <div style="font-size:13px;margin-top:2px">${ex.sets}×${ex.reps} @ <span class="history-val">${ex.weight} kg</span> <span style="font-size:11px;color:var(--muted)">(baza)</span></div>
+      </div>
+      ${isPhase1 ? '<span style="font-size:10px;color:var(--accent);font-family:\'DM Mono\',monospace">◀ TERAZ</span>' : ''}
+    </div>`);
+    const maxCycle = Math.max(currentCycle, 1);
+    for (let c = 1; c <= maxCycle; c++) {
+      const p = getProgression(ex.sets, ex.reps, ex.weight, c);
+      const prev = c === 1 ? ex : getProgression(ex.sets, ex.reps, ex.weight, c-1);
+      const delta = p.weight !== prev.weight ? `+${p.weight-prev.weight}kg` :
+                    p.reps !== prev.reps ? `+${p.reps-prev.reps} powt.` :
+                    p.sets !== prev.sets ? `+${p.sets-prev.sets} serii` : '';
+      const isCurrent = !isPhase1 && c === currentCycle;
+      rows.push(`<div class="history-row">
+        <div>
+          <div class="history-date">Faza 2 — Cykl ${c}</div>
+          <div style="font-size:13px;margin-top:2px">${p.sets}×${p.reps} @ <span class="history-val">${p.weight} kg</span>
+            ${delta ? `<span style="font-size:11px;color:var(--accent2);margin-left:6px">↑ ${delta}</span>` : ''}
+          </div>
+        </div>
+        ${isCurrent ? '<span style="font-size:10px;color:var(--accent2);font-family:\'DM Mono\',monospace">◀ TERAZ</span>' : ''}
+      </div>`);
+    }
+    return rows.join('');
+  })();
+
+  const hasPoints = chartPoints.length > 1;
+
+  el.innerHTML = `
+    ${dayTitle('PROGRES', 'HISTORIA I WIZUALIZACJA', '')}
+
+    <div class="chart-wrap" style="margin-bottom:8px">
+      <div style="margin-bottom:12px">
+        <select class="tracker-input" style="width:100%" onchange="buildTracker(this.value)">${dropdownHtml}</select>
+      </div>
+      ${hasPoints
+        ? `<div class="chart-title">CIĘŻAR (kg)</div><canvas id="weight-chart" class="prog-chart" height="140"></canvas>`
+        : `<div class="empty-state" style="padding:20px 0"><div class="big" style="font-size:24px">📊</div>Wykres pojawi się po ukończeniu więcej niż jednego tygodnia/cyklu.</div>`}
+    </div>
+
+    ${hasPoints ? `<div class="chart-wrap" style="margin-bottom:20px">
+      <div class="chart-title">OBJĘTOŚĆ (kg × powt × serie)</div>
+      <canvas id="vol-chart" class="prog-chart" height="120"></canvas>
+    </div>` : ''}
+
+    <div class="section-title" style="font-size:18px">Historia cykli</div>
+    <div class="history-list" style="margin-bottom:24px">${histRows}</div>
+
+    <div class="section-title" style="font-size:18px">Wszystkie ćwiczenia — przegląd</div>
+    <div style="overflow-x:auto">
+      <table class="ex-table">
+        <thead><tr>
+          <th style="width:40%">Ćwiczenie</th>
+          <th>Baza (F1)</th>
+          ${!isPhase1 ? `<th>Cykl ${currentCycle}</th>` : ''}
+          <th style="color:var(--accent2)">${isPhase1 ? 'F2 Cykl 1' : 'Cykl '+(currentCycle+1)}</th>
+        </tr></thead>
+        <tbody>
+          ${CYCLE_BASE.map(e => {
+            const cur = !isPhase1 ? getProgression(e.sets, e.reps, e.weight, currentCycle) : null;
+            const nxt = getProgression(e.sets, e.reps, e.weight, isPhase1 ? 1 : currentCycle+1);
+            return `<tr>
+              <td><div class="ex-name" style="font-size:12px">${e.name}</div></td>
+              <td><span class="ex-weight">${e.weight}kg</span> <span style="color:var(--muted);font-size:11px">${e.sets}×${e.reps}</span></td>
+              ${cur ? `<td><span class="ex-weight">${cur.weight}kg</span> <span style="color:var(--muted);font-size:11px">${cur.sets}×${cur.reps}</span></td>` : ''}
+              <td><span class="ex-weight" style="color:var(--accent2)">${nxt.weight}kg</span> <span style="color:var(--muted);font-size:11px">${nxt.sets}×${nxt.reps}</span></td>
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+
+  if (hasPoints) {
+    setTimeout(() => {
+      const labels = chartPoints.map(p => p.label);
+      const wCanvas = document.getElementById('weight-chart');
+      const vCanvas = document.getElementById('vol-chart');
+      if (wCanvas) drawLineChart(wCanvas, labels, chartPoints.map(p => p.weight), '#42f5a7', 'Ciężar');
+      if (vCanvas) drawLineChart(vCanvas, labels, chartPoints.map(p => p.volume), '#c8f542', 'Objętość');
+    }, 50);
+  }
+}
+
+
+function buildStatusBar(status, opts) {
+  // opts: { showLink, showProgressBar, showHint }
+  const o = opts || {};
+  if (!getStartDate() || !status) return '';
+
+  const isPhase1 = status.phase === 'phase1';
+  const week = status.weekInCycle;
+  const cycle = isPhase1 ? 1 : status.cycle;
+  const totalWks = isPhase1 ? 4 : 6;
+  const pct = Math.round((week / totalWks) * 100);
+  const isDeloadNow = !isPhase1 && isDeloadWeek(week);
+  const weeksLeft = totalWks - week;
+
+  const accentCol  = isPhase1 ? 'var(--accent)' : 'var(--accent2)';
+  const accentBg   = isPhase1 ? 'rgba(200,245,66,0.08)' : 'rgba(66,245,167,0.08)';
+  const accentBord = isPhase1 ? 'rgba(200,245,66,0.2)'  : 'rgba(66,245,167,0.2)';
+
+  const title = isPhase1 ? 'FAZA 1 — ROZRUCH' : `FAZA 2 — CYKL ${cycle}`;
+  const sub = isPhase1
+    ? `Tydzień ${week}/4 · ${weeksLeft > 0 ? `jeszcze ${weeksLeft} ${weeksLeft===1?'tydzień':'tygodnie'}` : 'ostatni tydzień!'}`
+    : isDeloadNow
+      ? `Tydzień ${week}/6 — <span style="color:var(--accent3)">DELOAD 🔄</span>`
+      : `Tydzień ${week}/6 · ${weeksLeft > 0 ? `jeszcze ${weeksLeft} ${weeksLeft===1?'tydzień':'tygodnie'}` : 'ostatni tydzień — potem deload!'}`;
+
+  const link = o.showLink && !isPhase1
+    ? `<span style="font-size:11px;color:var(--accent);cursor:pointer;text-decoration:underline;display:block;margin-top:4px" onclick="switchPhase('cycle')">Zobacz plan cyklu →</span>`
+    : '';
+
+  let html = `<div style="background:${accentBg};border:1px solid ${accentBord};border-radius:8px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:${accentCol}">${title}</div>
+      <div style="font-size:12px;color:var(--muted);margin-top:2px">${sub}</div>
+      ${link}
+    </div>
+    <div style="font-family:'DM Mono',monospace;font-size:32px;color:${accentCol};padding-left:16px">${week}/${totalWks}</div>
+  </div>`;
+
+  if (o.showProgressBar !== false) {
+    const barColor = isDeloadNow ? 'var(--accent3)' : accentCol;
+    html += `<div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);margin-bottom:8px">
+        <span>POSTĘP ${isPhase1 ? 'FAZY 1' : 'CYKLU '+cycle}${isDeloadNow ? ' — DELOAD' : ''}</span>
+        <span>${pct}%</span>
+      </div>
+      <div style="background:var(--surface);border-radius:4px;height:8px;overflow:hidden">
+        <div style="background:${barColor};height:100%;width:${pct}%;border-radius:4px;transition:width .3s"></div>
+      </div>
+      ${o.showHint && isPhase1 ? `<div style="font-size:11px;color:var(--muted);margin-top:8px">Po ukończeniu Fazy 1 automatycznie startuje Faza 2 — Cykl 1</div>` : ''}
+    </div>`;
+  }
+
+  return html;
+}
+
+
+function buildCyclePlan() {
+  const el = document.getElementById('cycle-content');
+  const status = getProgramStatus();
+
+  if (!getStartDate()) {
+    el.innerHTML = dayTitle('BIEŻĄCY CYKL', 'PLAN NA AKTUALNY CYKL', '') +
+      `<div class="note-box">Najpierw ustaw datę startu w zakładce 📅 Kalendarz.</div>`;
+    return;
+  }
+
+  const isPhase1 = !status || status.phase === 'phase1';
+  const week     = status ? status.weekInCycle : 1;
+  const cycle    = isPhase1 ? 1 : status.cycle;
+  const totalWks = isPhase1 ? 4 : 6;
+  const pct      = Math.round((week / totalWks) * 100);
+
+  // Phase 1 exercise table (fixed weights from programme)
+  const PHASE1_BASE = [
+    { day:'A', name:'KB Deadlift (obie ręce)',            sets:3, reps:8,  weight:12 },
+    { day:'A', name:'KB Bent-Over Row (jedna ręka)',       sets:3, reps:8,  weight:8  },
+    { day:'A', name:'KB Halo',                             sets:3, reps:8,  weight:6  },
+    { day:'A', name:'KB Floor Press (jedna ręka)',         sets:3, reps:8,  weight:8  },
+    { day:'A', name:'Farmer Carry (jedna ręka)',           sets:3, reps:0,  weight:12, note:'3×20m' },
+    { day:'B', name:'KB Floor Press (obie ręce na jednym KB)', sets:3, reps:10, weight:8 },
+    { day:'B', name:'KB Press Overhead (jedna ręka)',      sets:3, reps:8,  weight:8  },
+    { day:'B', name:'KB Chest Fly (podłoga)',              sets:3, reps:10, weight:6  },
+    { day:'B', name:'KB Pull-over (w leżeniu)',            sets:3, reps:10, weight:8  },
+    { day:'B', name:'KB Renegade Row',                     sets:3, reps:6,  weight:8  },
+    { day:'C', name:'KB Romanian Deadlift (1-noga)',       sets:3, reps:6,  weight:8  },
+    { day:'C', name:'KB Swing (obie ręce)',                sets:4, reps:12, weight:12 },
+    { day:'C', name:'KB High Pull',                        sets:3, reps:8,  weight:8  },
+    { day:'C', name:'KB Gorilla Row',                      sets:3, reps:6,  weight:12 },
+    { day:'C', name:'KB Suitcase Deadlift',                sets:3, reps:8,  weight:12 },
+    { day:'D', name:'KB Goblet Squat',                     sets:3, reps:10, weight:8  },
+    { day:'D', name:'KB Single Arm Press',                 sets:3, reps:8,  weight:8  },
+    { day:'D', name:'KB Swing (jedna ręka, ALAC)',         sets:3, reps:10, weight:8  },
+    { day:'D', name:'TGU (Turkish Get-Up)',                sets:3, reps:3,  weight:6  },
+    { day:'D', name:'KB Windmill',                         sets:3, reps:5,  weight:6  },
+  ];
+
+  const BASE = isPhase1 ? PHASE1_BASE : CYCLE_BASE;
+  const days = ['A','B','C','D'];
+  const dayLabels = {
+    A:'Trening A — Plecy + Pull',
+    B:'Trening B — Klatka + Push',
+    C:'Trening C — Plecy siła',
+    D:'Trening D — Full Body'
+  };
+  const isDeloadWeekNow = !isPhase1 && isDeloadWeek(week);
+
+  // ── STATUS BAR + PROGRESS BAR (shared component) ──
+  let html = dayTitle('BIEŻĄCY CYKL', isPhase1 ? 'FAZA 1 · TYDZIEŃ '+week+' Z 4' : 'FAZA 2 · CYKL '+cycle+' · TYDZIEŃ '+week+' Z 6', '');
+  html += buildStatusBar(status, { showLink: false, showProgressBar: true, showHint: true });
+
+  // ── EXERCISE TABLES PER DAY ──
+  html += `<div class="section-title" style="font-size:18px">Plan treningowy — ${isPhase1?'Faza 1':'Cykl '+cycle}</div>`;
+
+  for (const day of days) {
+    const exercises = BASE.filter(e => e.day === day);
+    const rows = exercises.map(ex => {
+      let w = ex.weight, r = ex.reps, s = ex.sets;
+      let badge = '', vsCol = '—';
+      if (!isPhase1) {
+        const prog = getProgression(s, r, w, cycle);
+        w = prog.weight; r = prog.reps; s = prog.sets;
+        const increased = w > ex.weight || r > ex.reps || s > ex.sets;
+        badge = increased ? `<span style="font-size:9px;background:rgba(66,245,167,0.15);color:var(--accent2);border:1px solid rgba(66,245,167,0.3);border-radius:3px;padding:1px 5px;margin-left:6px;font-family:'DM Mono',monospace">↑</span>` : '';
+        vsCol = w > ex.weight ? `+${w-ex.weight}kg` : r > ex.reps ? `+${r-ex.reps} powt.` : s > ex.sets ? `+${s-ex.sets} seria` : '—';
+      }
+      const setsReps = ex.note ? `<span class="ex-sets">${s}× ${ex.note}</span>` : `<span class="ex-sets">${s}×${r}</span>`;
+      return `<tr>
+        <td><div class="ex-name">${ex.name}${badge}</div></td>
+        <td>${setsReps}</td>
+        <td><span class="ex-weight">${w} kg</span></td>
+        ${!isPhase1 ? `<td><span class="ex-notes">${vsCol}</span></td>` : '<td></td>'}
+      </tr>`;
+    }).join('');
+
+    html += `<div class="block" style="margin-bottom:12px">
+      <div class="block-header open" onclick="toggleBlock(this)">
+        <span class="block-tag tag-main">TRENING ${day}</span>
+        <span class="block-title">${dayLabels[day]}</span>
+        <span class="block-toggle">▾</span>
+      </div>
+      <div class="block-body open">
+        <table class="ex-table">
+          <thead><tr>
+            <th style="width:42%">Ćwiczenie</th>
+            <th>Serie×Powt.</th>
+            <th>Ciężar</th>
+            <th>${isPhase1 ? '' : 'vs Cykl 1'}</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+  }
+
+  // ── PHASE 1: preview of Phase 2 ──
+  if (isPhase1) {
+    html += `<div class="note-box" style="margin-top:20px">
+      <strong>Co czeka w Fazie 2?</strong><br>
+      Po zakończeniu Fazy 1 (${28 - (status?.totalDays||0)} dni) automatycznie przejdziesz do Fazy 2 — Cykl 1.
+      Ciężary wzrosną, serie będą dłuższe, a co 6 tygodni aplikacja automatycznie zwiększy obciążenie
+      bazując na Twoich kettlebell ach.<br><br>
+      <strong style="color:var(--accent)">Kettlebelle które posiadasz:</strong>
+      ${getOwnedKBs().map(w=>`<span class="kb-badge owned" style="display:inline-block;margin:2px">${w}kg</span>`).join('')}
+    </div>`;
+  }
+
+  // ── CYCLE CONTROLS ──
+  const offset = getCycleOffset();
+  if (isPhase1) {
+    html += `<div class="section-title" style="font-size:18px;margin-top:24px">Korekta cyklu</div>
+    <div class="note-box">Korekta cyklu jest dostępna dopiero w Fazie 2. Wróć tutaj po ukończeniu 4 tygodni Fazy 1.</div>`;
+  } else {
+    const rawCycle = (() => {
+      const status2 = getProgramStatus();
+      return status2 ? (status2.cycle - getCycleOffset()) : 1;
+    })();
+    html += `<div class="section-title" style="font-size:18px;margin-top:24px">Korekta cyklu</div>
+    <div class="note-box" style="margin-bottom:12px">
+      Kontuzja lub długa przerwa? Cofnij cykl żeby nie przeskakiwać na za wysoką progresję.
+      <br><span style="color:var(--muted);font-size:11px">Rzeczywisty cykl: <strong style="color:var(--text)">${rawCycle}</strong> · Wyświetlany cykl: <strong style="color:var(--accent2)">${cycle}</strong>${offset !== 0 ? ` · Offset: <strong style="color:var(--accent3)">${offset > 0 ? '+' : ''}${offset}</strong>` : ''}</span>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      <button class="modal-btn btn-secondary" style="margin:0" onclick="resetCycleBack(1)">← Cofnij o 1 cykl</button>
+      <button class="modal-btn btn-secondary" style="margin:0" onclick="resetCycleBack(2)">← Cofnij o 2 cykle</button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+      <button class="modal-btn btn-secondary" style="margin:0" onclick="resetCycleForward(1)">Przesuń o 1 cykl →</button>
+      ${offset !== 0 ? `<button class="modal-btn btn-danger" style="margin:0" onclick="clearCycleOffset()">✕ Resetuj (powrót do Cyklu ${rawCycle})</button>` : '<div></div>'}
+    </div>`;
+  }
+
+  el.innerHTML = html;
+}
+
+
+
+function switchSub(subId) {
+  document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(subId);
+  if (panel) panel.classList.add('active');
+  // find matching button by onclick
+  document.querySelectorAll('.sub-btn').forEach(b => {
+    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(subId)) b.classList.add('active');
+  });
+}
+
 </script>
 
 </body>
