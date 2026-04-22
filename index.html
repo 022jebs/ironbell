@@ -1802,6 +1802,34 @@ function switchDay(phase, dayId) {
   renderSidebar(phase);
 }
 
+function openTrainingDay(phase, subId, dayId) {
+  closeModal();
+  switchPhase('overview');
+  // Ensure sub-panels are rendered before switching
+  if (!document.getElementById('days-phase1-inner').innerHTML) {
+    renderDaysInto('phase1', phase1Days, 'days-phase1-inner');
+  }
+  if (!document.getElementById('days-phase2-inner').innerHTML) {
+    renderDaysInto('phase2', phase2Days, 'days-phase2-inner');
+  }
+  switchSub(subId);
+  switchDaySub(phase, dayId);
+  // Scroll to top
+  document.querySelector('.content').scrollTop = 0;
+}
+
+function openMobilityDay(variant) {
+  closeModal();
+  switchPhase('overview');
+  if (!document.getElementById('mobility-content').innerHTML) {
+    document.getElementById('mobility-content').innerHTML = buildMobility();
+  }
+  switchSub('sub-mobility');
+  showMobilityVariant(variant);
+  document.querySelector('.content').scrollTop = 0;
+}
+
+
 function toggleBlock(header) {
   header.classList.toggle('open');
   header.nextElementSibling.classList.toggle('open');
@@ -1832,11 +1860,11 @@ switchPhase('overview');
 const WEEK_PATTERN = [
   { type:'train', label:'Trening A', short:'A', pillClass:'pill-a', sub:'Plecy + Pull',   phase1:'phase1', day:'p1-a', phase2:'p2-a' },
   { type:'train', label:'Trening B', short:'B', pillClass:'pill-b', sub:'Klatka + Push',  phase1:'phase1', day:'p1-b', phase2:'p2-b' },
-  { type:'mob',   label:'Mobility I', short:'Mobility', pillClass:'pill-mobility', mobVariant:1, sub:'Biodra + Core' },
+  { type:'mob',   label:'Mobility I',   short:'Mob I',   pillClass:'pill-mobility', mobVariant:1, sub:'Biodra + Core' },
   { type:'train', label:'Trening C', short:'C', pillClass:'pill-c', sub:'Plecy — siła',   phase1:'phase1', day:'p1-c', phase2:'p2-c' },
   { type:'train', label:'Trening D', short:'D', pillClass:'pill-d', sub:'Full Body',       phase1:'phase1', day:'p1-d', phase2:'p2-d' },
-  { type:'mob',   label:'Mobility',  short:'Mobility', pillClass:'pill-mobility', sub:'Odpoczynek aktywny' },
-  { type:'mob',   label:'Mobility III', short:'Mobility', pillClass:'pill-mobility', mobVariant:3, sub:'Regeneracja' },
+  { type:'mob',   label:'Mobility II',  short:'Mob II',  pillClass:'pill-mobility', mobVariant:2, sub:'Klatka + Rotacje' },
+  { type:'mob',   label:'Mobility III', short:'Mob III', pillClass:'pill-mobility', mobVariant:3, sub:'Regeneracja' },
 ];
 
 // Programme start date stored in localStorage
@@ -2032,7 +2060,7 @@ function buildCalendar() {
       <span class="cal-day-pill pill-b" style="margin-left:4px;display:inline-block">B</span>
       <span class="cal-day-pill pill-c" style="margin-left:4px;display:inline-block">C</span>
       <span class="cal-day-pill pill-d" style="margin-left:4px;display:inline-block">D</span>
-      <span class="cal-day-pill pill-mobility" style="margin-left:4px;display:inline-block">Mobility</span>
+      <span class="cal-day-pill pill-mobility" style="margin-left:4px;display:inline-block">Mob I/II/III</span>
       &nbsp;· Zielona kropka = ukończony
     </div>
   `;
@@ -2083,14 +2111,15 @@ function openDayModal(dateStr) {
       const fp = getPhaseForDate(date);
       const phase = fp ? fp.phase : 'phase1';
       const dayId = phase === 'phase2' ? pat.phase2 : pat.day;
-      navBtn = `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('${phase}');switchDay('${phase}','${dayId}')">→ Otwórz plan treningu</button>`;
+      const subId = phase === 'phase2' ? 'sub-phase2' : 'sub-phase1';
+      navBtn = `<button class="modal-btn btn-secondary" onclick="openTrainingDay('${phase}','${subId}','${dayId}')">→ Otwórz plan treningu</button>`;
       if (fp && fp.phase === 'phase2') {
         navBtn += `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('cycle')">🎯 Plan cyklu ${fp.cycle}</button>`;
       }
-      navBtn += `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('tracker');buildTracker('${pat.label}')">📊 Zaloguj wyniki</button>`;
+      navBtn += `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('tracker')">📊 Progres</button>`;
     } else if (pat.type === 'mob') {
       const mv = pat.mobVariant || 1;
-      navBtn = `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('mobility');showMobilityVariant(${mv})">→ Otwórz sesję Mobility</button>`;
+      navBtn = `<button class="modal-btn btn-secondary" onclick="openMobilityDay(${mv})">→ Otwórz sesję Mobility</button>`;
     }
 
     content += doneBtn + navBtn;
