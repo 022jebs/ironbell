@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="IronBell">
+<meta name="theme-color" content="#0d0f0e">
+<title>IronBell Protocol</title>
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="manifest" id="pwa-manifest">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+// Inject manifest dynamically (needed for single-file PWA)
+(function(){
+  var manifest = {"name": "IronBell Protocol", "short_name": "IronBell", "description": "Program treningowy kettlebell \u2014 4 dni w tygodniu", "start_url": ".", "display": "standalone", "background_color": "#0d0f0e", "theme_color": "#0d0f0e", "orientation": "portrait", "icons": [{"src": "data:image/png;base64,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", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"}, {"src": "data:image/png;base64,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", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}]};
+  var blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+  var url = URL.createObjectURL(blob);
+  document.getElementById('pwa-manifest').href = url;})();
+</script>
+<style>
+  :root {
+    --bg: #0d0f0e;
+    --surface: #151918;
+    --card: #1c2220;
+    --border: #2a3330;
+    --accent: #c8f542;
+    --accent2: #42f5a7;
+    --accent3: #f5a842;
+    --text: #e8ede9;
+    --muted: #6b7d74;
+    --danger: #f54242;
+    --warm: #f5c842;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* NOISE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  header {
+    position: relative;
+    z-index: 10;
+    padding: 48px 40px 32px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(180deg, #0a0c0b 0%, transparent 100%);
+  }
+
+  .header-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 96px);
+    letter-spacing: 2px;
+    line-height: 0.9;
+    color: var(--text);
+  }
+
+  h1 span {
+    color: var(--accent);
+  }
+
+  .header-sub {
+    margin-top: 16px;
+    color: var(--muted);
+    font-size: 14px;
+    font-weight: 300;
+    max-width: 540px;
+    line-height: 1.6;
+  }
+
+  .kb-badges {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+
+  .kb-badge {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+  }
+
+  /* PHASE NAV */
+  .phase-nav {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .phase-nav::-webkit-scrollbar { display: none; }
+
+  .phase-btn {
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    padding: 18px 28px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .phase-btn:hover { color: var(--text); }
+
+  .phase-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+    background: rgba(200,245,66,0.04);
+  }
+
+  /* MAIN LAYOUT */
+  main {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    min-height: calc(100vh - 220px);
+  }
+
+  /* DAY SIDEBAR */
+  .day-sidebar {
+    border-right: 1px solid var(--border);
+    padding: 24px 0;
+  }
+
+  .day-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    background: none;
+    border: none;
+    border-left: 3px solid transparent;
+    color: var(--muted);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 14px 20px;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+  }
+
+  .day-btn:hover { color: var(--text); background: rgba(255,255,255,0.02); }
+
+  .day-btn.active {
+    color: var(--text);
+    border-left-color: var(--accent);
+    background: rgba(200,245,66,0.04);
+  }
+
+  .day-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--border);
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+
+  .day-btn.active .day-dot { background: var(--accent); }
+  .day-btn.rest .day-dot { background: var(--accent2); }
+  .day-btn.rest.active .day-dot { background: var(--accent2); }
+  .day-btn.rest.active { border-left-color: var(--accent2); color: var(--accent2); }
+
+  .day-type {
+    font-size: 10px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 1px;
+    opacity: 0.6;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* CONTENT */
+  .content {
+    padding: 32px 40px;
+    overflow-y: auto;
+  }
+
+  .phase-panel { display: none; }
+  .phase-panel.active { display: block; }
+
+  .day-content { display: none; }
+  .day-content.active { display: block; }
+
+  /* SECTION BLOCKS */
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+
+  .block-header {
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: background 0.15s;
+  }
+
+  .block-header:hover { background: rgba(255,255,255,0.02); }
+  .block-header.open { border-bottom-color: var(--border); }
+
+  .block-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  .tag-warmup { background: rgba(245,168,66,0.15); color: var(--accent3); border: 1px solid rgba(245,168,66,0.25); }
+  .tag-main { background: rgba(200,245,66,0.1); color: var(--accent); border: 1px solid rgba(200,245,66,0.2); }
+  .tag-cooldown { background: rgba(66,245,167,0.1); color: var(--accent2); border: 1px solid rgba(66,245,167,0.2); }
+  .tag-mobility { background: rgba(66,133,245,0.1); color: #7ab3f5; border: 1px solid rgba(66,133,245,0.2); }
+  .tag-notes { background: rgba(200,200,200,0.08); color: var(--muted); border: 1px solid var(--border); }
+
+  .block-title {
+    font-weight: 600;
+    font-size: 14px;
+    flex: 1;
+  }
+
+  .block-toggle {
+    color: var(--muted);
+    font-size: 18px;
+    transition: transform 0.2s;
+  }
+
+  .block-header.open .block-toggle { transform: rotate(180deg); }
+
+  .block-body {
+    display: none;
+    padding: 20px;
+  }
+
+  .block-body.open { display: block; }
+
+  /* EXERCISE TABLE */
+  .ex-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+
+  .ex-table th {
+    text-align: left;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    padding: 0 12px 10px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .ex-table td {
+    padding: 10px 12px;
+    vertical-align: top;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .ex-table tr:last-child td { border-bottom: none; }
+
+  .ex-name {
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .ex-focus {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+
+  .ex-sets {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .ex-weight {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent3);
+  }
+
+  .ex-notes {
+    font-size: 12px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* YOUTUBE LINK */
+  .yt-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    background: rgba(255,60,60,0.10);
+    border: 1px solid rgba(255,60,60,0.22);
+    color: #ff7070;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+    white-space: nowrap;
+  }
+  .yt-btn:hover {
+    background: rgba(255,60,60,0.22);
+    color: #ffaaaa;
+  }
+  .yt-btn svg { flex-shrink: 0; }
+
+  /* STRETCH LIST */
+  .stretch-list {
+    list-style: none;
+    display: grid;
+    gap: 8px;
+  }
+
+  .stretch-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .stretch-list li::before {
+    content: '→';
+    color: var(--accent2);
+    flex-shrink: 0;
+    font-family: 'DM Mono', monospace;
+    margin-top: 1px;
+  }
+
+  .stretch-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-left: auto;
+    white-space: nowrap;
+    padding-left: 12px;
+  }
+
+  .stretch-yt {
+    margin-left: 8px;
+    flex-shrink: 0;
+  }
+
+  /* PROGRESSION BOX */
+  .progression-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .prog-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 14px 16px;
+  }
+
+  .prog-week {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    color: var(--accent);
+    letter-spacing: 1px;
+  }
+
+  .prog-desc {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+
+  /* OVERVIEW */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+
+  .overview-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 20px;
+  }
+
+  .overview-card h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1px;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .overview-card p, .overview-card li {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .overview-card ul { list-style: none; }
+  .overview-card li::before { content: '• '; color: var(--accent); }
+
+  /* WEEK SCHEDULE */
+  .week-row {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 4px;
+    margin-bottom: 4px;
+    align-items: center;
+  }
+
+  .week-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+  }
+
+  .day-cell {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 6px 8px;
+    font-size: 11px;
+    text-align: center;
+  }
+
+  .day-cell.train { border-color: rgba(200,245,66,0.3); color: var(--accent); background: rgba(200,245,66,0.05); }
+  .day-cell.rest { border-color: rgba(66,245,167,0.3); color: var(--accent2); background: rgba(66,245,167,0.05); }
+  .day-cell.off { color: var(--muted); }
+
+  .day-header-cell {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    padding: 4px;
+    letter-spacing: 1px;
+  }
+
+  /* NOTE BOX */
+  .note-box {
+    background: rgba(200,245,66,0.04);
+    border: 1px solid rgba(200,245,66,0.15);
+    border-radius: 6px;
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+
+  .note-box strong { color: var(--accent); }
+
+  /* SCROLL HINT */
+  @media (max-width: 768px) {
+    main { grid-template-columns: 1fr; }
+    .day-sidebar { 
+      display: flex; 
+      overflow-x: auto; 
+      border-right: none; 
+      border-bottom: 1px solid var(--border);
+      padding: 12px 0;
+    }
+    .day-btn { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
+    .day-btn.active { border-left-color: transparent; border-bottom-color: var(--accent); }
+    .content { padding: 20px; }
+    header { padding: 28px 20px 20px; }
+    .phase-btn { padding: 14px 18px; }
+  }
+
+  .highlight-row td { background: rgba(200,245,66,0.03); }
+
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+
+  /* ======= CALENDAR ======= */
+  .cal-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cal-nav-btn {
+    background: var(--card); border: 1px solid var(--border); color: var(--text);
+    border-radius: 6px; padding: 8px 14px; font-size: 18px; cursor: pointer;
+    transition: background .15s;
+  }
+  .cal-nav-btn:hover { background: var(--border); }
+  .cal-month-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: var(--accent);
+  }
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-bottom: 20px;
+  }
+  .cal-dow {
+    text-align: center; font-family: 'DM Mono', monospace; font-size: 10px;
+    color: var(--muted); letter-spacing: 1px; padding: 4px 0;
+  }
+  .cal-day {
+    background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+    min-height: 58px; padding: 6px; cursor: pointer; transition: border-color .15s;
+    position: relative;
+  }
+  .cal-day:hover { border-color: var(--accent); }
+  .cal-day.empty { background: transparent; border-color: transparent; cursor: default; }
+  .cal-day.today { border-color: var(--accent); background: rgba(200,245,66,0.05); }
+  .cal-day.has-training { border-color: rgba(200,245,66,0.4); }
+  .cal-day.has-mobility { border-color: rgba(66,245,167,0.4); }
+  .cal-day.done { background: rgba(200,245,66,0.07); }
+  .cal-day-num {
+    font-family: 'DM Mono', monospace; font-size: 12px; color: var(--muted);
+  }
+  .cal-day.today .cal-day-num { color: var(--accent); font-weight: 600; }
+  .cal-day-pill {
+    font-size: 9px; font-family: 'DM Mono', monospace; letter-spacing: 0.5px;
+    border-radius: 3px; padding: 2px 5px; margin-top: 3px; display: inline-block;
+  }
+  .pill-train { background: rgba(200,245,66,0.15); color: var(--accent); }
+  .pill-mobility { background: rgba(66,245,167,0.12); color: var(--accent2); }
+  .pill-rest { background: rgba(255,255,255,0.05); color: var(--muted); }
+  .pill-done { background: rgba(200,245,66,0.25); color: #0d0f0e; }
+  .cal-done-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+    position: absolute; top: 6px; right: 6px;
+  }
+
+  /* day modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+    z-index: 500; align-items: flex-end; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-sheet {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 16px 16px 0 0; width: 100%; max-width: 600px;
+    padding: 24px 20px 40px; max-height: 80vh; overflow-y: auto;
+  }
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px;
+    color: var(--accent); margin-bottom: 4px;
+  }
+  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+  .modal-close {
+    float: right; background: none; border: none; color: var(--muted);
+    font-size: 24px; cursor: pointer; margin-top: -4px;
+  }
+  .modal-btn {
+    display: block; width: 100%; padding: 13px; border-radius: 8px;
+    font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px;
+    cursor: pointer; margin-bottom: 10px; transition: opacity .15s;
+  }
+  .modal-btn:hover { opacity: .85; }
+  .btn-primary { background: var(--accent); color: #0d0f0e; border: none; }
+  .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+  .btn-danger { background: rgba(245,66,66,0.12); color: #ff7070; border: 1px solid rgba(245,66,66,0.25); }
+
+  /* schedule strip */
+  .sched-strip {
+    display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px;
+    scrollbar-width: none;
+  }
+  .sched-strip::-webkit-scrollbar { display: none; }
+  .sched-card {
+    flex-shrink: 0; background: var(--card); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px; min-width: 110px; cursor: pointer;
+    transition: border-color .15s;
+  }
+  .sched-card:hover { border-color: var(--accent); }
+  .sched-card.today-card { border-color: var(--accent); background: rgba(200,245,66,0.06); }
+  .sched-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); }
+  .sched-label { font-weight:600; font-size:13px; margin-top:4px; }
+  .sched-type { font-size:11px; color:var(--muted); margin-top:2px; }
+
+  /* ======= TRACKER ======= */
+  .tracker-ex-list { display: grid; gap: 10px; margin-bottom: 20px; }
+  .tracker-ex-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px;
+  }
+  .tracker-ex-name { font-weight: 600; font-size: 14px; margin-bottom: 10px; }
+  .tracker-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .tracker-input-group { display: flex; flex-direction: column; gap: 4px; }
+  .tracker-input-label {
+    font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1px;
+  }
+  .tracker-input {
+    background: var(--surface); border: 1px solid var(--border); color: var(--text);
+    border-radius: 5px; padding: 8px 10px; font-size: 14px; font-family: 'DM Sans', sans-serif;
+    width: 100%;
+  }
+  .tracker-input:focus { outline: none; border-color: var(--accent); }
+  select.tracker-input option { background: var(--surface); color: var(--text); }
+  .save-btn {
+    background: var(--accent); color: #0d0f0e; border: none; border-radius: 8px;
+    padding: 14px; font-weight: 700; font-size: 15px; width: 100%; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: opacity .15s;
+  }
+  .save-btn:hover { opacity: .85; }
+
+  /* charts */
+  .chart-select-row {
+    display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .chart-ex-btn {
+    background: var(--card); border: 1px solid var(--border); color: var(--muted);
+    border-radius: 5px; padding: 6px 12px; font-size: 12px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; transition: all .15s; white-space: nowrap;
+  }
+  .chart-ex-btn.active { background: rgba(200,245,66,0.1); border-color: var(--accent); color: var(--accent); }
+  .chart-wrap {
+    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
+    padding: 16px; margin-bottom: 16px;
+  }
+  .chart-title {
+    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
+    letter-spacing: 1px; margin-bottom: 12px;
+  }
+  canvas.prog-chart { width: 100% !important; }
+  .history-list { display: grid; gap: 6px; }
+  .history-row {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--card); border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px 14px; font-size: 13px;
+  }
+  .history-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
+  .history-val { font-family: 'DM Mono', monospace; color: var(--accent); }
+  .history-del { background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; }
+  .empty-state {
+    text-align: center; padding: 40px 20px; color: var(--muted); font-size: 13px; line-height: 2;
+  }
+  .empty-state .big { font-size: 36px; }
+
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-label">Program treningowy / Kettlebell</div>
+  <h1>IRON<span>BELL</span><br>PROTOCOL</h1>
+  <p class="header-sub">
+    4 dni treningowe · Nacisk na plecy, szyję, łopatki i klatkę piersiową · Progresja liniowo-falowa · Mobility w dni odpoczynku
+  </p>
+  <div class="kb-badges">
+    <span class="kb-badge">4 kg</span>
+    <span class="kb-badge">6 kg</span>
+    <span class="kb-badge">8 kg</span>
+    <span class="kb-badge">12 kg</span>
+    <span class="kb-badge">16 kg</span>
+  </div>
+</header>
+
+<!-- PHASE NAV -->
+<nav class="phase-nav">
+  <button class="phase-btn active" onclick="switchPhase('overview')">Przegląd</button>
+  <button class="phase-btn" onclick="switchPhase('phase1')">Faza 1 — Rozruch (4 tyg.)</button>
+  <button class="phase-btn" onclick="switchPhase('phase2')">Faza 2 — Program Docelowy</button>
+  <button class="phase-btn" onclick="switchPhase('mobility')">Mobility (dni rest)</button>
+  <button class="phase-btn" onclick="switchPhase('tracker')">📊 Progresja</button>
+  <button class="phase-btn" onclick="switchPhase('calendar')">📅 Kalendarz</button>
+</nav>
+
+<!-- MAIN CONTENT AREA -->
+<main>
+
+  <!-- SIDEBAR — days (shown only in training phases) -->
+  <aside class="day-sidebar" id="daySidebar">
+    <!-- content injected by JS -->
+  </aside>
+
+  <!-- CONTENT PANELS -->
+  <div class="content">
+
+    <!-- =================== OVERVIEW =================== -->
+    <div class="phase-panel active" id="panel-overview">
+      <div class="section-title">Jak działa ten program</div>
+
+      <div class="overview-grid">
+        <div class="overview-card">
+          <h3>Struktura tygodnia</h3>
+          <p>4 dni treningowe z kettlebell + 3 dni mobility/odpoczynku. Zalecany schemat:</p>
+          <br>
+          <ul>
+            <li><strong style="color:var(--accent)">Pn</strong> — Trening A (Plecy + Pull)</li>
+            <li><strong style="color:var(--accent)">Wt</strong> — Trening B (Klatka + Push)</li>
+            <li><strong style="color:var(--accent2)">Śr</strong> — Mobility REST</li>
+            <li><strong style="color:var(--accent)">Cz</strong> — Trening C (Plecy — siła)</li>
+            <li><strong style="color:var(--accent)">Pt</strong> — Trening D (Full body)</li>
+            <li><strong style="color:var(--accent2)">Sb</strong> — Mobility REST</li>
+            <li><strong style="color:var(--accent2)">Nd</strong> — REST aktywny / mobility</li>
+          </ul>
+        </div>
+
+        <div class="overview-card">
+          <h3>Filozofia programu</h3>
+          <ul>
+            <li>Faza 1 to nauka wzorców ruchu i adaptacja stawów</li>
+            <li>Faza 2 to progresja — więcej objętości i ciężaru</li>
+            <li>Plecy (szyja, łopatki) w każdej sesji treningowej</li>
+            <li>Klatka piersiowa ćwiczona funkcjonalnie (push patterns)</li>
+            <li>Mobility 3×/tydzień poprawia zakres ruchu i regenerację</li>
+          </ul>
+        </div>
+
+        <div class="overview-card">
+          <h3>Dobór ciężaru</h3>
+          <ul>
+            <li>Ciężar powinien być wyzwaniem, ale technika > wszystko</li>
+            <li>Zaczynaj od niższego ciężaru niż myślisz</li>
+            <li>RPE 6-7 w Fazie 1, RPE 7-8 w Fazie 2</li>
+            <li>Kiedy ostatnia seria jest łatwa — idź wyżej</li>
+          </ul>
+        </div>
+
+        <div class="overview-card">
+          <h3>Skróty w tabelach</h3>
+          <ul>
+            <li><strong style="color:var(--accent)">ALAC</strong> — alternujące ręce co cast</li>
+            <li><strong style="color:var(--accent)">TGU</strong> — Turkish Get-Up</li>
+            <li><strong style="color:var(--accent)">RPE</strong> — subiektywny wysiłek 1-10</li>
+            <li><strong style="color:var(--accent)">sec</strong> — sekundy izometrii</li>
+            <li><strong style="color:var(--accent)">e/s</strong> — each side (każda strona)</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-title">Harmonogram tygodniowy</div>
+
+      <div style="overflow-x:auto">
+        <div class="week-row">
+          <div class="week-label"></div>
+          <div class="day-header-cell">Pon</div>
+          <div class="day-header-cell">Wt</div>
+          <div class="day-header-cell">Śr</div>
+          <div class="day-header-cell">Czw</div>
+          <div class="day-header-cell">Pt</div>
+          <div class="day-header-cell">Sob</div>
+          <div class="day-header-cell">Nd</div>
+        </div>
+        <div class="week-row">
+          <div class="week-label">Faza 1</div>
+          <div class="day-cell train">Trening A</div>
+          <div class="day-cell train">Trening B</div>
+          <div class="day-cell rest">Mobility</div>
+          <div class="day-cell train">Trening C</div>
+          <div class="day-cell train">Trening D</div>
+          <div class="day-cell rest">Mobility</div>
+          <div class="day-cell rest">Mobility</div>
+        </div>
+        <div class="week-row">
+          <div class="week-label">Faza 2</div>
+          <div class="day-cell train">Trening A</div>
+          <div class="day-cell train">Trening B</div>
+          <div class="day-cell rest">Mobility</div>
+          <div class="day-cell train">Trening C</div>
+          <div class="day-cell train">Trening D</div>
+          <div class="day-cell rest">Mobility</div>
+          <div class="day-cell rest">Mobility</div>
+        </div>
+      </div>
+
+      <div class="note-box">
+        <strong>Wskazówka:</strong> Pn + Wt = treningi, Śr = mobility, Cz + Pt = treningi, Sb + Nd = odpoczynek/mobility. Jeśli musisz przesunąć dzień — zachowaj przynajmniej 1 dzień przerwy między Treningiem B a C.
+      </div>
+    </div>
+
+    <!-- =================== PHASE 1 =================== -->
+    <div class="phase-panel" id="panel-phase1">
+      <div id="days-phase1"></div>
+    </div>
+
+    <!-- =================== PHASE 2 =================== -->
+    <div class="phase-panel" id="panel-phase2">
+      <div id="days-phase2"></div>
+    </div>
+
+    <!-- =================== MOBILITY =================== -->
+    <div class="phase-panel" id="panel-mobility">
+      <div id="mobility-content"></div>
+    </div>
+
+    <!-- =================== CALENDAR =================== -->
+    <div class="phase-panel" id="panel-calendar">
+      <div id="calendar-content"></div>
+    </div>
+
+    <!-- =================== TRACKER =================== -->
+    <div class="phase-panel" id="panel-tracker">
+      <div id="tracker-content"></div>
+    </div>
+  </div>
+</main>
+
+<script>
+// ==========================================
+//  DATA
+// ==========================================
+
+// phase1Days and phase2Days are built lazily after all functions are defined
+let phase1Days, phase2Days;
+
+// ==========================================
+//  BUILDERS — PHASE 1
+// ==========================================
+
+// ==========================================
+//  YOUTUBE QUERY MAP
+//  key = fragment nazwy ćwiczenia (lowercase)
+//  value = query wyszukiwania YouTube
+// ==========================================
+const YT = {
+  // KETTLEBELL MAIN
+  'kb deadlift (dwuręczny)':        'kettlebell deadlift two hand tutorial',
+  'kb deadlift z pauzą':            'kettlebell deadlift pause tutorial',
+  'kb deadlift (ciężki)':           'kettlebell deadlift heavy tutorial',
+  'kb bent-over row (jedna ręka)':  'kettlebell single arm bent over row tutorial',
+  'kb bent-over row (jedna ręka) — tempo': 'kettlebell single arm row tempo tutorial',
+  'kb halo':                        'kettlebell halo exercise tutorial',
+  'kb halo lekki':                  'kettlebell halo exercise tutorial',
+  'kb halo (6kg)':                  'kettlebell halo exercise tutorial',
+  'kb floor press (jedna ręka)':    'kettlebell single arm floor press tutorial',
+  'kb floor press (dwuręczny)':     'kettlebell double floor press tutorial',
+  'kb floor press (jedna ręka) — tempo': 'kettlebell floor press tempo technique',
+  'farmer carry (jedna ręka)':     'single arm farmer carry kettlebell tutorial',
+  'kb floor press (obie ręce na jednym kb)': 'kettlebell two hand floor press tutorial',
+  'kb deadlift (obie ręce na jednym kb)': 'kettlebell two hand deadlift tutorial',
+  'kb deadlift (obie ręce na jednym kb) — ciężki': 'kettlebell deadlift heavy tutorial',
+  'kb swing (obie ręce na jednym kb)': 'kettlebell two hand swing tutorial',
+  'a1. kb swing (obie ręce)':       'kettlebell two hand swing tutorial',
+  'kb scapular shrug':              'scapular shrug exercise tutorial kettlebell',
+  'kb swing dwuręczny':             'kettlebell two hand swing tutorial',
+  'kb swing (jedna ręka)':         'kettlebell one arm swing tutorial',
+  'kb swing (jedna ręka) — serie siłowe': 'kettlebell one arm swing power tutorial',
+  'kb swing (dwuręczny)':           'kettlebell two hand swing tutorial',
+  'kb high pull':                   'kettlebell high pull tutorial',
+  'kb high pull → press (combo)':   'kettlebell high pull to press combo tutorial',
+  'kb gorilla row':                 'kettlebell gorilla row tutorial',
+  'kb suitcase deadlift':           'kettlebell suitcase deadlift tutorial',
+  'kb suitcase carry + overhead':   'kettlebell suitcase carry overhead tutorial',
+  'prone y-t-w (bez ciężaru)':      'prone YTW exercise scapula tutorial',
+  'kb press overhead (jedna ręka)': 'kettlebell single arm overhead press tutorial',
+  'kb chest fly (podłoga)':         'kettlebell chest fly floor tutorial',
+  'kb push-up hold — hands on kb':  'push up on kettlebell scapular stability tutorial',
+  'kb pull-over (w leżeniu)':       'kettlebell pullover lying tutorial',
+  'kb renegade row':                'kettlebell renegade row tutorial',
+  'kb goblet squat':                'kettlebell goblet squat tutorial',
+  'kb single arm press':            'kettlebell single arm press tutorial',
+  'kb swing (jedna ręka, alac)':   'kettlebell hand to hand swing tutorial',
+  'kb tgu (turkish get-up)':        'kettlebell turkish get up tutorial',
+  'tgu (turkish get-up)':           'kettlebell turkish get up tutorial',
+  'tgu (skrócony — do pozycji łuku)': 'kettlebell turkish get up half tutorial',
+  'kb lateral raise (obie ręce)':   'kettlebell lateral raise tutorial',
+  'kb windmill':                    'kettlebell windmill tutorial',
+  'kb romanian deadlift (1-noga)':  'kettlebell single leg romanian deadlift tutorial',
+  'kb clean':                       'kettlebell clean tutorial',
+  'kb arnold-style press (rotacja)':'kettlebell arnold press tutorial',
+  'kb bottoms-up press':            'kettlebell bottoms up press tutorial',
+  'kb chest fly + pull-over (superset)': 'kettlebell chest fly pullover superset tutorial',
+  'kb push-up (ręce na kb)':        'push up on kettlebell tutorial',
+  'kb press overhead (jedna ręka)': 'kettlebell single arm overhead press tutorial',
+  'scapular push-up (leżenie przodem)': 'scapular push up prone serratus tutorial',
+  'izometria szyi — 4 kierunki':     'neck isometric exercises tutorial',
+  // COMBO / PHASE 2
+  'a1. kb swing (dwuręczny)':       'kettlebell two hand swing tutorial',
+  'a2. kb floor press':             'kettlebell floor press tutorial',
+  'a3. kb row (bent-over)':         'kettlebell bent over row tutorial',
+  'a4. goblet squat':               'kettlebell goblet squat tutorial',
+  'b1. kb clean + press (combo)':   'kettlebell clean and press combo tutorial',
+  'b2. kb windmill':                'kettlebell windmill tutorial',
+  'b3. kb halo':                    'kettlebell halo exercise tutorial',
+  'b4. tgu (skrócony — do pozycji łuku)': 'kettlebell turkish get up half tutorial',
+  // WARMUP / BODYWEIGHT
+  'cat-cow':                        'cat cow stretch spine tutorial',
+  'cat-cow z zatrzymaniami':        'cat cow breathing exercise tutorial',
+  'thoracic rotation':              'thoracic rotation exercise tutorial',
+  'wall angels':                    'wall angels exercise tutorial',
+  'wall angels pogłębione':         'wall angels full range tutorial',
+  'scapular push-up':               'scapular push up serratus tutorial',
+  'band pull-apart':                'band pull apart exercise tutorial',
+  'bird-dog':                       'bird dog exercise tutorial',
+  'bird-dog z kb hold':             'bird dog exercise tutorial',
+  'glute bridge':                   'glute bridge exercise tutorial',
+  'dead bug':                       'dead bug exercise tutorial',
+  'dead bug pogłębiony':            'dead bug exercise advanced tutorial',
+  "world's greatest stretch":       'worlds greatest stretch tutorial',
+  'inchworm walk-out':              'inchworm exercise tutorial',
+  'inchworm z push-up':             'inchworm push up combo tutorial',
+  'push-up plus':                   'push up plus serratus activation tutorial',
+  'wall slide':                     'wall slide scapular exercise tutorial',
+  'arm circles':                    'arm circles warmup shoulder',
+  'thoracic extension':             'thoracic extension foam roller tutorial',
+  'thoracic extension na wałku':    'thoracic extension foam roller tutorial',
+  'quadruped shoulder cars':        'shoulder CARs controlled articular rotation tutorial',
+  'serratus punch':                 'serratus punch activation tutorial',
+  'hip hinge z kettlebell':         'hip hinge pattern kettlebell tutorial',
+  'squat to stand':                 'squat to stand hip hinge mobility',
+  'lunge + twist tułowia':          'lunge with thoracic rotation tutorial',
+  'hip circle':                     'hip circles mobility warmup',
+  'scapular cars':                  'scapular CARs controlled articular rotation tutorial',
+  'scapular cars w klęku':          'scapular CARs controlled articular rotation tutorial',
+  'kb complex rozgrzewkowy':        'kettlebell complex warmup tutorial',
+  'thoracic cars stojąc':           'thoracic CARs rotation tutorial',
+  // STRETCHES / COOLDOWN
+  'doorway stretch':                'doorway pec stretch tutorial',
+  'doorway pec stretch':            'doorway pec stretch tutorial',
+  'doorway lat stretch':            'doorway lat stretch tutorial',
+  'thread the needle':              'thread the needle stretch thoracic tutorial',
+  "child's pose z rozciągniętymi":  'childs pose lat stretch tutorial',
+  "child's pose z ruchomymi":       'childs pose lat stretch tutorial',
+  'neck side stretch':              'neck side stretch tutorial',
+  'levator scapulae stretch':       'levator scapulae stretch tutorial',
+  'levator scapulae + upper trap':  'levator scapulae upper trap stretch tutorial',
+  'foam roll':                      'foam rolling back tutorial',
+  'cross-body shoulder stretch':    'cross body shoulder stretch tutorial',
+  'overhead triceps stretch':       'overhead triceps stretch tutorial',
+  'prone chest opener':             'prone chest stretch tutorial',
+  'rotacja piersiowa w klęku':      'quadruped thoracic rotation tutorial',
+  'supine knee-to-chest':           'supine knee to chest stretch tutorial',
+  'pigeon pose':                    'pigeon pose hip stretch tutorial',
+  'seated forward fold':            'seated forward fold hamstring stretch tutorial',
+  'upper trap stretch':             'upper trapezius stretch tutorial',
+  'neck rotation':                  'neck rotation mobility exercise',
+  'standing quad stretch':          'standing quad stretch tutorial',
+  'hip flexor lunge stretch':       'hip flexor lunge stretch tutorial',
+  'lunge hip flexor stretch':       'hip flexor lunge stretch tutorial',
+  'figure-4 stretch':               'figure 4 piriformis stretch tutorial',
+  'lying spinal twist':             'supine spinal twist stretch tutorial',
+  'supine hamstring stretch':       'supine hamstring stretch tutorial',
+  '90/90 hip stretch':              '90 90 hip stretch tutorial',
+  'thoracic rotation leżąc':        'thoracic rotation lying down stretch',
+  'standing forward fold':          'standing forward fold hamstring stretch',
+  'sleeper stretch':                'sleeper stretch posterior capsule shoulder',
+  'suboccipital release':           'suboccipital release technique tutorial',
+  'happy baby pose':                'happy baby yoga pose tutorial',
+  'supine spinal twist':            'supine spinal twist yoga stretch',
+  'savasana':                       'savasana relaxation technique',
+  // MOBILITY SPECIFIC
+  '90-90 breathing':                '90 90 breathing postural restoration tutorial',
+  'box breathing':                  'box breathing technique tutorial',
+  'supine dead bug':                'dead bug breathing activation tutorial',
+  '90/90 hip sit':                  '90 90 hip sit mobility tutorial',
+  'kneeling hip flexor stretch':    'kneeling hip flexor posterior tilt stretch',
+  'deep squat hold':                'deep squat hold mobility tutorial',
+  'hip cars':                       'hip CARs controlled articular rotation tutorial',
+  'frog stretch':                   'frog stretch hip mobility tutorial',
+  'side-lying rotation':            'side lying thoracic rotation tutorial',
+  'pallof press':                   'pallof press core stability tutorial',
+  'mcgill side plank':              'McGill side plank tutorial',
+  'open book':                      'open book thoracic rotation stretch tutorial',
+  'thoracic cars stojąc':           'thoracic CARs rotation tutorial',
+  'quadruped thread the needle':    'thread the needle stretch tutorial',
+  'shoulder cars':                  'shoulder CARs rotation tutorial',
+  'neck cars':                      'neck CARs cervical rotation tutorial',
+  'prone neck lift':                'prone neck lift deep cervical flexors',
+  'sternocleidomastoid stretch':    'sternocleidomastoid SCM stretch tutorial',
+};
+
+function ytIcon() {
+  return `<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.49 3.5 12 3.5 12 3.5s-7.49 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.09 0 12 0 12s0 3.91.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.51 20.5 12 20.5 12 20.5s7.49 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.91 24 12 24 12s0-3.91-.5-5.81zM9.75 15.5V8.5l6.25 3.5-6.25 3.5z"/></svg>`;
+}
+
+function ytUrl(name) {
+  const key = name.toLowerCase().replace(/\s+/g, ' ').trim();
+  // try exact match
+  if (YT[key]) return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(YT[key]);
+  // try partial match
+  for (const k of Object.keys(YT)) {
+    if (key.includes(k) || k.includes(key)) {
+      return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(YT[k]);
+    }
+  }
+  // fallback: search by name
+  const cleaned = name.replace(/[()–—→×]/g, ' ').replace(/\s+/g,' ').trim();
+  return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(cleaned + ' tutorial');
+}
+
+function ytLink(name) {
+  return `<a class="yt-btn" href="${ytUrl(name)}" target="_blank" rel="noopener">${ytIcon()} YT</a>`;
+}
+
+function exTable(rows) {
+  return `<table class="ex-table">
+    <thead><tr>
+      <th style="width:36%">Ćwiczenie</th>
+      <th>Serie × Powt.</th>
+      <th>Ciężar</th>
+      <th>Uwagi</th>
+    </tr></thead>
+    <tbody>
+      ${rows.map(r => `<tr ${r.highlight?'class="highlight-row"':''}>
+        <td>
+          <div class="ex-name">${r.name}</div>
+          <div class="ex-focus">${r.focus||''}</div>
+          ${ytLink(r.name)}
+        </td>
+        <td><span class="ex-sets">${r.sets}</span></td>
+        <td><span class="ex-weight">${r.weight}</span></td>
+        <td><span class="ex-notes">${r.notes||''}</span></td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
+function stretchList(items) {
+  return `<ul class="stretch-list">${items.map(i => {
+    // extract first word-group as exercise name for YT
+    const exName = i.name.split('—')[0].split('(')[0].split('×')[0].trim();
+    return `<li>
+      <span>${i.name}</span>
+      <span style="display:flex;align-items:center;gap:6px;margin-left:auto;flex-shrink:0;padding-left:12px">
+        <a class="yt-btn" href="${ytUrl(exName)}" target="_blank" rel="noopener">${ytIcon()} YT</a>
+        <span class="stretch-time" style="margin-left:0;padding-left:0">${i.time}</span>
+      </span>
+    </li>`;
+  }).join('')}</ul>`;
+}
+
+function block(tag, title, bodyHtml, defaultOpen=false) {
+  const tagClass = `tag-${tag}`;
+  const tagLabels = { warmup:'ROZGRZEWKA', main:'TRENING GŁÓWNY', cooldown:'COOLDOWN', mobility:'MOBILITY', notes:'UWAGI' };
+  return `
+  <div class="block">
+    <div class="block-header ${defaultOpen?'open':''}" onclick="toggleBlock(this)">
+      <span class="block-tag ${tagClass}">${tagLabels[tag]||tag.toUpperCase()}</span>
+      <span class="block-title">${title}</span>
+      <span class="block-toggle">▾</span>
+    </div>
+    <div class="block-body ${defaultOpen?'open':''}">
+      ${bodyHtml}
+    </div>
+  </div>`;
+}
+
+function dayTitle(title, subtitle, duration) {
+  return `<div style="margin-bottom:24px">
+    <div class="header-label">${subtitle}</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;line-height:1">${title}</div>
+    <div style="color:var(--muted);font-size:12px;font-family:'DM Mono',monospace;margin-top:6px">⏱ ${duration}</div>
+  </div>`;
+}
+
+function buildP1A() {
+  return dayTitle('TRENING A', 'FAZA 1 / PLECY + PULL', '~45–50 min') +
+  block('warmup', 'Rozgrzewka ogólna + aktywacja łopatek', `
+    ${stretchList([
+      {name:'Marsz w miejscu z wymachami ramion (przód–tył, koła)', time:'2 min'},
+      {name:'Cat-Cow — płynne falowanie kręgosłupem', time:'10 powt.'},
+      {name:'Thoracic rotation — na czworaka, ręka za głową', time:'8e/s'},
+      {name:'Wall Angels — plecy do ściany, ślizganie ramion', time:'12 powt.'},
+      {name:'Band Pull-Apart (zastąp: kettlebell hold 4kg, opór rąk)', time:'15 powt.'},
+      {name:'Scapular push-up — aktywacja dolnych trapezów', time:'10 powt.'},
+    ])}
+  `, true) +
+  block('main', 'Trening główny', `
+    ${exTable([
+      {name:'KB Deadlift (obie ręce na jednym KB)', focus:'Plecy dolne, hamstrings — nauka pozycji', sets:'3×8', weight:'12–16kg', notes:'Obie dłonie na rączce, plecy proste, broda wysunięta'},
+      {name:'KB Bent-Over Row (jedna ręka)', focus:'Środkowa część pleców, tylny deltoid', sets:'3×8 e/s', weight:'8–12kg', notes:'Łokieć prowadzi ruch, ściągaj łopatkę'},
+      {name:'KB Halo', focus:'Łopatki, stożek rotatorów, szyja', sets:'3×8 e/s', weight:'6–8kg', notes:'Powoli, nie kompensuj tułowiem'},
+      {name:'KB Floor Press (jedna ręka)', focus:'Klatka, stożek rotatorów', sets:'3×8 e/s', weight:'8–12kg', notes:'Łokieć 45° od tułowia'},
+      {name:'Farmer Carry (jedna ręka)', focus:'Trapezy, stabilizacja pleców, antyrotacja', sets:'3×20m e/s', weight:'12–16kg', notes:'KB zwisa przy nodze, barki poziomo — nie przechylaj się'},
+      {highlight:true, name:'KB Scapular Shrug (unoszenie łopatek)', focus:'Dolne trapezy, serratus anterior', sets:'3×12', weight:'8–12kg', notes:'Tylko ruch łopatki — bez zginania łokcia'},
+    ])}
+  `, true) +
+  block('cooldown', 'Cooldown — rozciąganie pracujących partii', `
+    ${stretchList([
+      {name:'Doorway stretch (klatka / pec minor)', time:'2×30 sek'},
+      {name:'Thread the Needle — rotacja piersiowa w leżeniu', time:'45 sek e/s'},
+      {name:'Child\'s Pose z rozciągniętymi ramionami — lat stretch', time:'60 sek'},
+      {name:'Neck side stretch — szyja na bok, ręka na głowie', time:'30 sek e/s'},
+      {name:'Levator scapulae stretch — głowa w dół-na bok-do przodu', time:'30 sek e/s'},
+      {name:'Foam roll / piłka na rhomboids i środkowych trapezach', time:'2 min'},
+    ])}
+  `, true);
+}
+
+function buildP1B() {
+  return dayTitle('TRENING B', 'FAZA 1 / KLATKA + PUSH', '~45–50 min') +
+  block('warmup', 'Rozgrzewka — mobilność klatki i barków', `
+    ${stretchList([
+      {name:'Arm circles — rosnące koła ramieniem', time:'20 każde'},
+      {name:'Thoracic extension na wałku / podłodze', time:'10 powt.'},
+      {name:'Quadruped shoulder CARs (kółka ramieniem)', time:'5 e/s'},
+      {name:'Inchworm walk-out', time:'5 powt.'},
+      {name:'Push-up plus (plus protraction)', time:'10 powt.'},
+      {name:'Wall slide — ściskanie łopatek przy ścianie', time:'12 powt.'},
+    ])}
+  `, true) +
+  block('main', 'Trening główny', `
+    ${exTable([
+      {name:'KB Floor Press (obie ręce na jednym KB)', focus:'Klatka, triceps — nauka wzorca push', sets:'3×10', weight:'8–12kg', notes:'Obie dłonie na jednej rączce, przerwa 1 sek na dole'},
+      {name:'KB Press overhead (jedna ręka)', focus:'Barki, górna klatka, trapezy', sets:'3×8 e/s', weight:'8–12kg', notes:'Napnij core, broda cofnięta'},
+      {name:'KB Chest Fly (podłoga)', focus:'Pec major — stretch i kontrakcja', sets:'3×10', weight:'6–8kg', notes:'Łokcie lekko ugięte przez cały czas'},
+      {name:'KB Push-up hold — hands on KB', focus:'Stabilność łopatek + pec', sets:'3×8', weight:'2× 8–12kg', notes:'Ściskaj rączki — serratus aktywny'},
+      {name:'KB Pull-over (w leżeniu)', focus:'Klatka dolna, lat, serratus', sets:'3×10', weight:'8–12kg', notes:'Trzymaj plecy płasko przy podłodze'},
+      {highlight:true, name:'KB Renegade Row', focus:'Stabilizacja łopatek + plecy + core', sets:'3×6 e/s', weight:'8–12kg', notes:'Minimalne obracanie bioder'},
+    ])}
+  `, true) +
+  block('cooldown', 'Cooldown — rozciąganie klatki i barków', `
+    ${stretchList([
+      {name:'Doorway pec stretch (oba kąty — nisko i wysoko)', time:'30 sek e/s ×2'},
+      {name:'Cross-body shoulder stretch', time:'30 sek e/s'},
+      {name:'Overhead triceps stretch', time:'30 sek e/s'},
+      {name:'Prone chest opener (sphinx + głowa uniesiona)', time:'60 sek'},
+      {name:'Rotacja piersiowa w klęku podpartym', time:'30 sek e/s'},
+      {name:'Foam roll klatka piersiowa — wzdłuż kręgosłupa', time:'2 min'},
+    ])}
+  `, true);
+}
+
+function buildP1C() {
+  return dayTitle('TRENING C', 'FAZA 1 / PLECY — SIŁA', '~45–50 min') +
+  block('warmup', 'Rozgrzewka — aktywacja głębokich stabilizatorów pleców', `
+    ${stretchList([
+      {name:'Bird-Dog (naprzemienny) — powoli', time:'10 e/s'},
+      {name:'Glute bridge — aktywacja pośladków i LS', time:'15 powt.'},
+      {name:'Dead bug — oddychanie + stabilizacja', time:'8 e/s'},
+      {name:'World\'s Greatest Stretch — 1 powtórzenie wolno', time:'5 e/s'},
+      {name:'KB Halo lekki (4kg)', time:'5 e/s'},
+    ])}
+  `, true) +
+  block('main', 'Trening główny', `
+    ${exTable([
+      {name:'KB Romanian Deadlift (1-noga)', focus:'Hamstrings, plecy dolne, stabilizacja', sets:'3×6 e/s', weight:'8–12kg', notes:'Powoli na dół (3 sek), napięty core'},
+      {name:'KB Swing (obie ręce na jednym KB)', focus:'Cały łańcuch tylny — siła', sets:'4×12', weight:'12–16kg', notes:'Obie dłonie na rączce, napnij glutes na górze, plecy proste'},
+      {name:'KB High Pull', focus:'Trapezy górne, tylny deltoid', sets:'3×8 e/s', weight:'8–12kg', notes:'Łokieć prowadzi — nie chwyt'},
+      {name:'KB Gorilla Row', focus:'Cały grzbiet — power', sets:'3×6 e/s', weight:'12–16kg', notes:'Naprzemienny row z kettlebell na podłodze'},
+      {name:'KB Suitcase Deadlift', focus:'Kwadraty lędźwi, boczna stabilizacja', sets:'3×8 e/s', weight:'12–16kg', notes:'Nie pochylaj się na bok — przeciwdziałaj'},
+      {highlight:true, name:'Prone Y-T-W (bez ciężaru)', focus:'Dolne trapezy, rotatory łopatki', sets:'2×8 każda litera', weight:'bez ciężaru', notes:'Napinaj plecy — nie szyję'},
+    ])}
+  `, true) +
+  block('cooldown', 'Cooldown — plecy dolne, hamstrings, trapezy', `
+    ${stretchList([
+      {name:'Supine knee-to-chest stretch obustronny', time:'60 sek'},
+      {name:'Pigeon pose / figura 4 (glutes + piriformis)', time:'60 sek e/s'},
+      {name:'Seated forward fold z prostymi nogami', time:'60 sek'},
+      {name:'Upper trap stretch — głowa na bok + ciągnięcie', time:'30 sek e/s'},
+      {name:'Neck rotation — powolna, aktywna', time:'5 e/s'},
+      {name:'Foam roll cały grzbiet (od LS do Th12)', time:'3 min'},
+    ])}
+  `, true);
+}
+
+function buildP1D() {
+  return dayTitle('TRENING D', 'FAZA 1 / FULL BODY', '~50–55 min') +
+  block('warmup', 'Rozgrzewka kompleksowa', `
+    ${stretchList([
+      {name:'Jumping jacks / wysokie kolana', time:'2 min'},
+      {name:'Hip circle / leg swing w przód-tył i bok', time:'10 e/s'},
+      {name:'Lunge + twist tułowia', time:'5 e/s'},
+      {name:'Arm swings krzyżowe i otwarte', time:'20 powt.'},
+      {name:'Squat to stand (hamstring mobilizacja)', time:'8 powt.'},
+    ])}
+  `, true) +
+  block('main', 'Trening główny', `
+    ${exTable([
+      {name:'KB Goblet Squat', focus:'Quads, glutes, core, mobilność bioder', sets:'3×10', weight:'8–12kg', notes:'Pięty na podłodze, klatka prosto'},
+      {name:'KB Single Arm Press', focus:'Barki, górna klatka, stabilizacja', sets:'3×8 e/s', weight:'8–12kg', notes:'Lekki offset – trenuj balance'},
+      {name:'KB Swing (jedna ręka, ALAC)', focus:'Cały łańcuch tylny', sets:'3×10 e/s', weight:'8–12kg', notes:'Zmiana ręki w powietrzu — zaawansowane'},
+      {name:'KB TGU (Turkish Get-Up)', focus:'Pełna integracja, szyja, łopatka, core', sets:'3×3 e/s', weight:'6–8kg', notes:'Super powoli — każda faza osobno'},
+      {name:'KB Lateral Raise (obie ręce)', focus:'Deltoid środkowy, trapezy', sets:'3×12', weight:'4–6kg', notes:'Małe ciężary — kontrola'},
+      {highlight:true, name:'KB Windmill', focus:'Łopatka, rotacja piersiowa, bok', sets:'3×5 e/s', weight:'6–8kg', notes:'Wzrok na kettlebell przez cały czas'},
+    ])}
+  `, true) +
+  block('cooldown', 'Cooldown — full body', `
+    ${stretchList([
+      {name:'Standing quad stretch', time:'30 sek e/s'},
+      {name:'Hip flexor lunge stretch z tułowiem do góry', time:'45 sek e/s'},
+      {name:'Figure-4 stretch na podłodze', time:'45 sek e/s'},
+      {name:'Doorway pec + serratus stretch', time:'30 sek'},
+      {name:'Child\'s pose z rękoma bokiem (lat stretch)', time:'60 sek e/s'},
+      {name:'Lying spinal twist', time:'45 sek e/s'},
+    ])}
+  `, true);
+}
+
+// ==========================================
+//  BUILDERS — PHASE 2
+// ==========================================
+
+function buildP2A() {
+  return dayTitle('TRENING A', 'FAZA 2 / PLECY + PULL — ZAAWANSOWANY', '~55–65 min') +
+  block('warmup', 'Aktywacja łopatko-barkowo-szyjna', `
+    ${stretchList([
+      {name:'Scapular CARs — pełne koła łopatką', time:'10 e/s'},
+      {name:'KB Halo (6kg) wolny', time:'6 e/s'},
+      {name:'Wall Angels z tarciemem', time:'15 powt.'},
+      {name:'Band / rączka pull-apart', time:'20 powt.'},
+      {name:'Prone Y-T-W bez ciężaru', time:'8 każda'},
+    ])}
+  `, true) +
+  block('main', 'Trening główny — zwiększona intensywność', `
+    ${exTable([
+      {name:'KB Swing (jedna ręka)', focus:'Cały łańcuch tylny + koordynacja', sets:'5×10 e/s', weight:'12–16kg', notes:'Maksymalna eksplozja bioder'},
+      {name:'KB Bent-Over Row (jedna ręka) — tempo 3-1-1', focus:'Grzbiet, tylne deltoidy', sets:'4×10 e/s', weight:'12–16kg', notes:'3 sek na dół, 1 sek hold, 1 góra'},
+      {name:'KB High Pull → Press (combo)', focus:'Trapezy, deltoid, górna klatka', sets:'4×6 e/s', weight:'12kg', notes:'Płynne połączenie ruchu'},
+      {name:'KB Gorilla Row', focus:'Power pleców', sets:'4×8 e/s', weight:'12–16kg', notes:'Zwiększaj tempo stopniowo'},
+      {name:'KB Renegade Row', focus:'Stabilność łopatek, plecy, core', sets:'3×8 e/s', weight:'12kg', notes:'Tempo spokojne, zero rotacji'},
+      {highlight:true, name:'Scapular Push-up (leżenie przodem)', focus:'Serratus anterior, dolne trapezy', sets:'3×12', weight:'masa ciała', notes:'Ręce pod barkami, unoś i opuszczaj tylko łopatki — ramiona proste'},
+      {name:'Izometria szyi — 4 kierunki', focus:'Głębokie stabilizatory szyi', sets:'2×4 kierunki', weight:'masa ciała', notes:'Patrz szczegóły poniżej'},
+    ])}
+  `, true) +
+  block('notes', 'Izometria szyi — szczegóły', `
+    <p style="font-size:13px;color:var(--muted);line-height:1.9">
+      <strong style="color:var(--accent)">Jak wykonać:</strong> Siedź lub stój prosto. Przyłóż dłoń do głowy i delikatnie oprzyj głowę o rękę — <em>nie pozwól głowie się ruszyć</em>. Utrzymaj napięcie 5–8 sekund, powtórz 5 razy w każdym kierunku.<br><br>
+      <strong style="color:var(--accent2)">Kierunek 1 — przód:</strong> Dłoń na czole, głowa pcha do przodu<br>
+      <strong style="color:var(--accent2)">Kierunek 2 — tył:</strong> Dłoń z tyłu głowy, głowa pcha do tyłu<br>
+      <strong style="color:var(--accent2)">Kierunek 3 — lewa:</strong> Dłoń na lewej skroni, głowa pcha w lewo<br>
+      <strong style="color:var(--accent2)">Kierunek 4 — prawa:</strong> Dłoń na prawej skroni, głowa pcha w prawo<br><br>
+      <strong style="color:var(--danger)">Uwaga:</strong> Siła nacisku dłoni = lekka. Głowa <em>nie rusza się wcale</em> — to czysta izometria. Żadnego bólu, tylko lekkie zmęczenie mięśni.
+    </p>
+  `) +
+  block('cooldown', 'Cooldown — plecy, łopatki, szyja', `
+    ${stretchList([
+      {name:'Thread the needle pogłębiony z utrzymaniem', time:'60 sek e/s'},
+      {name:'Doorway lat stretch z pochyleniem', time:'45 sek e/s'},
+      {name:'Upper / lower trap stretch (ręka za plecy)', time:'30 sek e/s'},
+      {name:'Neck flexion / lateral flexion / rotation', time:'30 sek e/s'},
+      {name:'Suboccipital release — palce pod potylicą w leżeniu', time:'2 min'},
+      {name:'Foam roll grzbiet + szyjno-piersiowe przejście', time:'3 min'},
+    ])}
+  `, true);
+}
+
+function buildP2B() {
+  return dayTitle('TRENING B', 'FAZA 2 / KLATKA + PUSH — ZAAWANSOWANY', '~55–65 min') +
+  block('warmup', 'Aktywacja klatki i barków', `
+    ${stretchList([
+      {name:'Thoracic extension z wałkiem × 5 pozycji', time:'10 powt. każda'},
+      {name:'Quadruped shoulder CARs', time:'6 e/s'},
+      {name:'Inchworm z push-up', time:'5 powt.'},
+      {name:'KB Halo (6kg)', time:'5 e/s'},
+      {name:'Serratus punch (leżenie, pch KB do sufitu)', time:'12 powt.'},
+    ])}
+  `, true) +
+  block('main', 'Trening główny', `
+    ${exTable([
+      {name:'KB Floor Press (jedna ręka) — tempo 3-1-2', focus:'Klatka, triceps — time under tension', sets:'4×8 e/s', weight:'12–16kg', notes:'3s w dół, 1s hold, 2s góra'},
+      {name:'KB Press Overhead (jedna ręka)', focus:'Barki, górna klatka', sets:'4×8 e/s', weight:'12–16kg', notes:'Pełny lockout — napięty lat'},
+      {name:'KB Chest Fly + Pull-over (superset)', focus:'Klatka, serratus, lat', sets:'3×10+10', weight:'6–8kg', notes:'Bez przerwy między ćwiczeniami'},
+      {name:'KB Push-up (ręce na KB)', focus:'Klatka, triceps, serratus', sets:'4×10–12', weight:'2× 8–12kg', notes:'Pełny zakres, kontrolowany'},
+      {name:'KB Arnold-style Press (rotacja)', focus:'Barki, górna klatka, trapezy', sets:'3×10 e/s', weight:'8–12kg', notes:'Rotuj nadgarstek przy uniesieniu'},
+      {highlight:true, name:'KB Bottoms-Up Press', focus:'Stożek rotatorów, stabilizacja barku', sets:'3×6 e/s', weight:'8kg', notes:'Kettlebell do góry nogami — concentracja'},
+    ])}
+  `, true) +
+  block('cooldown', 'Cooldown — klatka, barki, serratus', `
+    ${stretchList([
+      {name:'Doorway pec stretch (niski, środkowy, wysoki kąt)', time:'30 sek każdy'},
+      {name:'Sleeper stretch — tylna torebka stawu ramiennego', time:'45 sek e/s'},
+      {name:'Cross-body shoulder stretch', time:'30 sek e/s'},
+      {name:'Prone chest opener (sphinx + twist)', time:'45 sek e/s'},
+      {name:'Overhead lat + serratus stretch (pod drzwiami)', time:'45 sek'},
+      {name:'Foam roll klatka i boczna ściana klatki', time:'2 min'},
+    ])}
+  `, true);
+}
+
+function buildP2C() {
+  return dayTitle('TRENING C', 'FAZA 2 / PLECY — SIŁA ZAAWANSOWANA', '~55–65 min') +
+  block('warmup', 'Aktywacja łańcucha tylnego', `
+    ${stretchList([
+      {name:'KB Deadlift z pauzą (6kg) × 5', time:'rozgrzewka'},
+      {name:'Hip hinge z kettlebell — wzorzec', time:'10 powt.'},
+      {name:'Glute bridge z izometrią 5 sek', time:'8 powt.'},
+      {name:'Bird-Dog z KB hold (4kg)', time:'6 e/s'},
+    ])}
+  `, true) +
+  block('main', 'Trening główny — siłowy', `
+    ${exTable([
+      {name:'KB Swing (jedna ręka) — serie siłowe', focus:'Cały łańcuch tylny', sets:'6×8 e/s', weight:'16kg', notes:'Przerwa 60 sek między seriami'},
+      {name:'KB Deadlift (obie ręce na jednym KB) — ciężki', focus:'Plecy dolne, nogi — baza siłowa', sets:'5×5', weight:'16kg', notes:'Obie dłonie na rączce, napnij wszystko'},
+      {name:'KB Romanian Deadlift (1-noga)', focus:'Hamstrings, stabilizacja', sets:'4×8 e/s', weight:'12–16kg', notes:'Wolno i kontrolowanie'},
+      {name:'KB Clean', focus:'Łańcuch tylny — power + koordynacja', sets:'4×6 e/s', weight:'12–16kg', notes:'Kb śliźgi wzdłuż nogi, nie łuk'},
+      {name:'KB Suitcase Carry + Overhead', focus:'Kwadraty lędźwi, boczna stabilizacja', sets:'3×20m e/s', weight:'12–16kg', notes:'Zmień pozycję co 20m'},
+      {highlight:true, name:'TGU (Turkish Get-Up)', focus:'Integracja — łopatka, szyja, core, rotacja', sets:'3×4 e/s', weight:'8–12kg', notes:'Każda faza 2 sek minimum'},
+    ])}
+  `, true) +
+  block('cooldown', 'Cooldown — łańcuch tylny full', `
+    ${stretchList([
+      {name:'Standing forward fold z rotacją', time:'60 sek'},
+      {name:'Supine hamstring stretch z pasem / ręcznikiem', time:'45 sek e/s'},
+      {name:'90/90 hip stretch', time:'60 sek e/s'},
+      {name:'Thoracic rotation leżąc', time:'45 sek e/s'},
+      {name:'Full body foam roll (od stóp do thoracic)', time:'4 min'},
+    ])}
+  `, true);
+}
+
+function buildP2D() {
+  return dayTitle('TRENING D', 'FAZA 2 / FULL BODY — INTEGRACJA', '~60 min') +
+  block('warmup', 'Rozgrzewka zintegrowana', `
+    ${stretchList([
+      {name:'Jump rope / jumping jacks', time:'2 min'},
+      {name:'KB Complex rozgrzewkowy (4kg): swing 5 + clean 5 + press 5', time:'2 rundy'},
+      {name:'Thoracic CARs stojąc', time:'5 e/s'},
+      {name:'World\'s Greatest Stretch', time:'3 e/s'},
+    ])}
+  `, true) +
+  block('main', 'Trening główny — obwodowy', `
+    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">
+      <strong style="color:var(--accent)">FORMAT:</strong> 2 rundy z 4 ćwiczeń (A1-A4) bez przerwy, przerwa 90 sek po rundzie. Następnie 2 rundy B1-B4.
+    </p>
+    ${exTable([
+      {name:'A1. KB Swing (obie ręce)', focus:'', sets:'15 powt.', weight:'16kg', notes:'Obie dłonie na jednej rączce'},
+      {name:'A2. KB Floor Press', focus:'', sets:'10 e/s', weight:'12–16kg', notes:''},
+      {name:'A3. KB Row (bent-over)', focus:'', sets:'10 e/s', weight:'12–16kg', notes:''},
+      {name:'A4. Goblet Squat', focus:'', sets:'12 powt.', weight:'12–16kg', notes:''},
+      {highlight:true, name:'B1. KB Clean + Press (combo)', focus:'', sets:'6 e/s', weight:'12–16kg', notes:''},
+      {name:'B2. KB Windmill', focus:'', sets:'5 e/s', weight:'8kg', notes:''},
+      {name:'B3. KB Halo', focus:'', sets:'6 e/s', weight:'8kg', notes:''},
+      {name:'B4. TGU (skrócony — do pozycji łuku)', focus:'', sets:'3 e/s', weight:'8–12kg', notes:''},
+    ])}
+  `, true) +
+  block('cooldown', 'Cooldown — full body, nacisk na biodra i plecy', `
+    ${stretchList([
+      {name:'Lunge hip flexor stretch z ramieniem do góry', time:'45 sek e/s'},
+      {name:'Figure-4 / pigeon pose', time:'60 sek e/s'},
+      {name:'Seated spinal rotation', time:'30 sek e/s'},
+      {name:'Child\'s pose z ruchomymi rękoma', time:'90 sek'},
+      {name:'Supine twist z kolankmi', time:'45 sek e/s'},
+      {name:'Foam roll full body', time:'4 min'},
+    ])}
+  `, true);
+}
+
+// ==========================================
+//  MOBILITY CONTENT
+// ==========================================
+
+function buildMobility() {
+  return `
+  ${dayTitle('MOBILITY SESSION', 'DNI ODPOCZYNKU / 3× TYGODNIOWO', '~35–45 min')}
+
+  <div class="note-box" style="margin-bottom:24px">
+    <strong>Filozofia:</strong> Sesje mobility to nie rozciąganie po treningu — to praca nad jakością ruchu i redukcja napięć. Każde ćwiczenie wykonuj spokojnie, z oddechem, bez forsowania zakresu. Poczucie "dobrego bólu" jest ok — ostry ból nigdy.
+  </div>
+
+  ${block('mobility', 'BLOK 1 — Oddychanie i centracja (5 min)', `
+    ${stretchList([
+      {name:'90-90 breathing — leżenie, kolana ugięte, ręce na brzuchu. Wdech 4s, zatrzymanie 2s, wydech 6s', time:'2 min'},
+      {name:'Box breathing z rozluźnieniem szczęki i barków', time:'2 min'},
+      {name:'Supine dead bug — aktywacja głębokiego core', time:'6 e/s'},
+    ])}
+  `, true)}
+
+  ${block('mobility', 'BLOK 2 — Biodra i miednica (10 min)', `
+    ${stretchList([
+      {name:'90/90 hip sit — siedząc, obracaj tułów nad przednią i tylną nogą', time:'60 sek e/s'},
+      {name:'Pigeon pose progresywny — puls + statyczny', time:'90 sek e/s'},
+      {name:'Kneeling hip flexor stretch z posteriornym tilt miednicy', time:'60 sek e/s'},
+      {name:'Deep squat hold z elbows pushing knees', time:'90 sek'},
+      {name:'Hip CARs (kółka biodrem stojąc przy ścianie)', time:'5 e/s'},
+      {name:'Frog stretch — pełzanie w przód i tył', time:'60 sek'},
+    ])}
+  `, true)}
+
+  ${block('mobility', 'BLOK 3 — Core i kręgosłup lędźwiowy (8 min)', `
+    ${stretchList([
+      {name:'Cat-Cow z zatrzymaniami i oddechem w każdej pozycji', time:'10 powt.'},
+      {name:'Dead bug pogłębiony — extend and return', time:'8 e/s'},
+      {name:'Side-lying rotation (kolana razem, obróć górne ramię)', time:'60 sek e/s'},
+      {name:'Pallof press (z oporem – ciągnij elastic/taśmę)', time:'10 e/s'},
+      {name:'McGill side plank — utrzymanie 20 sek, 5× e/s', time:'5 e/s'},
+    ])}
+  `, true)}
+
+  ${block('mobility', 'BLOK 4 — Klatka piersiowa i kręgosłup piersiowy (8 min)', `
+    ${stretchList([
+      {name:'Thoracic extension na wałku lub zaświnięte kocyki', time:'5 pozycji × 10 powt.'},
+      {name:'Open book / book opener — rotacja leżąc', time:'60 sek e/s'},
+      {name:'Thoracic CARs stojąc (koła klatką)', time:'5 e/s'},
+      {name:'Doorway pec stretch — 3 kąty (niski, środkowy, wysoki)', time:'30 sek każdy'},
+      {name:'Quadruped thread the needle', time:'45 sek e/s'},
+    ])}
+  `, true)}
+
+  ${block('mobility', 'BLOK 5 — Łopatki, barki i szyja (8 min)', `
+    ${stretchList([
+      {name:'Wall angels pogłębione — pełen zakres', time:'15 powt.'},
+      {name:'Scapular CARs w klęku podpartym', time:'6 e/s'},
+      {name:'Shoulder CARs (pełne koła ramieniem)', time:'3 e/s powoli'},
+      {name:'Neck CARs — pełny zakres powoli (nodding + rotation + side bend)', time:'3 e/s'},
+      {name:'Suboccipital release — palce pod kością potyliczną, leżenie 2 min', time:'2 min'},
+      {name:'Levator scapulae + upper trap bilateral stretch', time:'30 sek e/s'},
+    ])}
+  `, true)}
+
+  ${block('mobility', 'BLOK 6 — Integracja i wyciszenie (5 min)', `
+    ${stretchList([
+      {name:'Happy baby pose z kołysaniem bocznym', time:'60 sek'},
+      {name:'Supine spinal twist obustronny', time:'45 sek e/s'},
+      {name:'Savasana / leżenie z relaksacją progresywną', time:'2 min'},
+    ])}
+  `, true)}
+
+  <div class="note-box">
+    <strong>Kolejność:</strong> Zawsze zaczynaj od oddychania. Bloki 2-5 możesz ułożyć wg odczuwanych potrzeb danego dnia. Blok 6 zawsze na końcu.<br><br>
+    <strong>Jeśli masz mniej czasu:</strong> Priorytet mają bloki 1, 2 i 5 (biodra + łopatki/szyja) — rób minimum tych trzech.
+  </div>
+  `;
+}
+
+// ==========================================
+//  PROGRESSION CONTENT
+// ==========================================
+
+function buildProgression(inline) {
+  return `
+  ${inline ? '' : dayTitle('PROGRESJA', 'OD ROZRUCHU DO PROGRAMU DOCELOWEGO', '')}
+
+  <div class="section-title">FAZA 1 — Rozruch (Tydzień 1–4)</div>
+
+  <div class="progression-grid">
+    <div class="prog-card">
+      <div class="prog-week">TYG 1</div>
+      <div class="prog-desc">Nauka wzorców. 3 serie każdego ćwiczenia. Ciężar lekki–umiarkowany (RPE 5-6). Skupienie 100% na technice.</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-week">TYG 2</div>
+      <div class="prog-desc">Te same ćwiczenia. Podniesienie ciężaru o 1 poziom (np. 8→12kg) tam gdzie technika była dobra. RPE 6-7.</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-week">TYG 3</div>
+      <div class="prog-desc">Dodaj 1 serię do każdego ćwiczenia głównego (→ 4 serie). Ciężar utrzymany lub lekko wyżej. RPE 7.</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-week">TYG 4 — DELOAD</div>
+      <div class="prog-desc">Wróć do 3 serii, ciężar z tyg 1. Technika + oddech + mobilność. Przygotowanie do Fazy 2.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title">FAZA 2 — Program Docelowy (od Tyg 5)</div>
+
+  <div class="progression-grid">
+    <div class="prog-card">
+      <div class="prog-week">TYG 5–6</div>
+      <div class="prog-desc">Nowe ćwiczenia i wyższe obciążenia z Fazy 2. 4 serie. RPE 7-8. Nauka nowych wzorców (clean, TGU z wyższym ciężarem).</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-week">TYG 7–8</div>
+      <div class="prog-desc">Progresja liniowa: jeśli ostatnia seria była łatwa — zwiększ ciężar w kolejnym tygodniu. Dodaj 1 powt. jeśli nie możesz wskoczyć wyżej.</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-week">TYG 9–10</div>
+      <div class="prog-desc">Intensifikacja: zamień ostatnią serię każdego ćwiczenia na AMRAP (jak najwęcej powt. do RPE 9). Zapisuj wyniki.</div>
+    </div>
+    <div class="prog-card">
+      <div class="prog-week">TYG 11–12</div>
+      <div class="prog-desc">Progresja falowa: Tyg 11 ciężki (RPE 8-9), Tyg 12 deload do RPE 6. Następnie możesz powtórzyć cykl z wyższym ciężarem.</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="section-title">TABELA PROGRESJI — CIĘŻAR</div>
+
+  <table class="ex-table" style="margin-top:0">
+    <thead><tr>
+      <th>Ćwiczenie</th>
+      <th>Start Faza 1</th>
+      <th>Koniec Faza 1</th>
+      <th>Start Faza 2</th>
+      <th>Cel (12 tyg.)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><div class="ex-name">KB Swing</div></td><td class="ex-weight">12kg</td><td class="ex-weight">16kg</td><td class="ex-weight">16kg</td><td class="ex-weight">16kg × 20 powt.</td></tr>
+      <tr><td><div class="ex-name">KB Row (1 ręka)</div></td><td class="ex-weight">8kg</td><td class="ex-weight">12kg</td><td class="ex-weight">12–16kg</td><td class="ex-weight">16kg × 10</td></tr>
+      <tr><td><div class="ex-name">KB Floor Press</div></td><td class="ex-weight">8kg</td><td class="ex-weight">12kg</td><td class="ex-weight">12–16kg</td><td class="ex-weight">16kg × 8</td></tr>
+      <tr><td><div class="ex-name">KB Press overhead</div></td><td class="ex-weight">8kg</td><td class="ex-weight">12kg</td><td class="ex-weight">12kg</td><td class="ex-weight">12–16kg × 8</td></tr>
+      <tr><td><div class="ex-name">KB Deadlift</div></td><td class="ex-weight">12kg</td><td class="ex-weight">16kg</td><td class="ex-weight">16kg</td><td class="ex-weight">16kg × 5 + 1-noga</td></tr>
+      <tr><td><div class="ex-name">TGU</div></td><td class="ex-weight">6kg</td><td class="ex-weight">8kg</td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 3 e/s</td></tr>
+      <tr><td><div class="ex-name">KB Halo</div></td><td class="ex-weight">6kg</td><td class="ex-weight">8kg</td><td class="ex-weight">8kg</td><td class="ex-weight">8kg płynny</td></tr>
+    </tbody>
+  </table>
+
+  <div class="note-box" style="margin-top:20px">
+    <strong>Zasada ciężaru:</strong> Nie skacz do wyższego ciężaru dopóki nie wykonasz wszystkich zaplanowanych serii i powtórzeń z <em>czystą techniką</em>. Priorytetem jest ruch, nie ciężar. Kettlebell uczy cierpliwości. 🔔
+  </div>
+  `;
+}
+
+// ==========================================
+//  RENDER & NAVIGATION
+// ==========================================
+
+let currentPhase = 'overview';
+let currentDayP1 = 'p1-a';
+let currentDayP2 = 'p2-a';
+
+function renderDays(phase, days, containerId, sidebarId) {
+  const container = document.getElementById(containerId);
+  const sidebar = document.getElementById('daySidebar');
+
+  // Build content
+  container.innerHTML = days.map(d => `
+    <div class="day-content ${d.id === (phase==='phase1'?currentDayP1:currentDayP2) ? 'active' : ''}" id="content-${d.id}">
+      ${d.content}
+    </div>
+  `).join('');
+}
+
+function renderSidebar(phase) {
+  const sidebar = document.getElementById('daySidebar');
+  let days, currentDay;
+
+  if (phase === 'phase1') {
+    days = phase1Days;
+    currentDay = currentDayP1;
+  } else if (phase === 'phase2') {
+    days = phase2Days;
+    currentDay = currentDayP2;
+  } else {
+    sidebar.innerHTML = '';
+    return;
+  }
+
+  sidebar.innerHTML = days.map(d => `
+    <button class="day-btn ${d.isRest?'rest':''} ${d.id===currentDay?'active':''}" onclick="switchDay('${phase}','${d.id}')">
+      <span class="day-dot"></span>
+      <span>
+        ${d.label}
+        <span class="day-type">${d.sub}</span>
+      </span>
+    </button>
+  `).join('');
+}
+
+function switchPhase(phase) {
+  currentPhase = phase;
+
+  // Nav buttons
+  document.querySelectorAll('.phase-btn').forEach((btn, i) => {
+    const phases = ['overview','phase1','phase2','mobility','tracker','calendar'];
+    btn.classList.toggle('active', phases[i] === phase);
+  });
+
+  // Panels
+  document.querySelectorAll('.phase-panel').forEach(p => {
+    p.classList.toggle('active', p.id === `panel-${phase}`);
+  });
+
+  // Sidebar
+  renderSidebar(phase);
+
+  // Init content if needed
+  if (phase === 'phase1' && !document.getElementById('days-phase1').innerHTML) {
+    renderDays('phase1', phase1Days, 'days-phase1');
+  }
+  if (phase === 'phase2' && !document.getElementById('days-phase2').innerHTML) {
+    renderDays('phase2', phase2Days, 'days-phase2');
+  }
+  if (phase === 'mobility' && !document.getElementById('mobility-content').innerHTML) {
+    document.getElementById('mobility-content').innerHTML = buildMobility();
+  }
+  if (phase === 'calendar') { buildCalendar(); }
+  if (phase === 'tracker') { if(!document.getElementById('tracker-content').innerHTML) buildTracker(); else buildTracker(selectedTrackEx); }
+  // save phase preference for training days
+  if (phase === 'phase1' || phase === 'phase2') localStorage.setItem('ib_phase_pref', phase);
+}
+
+function switchDay(phase, dayId) {
+  if (phase === 'phase1') currentDayP1 = dayId;
+  else currentDayP2 = dayId;
+
+  // Update content visibility
+  const prefix = phase === 'phase1' ? 'p1-' : 'p2-';
+  ['a','b','c','d'].forEach(l => {
+    const el = document.getElementById(`content-${prefix}${l}`);
+    if (el) el.classList.toggle('active', `${prefix}${l}` === dayId);
+  });
+
+  renderSidebar(phase);
+}
+
+function toggleBlock(header) {
+  header.classList.toggle('open');
+  header.nextElementSibling.classList.toggle('open');
+}
+
+// Build day arrays here — AFTER all functions (YT, exTable, builders) are defined
+phase1Days = [
+  { id:'p1-a', label:'Trening A', sub:'Plecy + Pull',    isRest:false, content:buildP1A() },
+  { id:'p1-b', label:'Trening B', sub:'Klatka + Push',   isRest:false, content:buildP1B() },
+  { id:'p1-c', label:'Trening C', sub:'Plecy — siła',    isRest:false, content:buildP1C() },
+  { id:'p1-d', label:'Trening D', sub:'Full Body',        isRest:false, content:buildP1D() },
+];
+phase2Days = [
+  { id:'p2-a', label:'Trening A', sub:'Plecy + Pull',    isRest:false, content:buildP2A() },
+  { id:'p2-b', label:'Trening B', sub:'Klatka + Push',   isRest:false, content:buildP2B() },
+  { id:'p2-c', label:'Trening C', sub:'Plecy — siła',    isRest:false, content:buildP2C() },
+  { id:'p2-d', label:'Trening D', sub:'Full Body',        isRest:false, content:buildP2D() },
+];
+
+// Init UI
+switchPhase('overview');
+renderDays('phase1', phase1Days, 'days-phase1');
+renderDays('phase2', phase2Days, 'days-phase2');
+
+// ==========================================
+//  SCHEDULE — 7-day rolling plan
+// ==========================================
+
+// Training pattern: A, REST(mob), B, REST(mob), C, D, REST(mob)  → cycle of 7
+const WEEK_PATTERN = [
+  { type:'train', label:'Trening A', sub:'Plecy + Pull',   phase1:'phase1', day:'p1-a', phase2:'p2-a' },
+  { type:'train', label:'Trening B', sub:'Klatka + Push',  phase1:'phase1', day:'p1-b', phase2:'p2-b' },
+  { type:'mob',   label:'Mobility',  sub:'Odpoczynek aktywny' },
+  { type:'train', label:'Trening C', sub:'Plecy — siła',   phase1:'phase1', day:'p1-c', phase2:'p2-c' },
+  { type:'train', label:'Trening D', sub:'Full Body',       phase1:'phase1', day:'p1-d', phase2:'p2-d' },
+  { type:'mob',   label:'Mobility',  sub:'Odpoczynek aktywny' },
+  { type:'rest',  label:'Odpoczynek', sub:'Wolny dzień' },
+];
+
+// Programme start date stored in localStorage
+function getStartDate() {
+  const s = localStorage.getItem('ib_start');
+  if (s) return new Date(s);
+  return null;
+}
+function setStartDate(d) {
+  localStorage.setItem('ib_start', d.toISOString().split('T')[0]);
+}
+function getDayOffset(date) {
+  const start = getStartDate();
+  if (!start) return null;
+  const diff = Math.floor((date - start) / 86400000);
+  if (diff < 0) return null;
+  return diff;
+}
+function getPatternForDate(date) {
+  const off = getDayOffset(date);
+  if (off === null) return null;
+  return WEEK_PATTERN[off % 7];
+}
+
+// Completed days
+function getDone() {
+  try { return JSON.parse(localStorage.getItem('ib_done') || '[]'); } catch { return []; }
+}
+function markDone(dateStr, done) {
+  let arr = getDone();
+  if (done) { if (!arr.includes(dateStr)) arr.push(dateStr); }
+  else arr = arr.filter(x => x !== dateStr);
+  localStorage.setItem('ib_done', JSON.stringify(arr));
+}
+function isDone(dateStr) { return getDone().includes(dateStr); }
+
+// ==========================================
+//  CALENDAR RENDERER
+// ==========================================
+
+let calYear, calMonth;
+
+function buildCalendar() {
+  const today = new Date();
+  if (calYear === undefined) { calYear = today.getFullYear(); calMonth = today.getMonth(); }
+
+  const startDate = getStartDate();
+  const el = document.getElementById('calendar-content');
+
+  // Schedule strip (next 10 days)
+  const stripDays = [];
+  for (let i = 0; i < 14; i++) {
+    const d = new Date(today); d.setDate(today.getDate() + i);
+    stripDays.push(d);
+  }
+
+  const stripHtml = stripDays.map(d => {
+    const ds = fmtDate(d);
+    const pat = getPatternForDate(d);
+    const isToday = ds === fmtDate(today);
+    const done = isDone(ds);
+    const label = pat ? pat.label : '—';
+    const sub = pat ? pat.sub : (startDate ? '' : 'Ustaw start →');
+    const pillClass = pat ? (pat.type==='train'?'pill-train':pat.type==='mob'?'pill-mobility':'pill-rest') : 'pill-rest';
+    return `<div class="sched-card ${isToday?'today-card':''}" onclick="openDayModal('${ds}')">
+      <div class="sched-date">${isToday?'DZIŚ':fmtShort(d)}</div>
+      <div class="sched-label" style="${done?'color:var(--accent2)':''}">${done?'✓ '+label:label}</div>
+      <div class="sched-type">${sub}</div>
+    </div>`;
+  }).join('');
+
+  // Grid calendar
+  const firstDay = new Date(calYear, calMonth, 1);
+  const lastDay = new Date(calYear, calMonth + 1, 0);
+  const startDow = (firstDay.getDay() + 6) % 7; // Mon=0
+  const monthNames = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
+                      'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
+  const dows = ['Pn','Wt','Śr','Cz','Pt','Sb','Nd'];
+
+  let cells = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
+  // empty cells before
+  for (let i = 0; i < startDow; i++) cells += `<div class="cal-day empty"></div>`;
+  // day cells
+  for (let day = 1; day <= lastDay.getDate(); day++) {
+    const d = new Date(calYear, calMonth, day);
+    const ds = fmtDate(d);
+    const isToday = ds === fmtDate(today);
+    const pat = getPatternForDate(d);
+    const done = isDone(ds);
+    let cls = 'cal-day';
+    if (isToday) cls += ' today';
+    if (pat && pat.type==='train') cls += ' has-training';
+    if (pat && pat.type==='mob') cls += ' has-mobility';
+    if (done) cls += ' done';
+    const pill = pat ? `<div class="cal-day-pill ${pat.type==='train'?'pill-train':pat.type==='mob'?'pill-mobility':'pill-rest'}">${pat.label.substring(0,8)}</div>` : '';
+    const dot = done ? `<div class="cal-done-dot"></div>` : '';
+    cells += `<div class="${cls}" onclick="openDayModal('${ds}')">
+      <div class="cal-day-num">${day}</div>${pill}${dot}
+    </div>`;
+  }
+
+  const setupHtml = !startDate ? `
+    <div class="note-box" style="margin-bottom:20px">
+      <strong>Ustaw datę startu programu</strong><br>
+      Wybierz dzień, od którego zaczynasz — kalendarz dopasuje plan automatycznie.
+      <br><br>
+      <input type="date" id="start-date-input" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:8px 12px;font-size:14px;width:100%;margin-bottom:10px">
+      <button class="modal-btn btn-primary" onclick="saveStartDate()">Zapisz datę startu</button>
+    </div>` : `
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div style="font-size:13px;color:var(--muted)">Start programu: <strong style="color:var(--accent)">${fmtDisplay(startDate)}</strong></div>
+      <button onclick="resetStartDate()" style="background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline">zmień</button>
+    </div>`;
+
+  el.innerHTML = `
+    ${dayTitle('KALENDARZ', 'TWÓJ PLAN TRENINGOWY', '')}
+    ${setupHtml}
+    <div class="section-title" style="font-size:20px">Najbliższe dni</div>
+    <div class="sched-strip">${stripHtml}</div>
+    <div class="cal-header">
+      <button class="cal-nav-btn" onclick="calPrev()">‹</button>
+      <div class="cal-month-label">${monthNames[calMonth]} ${calYear}</div>
+      <button class="cal-nav-btn" onclick="calNext()">›</button>
+    </div>
+    <div class="cal-grid">${cells}</div>
+    <div class="note-box">
+      <strong>Legenda:</strong>
+      <span class="cal-day-pill pill-train" style="margin-left:8px">Trening</span>
+      <span class="cal-day-pill pill-mobility" style="margin-left:4px">Mobility</span>
+      <span class="cal-day-pill pill-rest" style="margin-left:4px">Odpoczynek</span>
+      &nbsp;· Zielona kropka = ukończony
+    </div>
+  `;
+
+  // set today's date in input if present
+  const inp = document.getElementById('start-date-input');
+  if (inp) inp.value = fmtDate(today);
+}
+
+function calPrev() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} buildCalendar(); }
+function calNext() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} buildCalendar(); }
+
+function saveStartDate() {
+  const inp = document.getElementById('start-date-input');
+  if (!inp || !inp.value) return;
+  setStartDate(new Date(inp.value));
+  buildCalendar();
+}
+function resetStartDate() {
+  localStorage.removeItem('ib_start');
+  buildCalendar();
+}
+
+// ── DAY MODAL ──────────────────────────────────────────────────────────────
+function openDayModal(dateStr) {
+  const date = new Date(dateStr + 'T00:00:00');
+  const pat = getPatternForDate(date);
+  const done = isDone(dateStr);
+  const overlay = document.getElementById('day-modal');
+  const body = document.getElementById('day-modal-body');
+
+  let content = `<div style="display:flex;align-items:flex-start;justify-content:space-between">
+    <div>
+      <div class="modal-title">${pat ? pat.label : fmtDisplay(date)}</div>
+      <div class="modal-sub">${fmtDisplay(date)}${pat ? ' · ' + pat.sub : ''}</div>
+    </div>
+    <button class="modal-close" onclick="closeModal()">×</button>
+  </div>`;
+
+  if (!getStartDate()) {
+    content += `<p style="color:var(--muted);font-size:13px">Najpierw ustaw datę startu programu w kalendarzu.</p>`;
+  } else if (!pat) {
+    content += `<p style="color:var(--muted);font-size:13px">Ten dzień jest przed startem programu.</p>`;
+  } else {
+    const doneBtn = done
+      ? `<button class="modal-btn btn-danger" onclick="toggleDone('${dateStr}', false)">✗ Oznacz jako niewykonany</button>`
+      : `<button class="modal-btn btn-primary" onclick="toggleDone('${dateStr}', true)">✓ Oznacz jako wykonany</button>`;
+
+    let navBtn = '';
+    if (pat.type === 'train') {
+      const phase = getCurrentPhase();
+      const dayId = phase === 'phase2' ? pat.phase2 : pat.day;
+      navBtn = `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('${phase === 'phase2' ? 'phase2' : 'phase1'}');switchDay('${phase === 'phase2' ? 'phase2' : 'phase1'}','${dayId}')">→ Otwórz plan treningu</button>`;
+      navBtn += `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('tracker');buildTracker('${pat.label}')">📊 Zaloguj wyniki</button>`;
+    } else if (pat.type === 'mob') {
+      navBtn = `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('mobility')">→ Otwórz sesję Mobility</button>`;
+    }
+
+    content += doneBtn + navBtn;
+  }
+
+  body.innerHTML = content;
+  overlay.classList.add('open');
+}
+
+function getCurrentPhase() {
+  // check localStorage for user preference
+  return localStorage.getItem('ib_phase_pref') || 'phase1';
+}
+
+function closeModal() {
+  document.getElementById('day-modal').classList.remove('open');
+}
+function toggleDone(dateStr, done) {
+  markDone(dateStr, done);
+  closeModal();
+  buildCalendar();
+}
+
+// ==========================================
+//  TRACKER
+// ==========================================
+
+// Key exercises to track
+const TRACK_EXERCISES = [
+  'KB Swing (jedna ręka)',
+  'KB Deadlift',
+  'KB Bent-Over Row',
+  'KB Floor Press',
+  'KB Press Overhead',
+  'KB Goblet Squat',
+  'KB Clean',
+  'TGU (Turkish Get-Up)',
+  'KB Windmill',
+  'KB Halo',
+];
+
+let selectedTrackEx = TRACK_EXERCISES[0];
+let chartInstance = null;
+
+function getLog() {
+  try { return JSON.parse(localStorage.getItem('ib_log') || '{}'); } catch { return {}; }
+}
+function saveLog(log) { localStorage.setItem('ib_log', JSON.stringify(log)); }
+
+function logEntry(exercise, weight, reps, sets) {
+  const log = getLog();
+  if (!log[exercise]) log[exercise] = [];
+  log[exercise].push({
+    date: fmtDate(new Date()),
+    weight: parseFloat(weight) || 0,
+    reps: parseInt(reps) || 0,
+    sets: parseInt(sets) || 0,
+    volume: (parseFloat(weight)||0) * (parseInt(reps)||0) * (parseInt(sets)||0)
+  });
+  saveLog(log);
+}
+
+function deleteEntry(exercise, idx) {
+  const log = getLog();
+  if (log[exercise]) { log[exercise].splice(idx,1); saveLog(log); }
+  buildTracker(exercise);
+}
+
+function buildTracker(preselect) {
+  if (preselect) selectedTrackEx = preselect;
+  const el = document.getElementById('tracker-content');
+
+  // Exercise selector buttons
+  const dropdownHtml = TRACK_EXERCISES.map(ex =>
+    `<option value="${ex}" ${ex===selectedTrackEx?'selected':''}>${ex}</option>`
+  ).join('');
+
+  // Log form — dropdown included as first row
+  const formHtml = `
+  <div class="tracker-ex-list">
+    <div class="tracker-ex-card">
+      <div class="tracker-inputs" style="grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px">
+        <div class="tracker-input-group" style="grid-column:1/-1">
+          <span class="tracker-input-label">ĆWICZENIE</span>
+          <select class="tracker-input" id="t-exercise" onchange="selectedTrackEx=this.value;buildTracker(this.value)" style="cursor:pointer">
+            ${dropdownHtml}
+          </select>
+        </div>
+        <div class="tracker-input-group">
+          <span class="tracker-input-label">CIĘŻAR (kg)</span>
+          <input class="tracker-input" type="number" id="t-weight" placeholder="12" min="0" max="100" step="0.5">
+        </div>
+        <div class="tracker-input-group">
+          <span class="tracker-input-label">POWTÓRZENIA</span>
+          <input class="tracker-input" type="number" id="t-reps" placeholder="10" min="1" max="100">
+        </div>
+        <div class="tracker-input-group">
+          <span class="tracker-input-label">SERIE</span>
+          <input class="tracker-input" type="number" id="t-sets" placeholder="3" min="1" max="20">
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="save-btn" onclick="saveEntry()">💾 Zapisz wynik</button>`;
+
+  // Chart
+  const log = getLog();
+  const entries = log[selectedTrackEx] || [];
+
+  let chartHtml = '';
+  let historyHtml = '';
+
+  if (entries.length === 0) {
+    chartHtml = `<div class="empty-state"><div class="big">🏋️</div>Brak danych dla tego ćwiczenia.<br>Zaloguj pierwszy wynik powyżej!</div>`;
+  } else {
+    chartHtml = `<div class="chart-wrap">
+      <div class="chart-title">OBJĘTOŚĆ (kg × powt × serie)</div>
+      <canvas id="vol-chart" class="prog-chart" height="160"></canvas>
+    </div>
+    <div class="chart-wrap">
+      <div class="chart-title">CIĘŻAR (kg)</div>
+      <canvas id="weight-chart" class="prog-chart" height="120"></canvas>
+    </div>`;
+
+    const recent = entries.slice(-20);
+    historyHtml = `<div class="section-title" style="font-size:18px;margin-top:24px">Historia</div>
+    <div class="history-list">
+      ${[...recent].reverse().map((e,i) => {
+        const realIdx = recent.length - 1 - i;
+        return `<div class="history-row">
+          <div>
+            <div class="history-date">${e.date}</div>
+            <div style="font-size:13px;margin-top:2px">${e.sets} serie × ${e.reps} powt. @ <span class="history-val">${e.weight} kg</span></div>
+          </div>
+          <button class="history-del" onclick="deleteEntry('${selectedTrackEx.replace(/'/g,"\\'")}',${recent.length-1-i})" title="Usuń">🗑</button>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  el.innerHTML = `
+    ${dayTitle('PROGRESJA', 'PLAN + ŚLEDZENIE WYNIKÓW', '')}
+    <details style="margin-bottom:24px">
+      <summary style="cursor:pointer;font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--accent);padding:12px 0;border-bottom:1px solid var(--border);list-style:none;display:flex;align-items:center;justify-content:space-between">
+        PLAN PROGRESJI <span style="font-size:14px;color:var(--muted);font-family:'DM Sans',sans-serif">▾ rozwiń</span>
+      </summary>
+      <div style="padding-top:16px">${buildProgression(true)}</div>
+    </details>
+    <div class="section-title" style="font-size:20px">Loguj wyniki</div>
+    ${formHtml}
+    ${chartHtml}
+    ${historyHtml}
+  `;
+
+  // Draw charts after render
+  if (entries.length > 0) {
+    setTimeout(() => drawCharts(entries), 50);
+  }
+}
+
+function saveEntry() {
+  const w = document.getElementById('t-weight').value;
+  const r = document.getElementById('t-reps').value;
+  const s = document.getElementById('t-sets').value;
+  if (!w && !r) { alert('Wpisz przynajmniej ciężar i powtórzenia'); return; }
+  logEntry(selectedTrackEx, w, r, s || 1);
+  buildTracker(selectedTrackEx);
+  // show confirmation flash
+  const btn = document.querySelector('.save-btn');
+  if (btn) { btn.textContent = '✓ Zapisano!'; btn.style.background='var(--accent2)'; setTimeout(()=>{btn.textContent='💾 Zapisz wynik';btn.style.background='';},1500); }
+}
+
+function drawCharts(entries) {
+  const labels = entries.slice(-20).map(e => e.date.slice(5)); // MM-DD
+  const volumes = entries.slice(-20).map(e => e.volume);
+  const weights = entries.slice(-20).map(e => e.weight);
+
+  const volCanvas = document.getElementById('vol-chart');
+  const wCanvas = document.getElementById('weight-chart');
+  if (!volCanvas || !wCanvas) return;
+
+  drawLineChart(volCanvas, labels, volumes, '#c8f542', 'Objętość');
+  drawLineChart(wCanvas, labels, weights, '#42f5a7', 'Ciężar');
+}
+
+function drawLineChart(canvas, labels, data, color, label) {
+  const ctx = canvas.getContext('2d');
+  const W = canvas.offsetWidth || 300;
+  const H = canvas.height;
+  canvas.width = W;
+  ctx.clearRect(0,0,W,H);
+
+  if (!data.length) return;
+
+  const PAD = { top:10, right:10, bottom:28, left:44 };
+  const cW = W - PAD.left - PAD.right;
+  const cH = H - PAD.top - PAD.bottom;
+
+  const minV = Math.min(...data) * 0.9;
+  const maxV = Math.max(...data) * 1.1 || 1;
+
+  const xStep = data.length > 1 ? cW / (data.length - 1) : cW;
+  const yScale = v => PAD.top + cH - ((v - minV) / (maxV - minV)) * cH;
+  const xScale = i => PAD.left + i * xStep;
+
+  // grid lines
+  ctx.strokeStyle = '#2a3330';
+  ctx.lineWidth = 1;
+  for (let g = 0; g <= 4; g++) {
+    const y = PAD.top + (cH / 4) * g;
+    ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + cW, y); ctx.stroke();
+    const val = maxV - (maxV - minV) * (g / 4);
+    ctx.fillStyle = '#6b7d74';
+    ctx.font = '9px DM Mono, monospace';
+    ctx.textAlign = 'right';
+    ctx.fillText(Math.round(val), PAD.left - 4, y + 3);
+  }
+
+  // area fill
+  ctx.beginPath();
+  ctx.moveTo(xScale(0), yScale(data[0]));
+  data.forEach((v,i) => { if(i>0) ctx.lineTo(xScale(i), yScale(v)); });
+  ctx.lineTo(xScale(data.length-1), PAD.top + cH);
+  ctx.lineTo(xScale(0), PAD.top + cH);
+  ctx.closePath();
+  const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
+  grad.addColorStop(0, color + '33');
+  grad.addColorStop(1, color + '00');
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // line
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 2;
+  ctx.lineJoin = 'round';
+  data.forEach((v,i) => { i===0 ? ctx.moveTo(xScale(i), yScale(v)) : ctx.lineTo(xScale(i), yScale(v)); });
+  ctx.stroke();
+
+  // dots
+  data.forEach((v,i) => {
+    ctx.beginPath();
+    ctx.arc(xScale(i), yScale(v), 3, 0, Math.PI*2);
+    ctx.fillStyle = color;
+    ctx.fill();
+  });
+
+  // x labels
+  ctx.fillStyle = '#6b7d74';
+  ctx.font = '9px DM Mono, monospace';
+  ctx.textAlign = 'center';
+  const step = Math.ceil(data.length / 6);
+  labels.forEach((l,i) => {
+    if (i % step === 0 || i === labels.length-1) {
+      ctx.fillText(l, xScale(i), H - 6);
+    }
+  });
+}
+
+// ==========================================
+//  DATE HELPERS
+// ==========================================
+function fmtDate(d) {
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function fmtShort(d) {
+  const dows = ['Nd','Pn','Wt','Śr','Cz','Pt','Sb'];
+  return dows[d.getDay()] + ' ' + d.getDate() + '/' + (d.getMonth()+1);
+}
+function fmtDisplay(d) {
+  const months = ['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'];
+  const dows = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
+  return dows[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+</script>
+
+
+<div class="modal-overlay" id="day-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-sheet">
+    <div id="day-modal-body"></div>
+  </div>
+</div>
+
+<div id="install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1c2220;border-top:1px solid #c8f542;padding:14px 20px;align-items:center;gap:12px;font-family:'DM Sans',sans-serif">
+  <span style="flex:1;font-size:13px;color:#e8ede9">Zainstaluj <strong style="color:#c8f542">IronBell</strong> jako aplikację na telefonie</span>
+  <button id="install-btn" style="background:#c8f542;color:#0d0f0e;border:none;border-radius:4px;padding:8px 16px;font-weight:600;font-size:13px;cursor:pointer">Instaluj</button>
+  <button onclick="document.getElementById('install-banner').style.display='none'" style="background:none;border:none;color:#6b7d74;font-size:20px;cursor:pointer;line-height:1">×</button>
+</div>
+<script>
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('install-banner').style.display = 'flex';
+});
+document.getElementById('install-btn').addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  const { outcome } = await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  document.getElementById('install-banner').style.display = 'none';
+});
+window.addEventListener('appinstalled', () => {
+  document.getElementById('install-banner').style.display = 'none';
+});
+</script>
+
+</body>
+</html>
