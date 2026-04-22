@@ -1963,14 +1963,16 @@ function buildCalendar() {
   const curStatus = getProgramStatus();
   let cycleStart = null, cycleEnd = null;
   if (curStatus && getStartDate()) {
-    const s = new Date(getStartDate()); s.setHours(0,0,0,0);
     if (curStatus.phase === 'phase1') {
-      cycleStart = new Date(s);
-      cycleEnd = new Date(s); cycleEnd.setDate(s.getDate() + 27);
+      cycleStart = new Date(getStartDate()); cycleStart.setHours(0,0,0,0);
+      cycleEnd = new Date(cycleStart); cycleEnd.setDate(cycleStart.getDate() + 27);
     } else {
-      const f2start = new Date(s); f2start.setDate(s.getDate() + 28);
-      const cycleOffset = (curStatus.cycle - 1) * 42;
-      cycleStart = new Date(f2start); cycleStart.setDate(f2start.getDate() + cycleOffset);
+      // Use actual cycle start dates
+      const p2s = getPhase2Start();
+      const cycleStarts = getCycleStarts();
+      const allStarts = [p2s, ...cycleStarts.map(cs => new Date(cs+'T00:00:00'))];
+      const idx = Math.min(curStatus.cycle - 1, allStarts.length - 1);
+      cycleStart = new Date(allStarts[idx]); cycleStart.setHours(0,0,0,0);
       cycleEnd = new Date(cycleStart); cycleEnd.setDate(cycleStart.getDate() + 41);
     }
   }
@@ -2013,7 +2015,7 @@ function buildCalendar() {
   const curPhase = status ? status.phase : (getStartDate() ? 'phase1' : null);
 
   // Status bar
-  const phaseToggle = buildStatusBar(status, { showLink: true, showProgressBar: true });
+  const phaseToggle = buildStatusBar(status, { showLink: true });
 
   const paused = isPaused();
   const pauseData = getPauseData();
@@ -2042,9 +2044,28 @@ function buildCalendar() {
       ${pauseSection}
     </div>`;
 
+  // ── TRANSITION BANNER ──
+  const ts = getTransitionStatus();
+  let transitionBanner = '';
+  if (ts && ts.ready) {
+    transitionBanner = `
+      <div style="background:rgba(200,245,66,0.08);border:2px solid var(--accent);border-radius:10px;padding:16px;margin-bottom:20px">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent)">
+          🏁 ${ts.phaseLabel} ukończona!
+        </div>
+        <div style="font-size:13px;color:var(--muted);margin:6px 0">
+          Wszystkie ${ts.totalTraining} treningi zaliczone. Gotowy na <strong style="color:var(--text)">${ts.nextLabel}</strong>?
+        </div>
+        <button class="modal-btn btn-primary" style="margin:8px 0 0" onclick="confirmPhaseTransition()">
+          ✓ Zaczynam ${ts.nextLabel}
+        </button>
+      </div>`;
+  }
+
   el.innerHTML = `
     ${dayTitle('KALENDARZ', 'TWÓJ PLAN TRENINGOWY', '')}
     ${phaseToggle}
+    ${transitionBanner}
     ${setupHtml}
     <div class="section-title" style="font-size:20px">Najbliższe dni</div>
     <div class="sched-strip">${stripHtml}</div>
@@ -2063,6 +2084,7 @@ function buildCalendar() {
       <span class="cal-day-pill pill-mobility" style="margin-left:4px;display:inline-block">Mob I/II/III</span>
       &nbsp;· Zielona kropka = ukończony
     </div>
+    <button class="modal-btn btn-secondary" style="margin-top:12px" onclick="clearDoneOnly()">🗑 Wyczyść odznaczone dni</button>
   `;
 
 }
@@ -2078,6 +2100,7 @@ function saveStartDate() {
 }
 function resetStartDate() {
   localStorage.removeItem('ib_start');
+  clearPhaseTransitions();
   buildCalendar();
 }
 
@@ -2192,6 +2215,151 @@ function clearCycleOffset() {
   buildCalendar();
 }
 
+function clearDoneOnly() {
+  localStorage.removeItem('ib_done');
+  buildCyclePlan();
+  buildCalendar();
+}
+
+function resetFullProgram() {
+  // confirm() is blocked in PWA/webview — use custom modal
+  const overlay = document.getElementById('confirm-modal');
+  if (overlay) overlay.classList.add('open');
+}
+
+function resetFullProgramConfirmed() {
+  document.getElementById('confirm-modal').classList.remove('open');
+  localStorage.removeItem('ib_cycle_offset');
+  localStorage.removeItem('ib_start');
+  clearPhaseTransitions();
+  localStorage.removeItem('ib_done');
+  buildCyclePlan();
+  buildCalendar();
+}
+
+
+// ─── PHASE TRANSITION STORAGE ─────────────────────────
+function getPhase2Start() {
+  const s = localStorage.getItem('ib_phase2_start');
+  return s ? new Date(s + 'T00:00:00') : null;
+}
+function setPhase2Start(dateStr) {
+  localStorage.setItem('ib_phase2_start', dateStr);
+}
+
+function getCycleStarts() {
+  try { return JSON.parse(localStorage.getItem('ib_cycle_starts') || '[]'); } catch { return []; }
+}
+function addCycleStart(dateStr) {
+  const arr = getCycleStarts();
+  arr.push(dateStr);
+  localStorage.setItem('ib_cycle_starts', JSON.stringify(arr));
+}
+function clearPhaseTransitions() {
+  localStorage.removeItem('ib_phase2_start');
+  localStorage.removeItem('ib_cycle_starts');
+}
+
+// ─── TRANSITION READINESS ─────────────────────────────
+// Returns info about whether current phase can be advanced
+// Get all days in phase (all 28/42 days, no date limit)
+function getTrainingDaysInPhase(phaseStartDate, durationDays) {
+  const days = [];
+  for (let i = 0; i < durationDays; i++) {
+    const d = new Date(phaseStartDate);
+    d.setDate(phaseStartDate.getDate() + i);
+    days.push(fmtDate(d));
+  }
+  return days;
+}
+
+function getTransitionStatus() {
+  const start = getStartDate();
+  if (!start) return null;
+  const p2start = getPhase2Start();
+  const cycleStarts = getCycleStarts();
+
+  let phaseStartDate, phaseDuration, phaseLabel, nextLabel, phaseType, currentCycle;
+
+  if (!p2start) {
+    phaseStartDate = new Date(start); phaseStartDate.setHours(0,0,0,0);
+    phaseDuration = 28; // 4 weeks
+    phaseLabel = 'Faza 1';
+    nextLabel = 'Faza 2 — Cykl 1';
+    phaseType = 'phase1';
+    currentCycle = null;
+  } else {
+    const p2s = new Date(p2start); p2s.setHours(0,0,0,0);
+    currentCycle = cycleStarts.length + 1;
+    const cycleStart = cycleStarts.length > 0
+      ? new Date(cycleStarts[cycleStarts.length-1] + 'T00:00:00')
+      : p2s;
+    cycleStart.setHours(0,0,0,0);
+    phaseStartDate = cycleStart;
+    phaseDuration = 42; // 6 weeks
+    phaseLabel = `Faza 2 — Cykl ${currentCycle}`;
+    nextLabel = `Faza 2 — Cykl ${currentCycle + 1}`;
+    phaseType = 'phase2';
+  }
+
+  // Training days up to today (past + today)
+  const pastTrainingDays = getTrainingDaysInPhase(phaseStartDate, phaseDuration);
+  const totalTraining = pastTrainingDays.length;
+  const doneTraining = pastTrainingDays.filter(d => isDone(d)).length;
+
+  // Ready when ALL 28 (Phase 1) or 42 (Phase 2 cycle) days are marked done
+  const minRequired = phaseType === 'phase1' ? 28 : 42;
+  const allDone = totalTraining >= minRequired && doneTraining === totalTraining;
+
+  if (!allDone) {
+    return {
+      ready: false,
+      phaseType,
+      phaseLabel,
+      nextLabel,
+      currentCycle,
+      doneTraining,
+      totalTraining,
+    };
+  }
+
+  return {
+    ready: true,
+    phaseType,
+    phaseLabel,
+    nextLabel,
+    currentCycle,
+    doneTraining,
+    totalTraining,
+  };
+}
+
+// Confirm phase transition
+function confirmPhaseTransition() {
+  const ts = getTransitionStatus();
+  if (!ts || !ts.ready) return;
+
+  if (ts.phaseType === 'phase1') {
+    // Phase 2 starts day after Phase 1 ends (start + 28 days)
+    const s = new Date(getStartDate()); s.setHours(0,0,0,0);
+    s.setDate(s.getDate() + 28);
+    setPhase2Start(fmtDate(s));
+  } else {
+    // Next cycle starts day after current cycle ends (cycleStart + 42 days)
+    const cycleStarts = getCycleStarts();
+    const p2s = new Date(getPhase2Start()); p2s.setHours(0,0,0,0);
+    const lastCycleStart = cycleStarts.length > 0
+      ? new Date(cycleStarts[cycleStarts.length-1] + 'T00:00:00')
+      : p2s;
+    lastCycleStart.setHours(0,0,0,0);
+    lastCycleStart.setDate(lastCycleStart.getDate() + 42);
+    addCycleStart(fmtDate(lastCycleStart));
+  }
+  buildCalendar();
+  buildCyclePlan();
+}
+
+
 // ─── PHASE SYSTEM ────────────────────────────────────
 // Returns {phase, cycle, weekInCycle, totalDays}
 function getProgramStatus() {
@@ -2201,14 +2369,30 @@ function getProgramStatus() {
   const s = new Date(start); s.setHours(0,0,0,0);
   const totalDays = Math.floor((today - s) / 86400000);
   if (totalDays < 0) return null;
-  if (totalDays < 28) {
-    return { phase:'phase1', cycle:1, weekInCycle: Math.floor(totalDays/7)+1, totalDays };
+
+  const p2start = getPhase2Start();
+
+  // Still in Phase 1 (either time hasn't elapsed OR user hasn't confirmed)
+  if (!p2start) {
+    const week = Math.min(4, Math.floor(totalDays/7)+1);
+    return { phase:'phase1', cycle:1, weekInCycle: week, totalDays };
   }
-  // Faza 2: cykl po 42 dni (6 tyg)
-  const f2days = totalDays - 28;
-  const rawCycle = Math.floor(f2days / 42) + 1;
+
+  // Phase 2
+  const p2s = new Date(p2start); p2s.setHours(0,0,0,0);
+  const cycleStarts = getCycleStarts();
+
+  // Current cycle start date
+  const cycleStartDate = cycleStarts.length > 0
+    ? new Date(cycleStarts[cycleStarts.length-1] + 'T00:00:00')
+    : p2s;
+  cycleStartDate.setHours(0,0,0,0);
+
+  const rawCycle = cycleStarts.length + 1; // 1-based
   const cycle = Math.max(1, rawCycle + getCycleOffset());
-  const weekInCycle = Math.floor((f2days % 42) / 7) + 1;
+  const daysInCycle = Math.floor((today - cycleStartDate) / 86400000);
+  const weekInCycle = Math.min(6, Math.floor(daysInCycle/7)+1);
+
   return { phase:'phase2', cycle, weekInCycle, totalDays, isDeload: isDeloadWeek(weekInCycle) };
 }
 
@@ -2217,14 +2401,44 @@ function getPhaseForDate(date) {
   if (!start) return null;
   const d = new Date(date); d.setHours(0,0,0,0);
   const s = new Date(start); s.setHours(0,0,0,0);
-  const diff = Math.floor((d - s) / 86400000);
-  if (diff < 0) return null;
-  if (diff < 28) return { phase:'phase1', cycle:1 };
-  const f2days = diff - 28;
-  const rawCycle = Math.floor(f2days / 42) + 1;
-  const cycle = Math.max(1, rawCycle + getCycleOffset());
-  const weekInCycle = Math.floor((f2days % 42) / 7) + 1;
-  return { phase:'phase2', cycle, weekInCycle, isDeload: isDeloadWeek(weekInCycle) };
+  if (d < s) return null;
+
+  const p2start = getPhase2Start();
+  if (!p2start) {
+    // Still in phase 1 — check if within 28 days
+    const p1end = new Date(s); p1end.setDate(s.getDate() + 27);
+    if (d <= p1end) return { phase:'phase1', cycle:1 };
+    return null; // beyond phase 1, phase 2 not started yet
+  }
+
+  const p2s = new Date(p2start); p2s.setHours(0,0,0,0);
+
+  // Before phase 2 started
+  if (d < p2s) {
+    return { phase:'phase1', cycle:1 };
+  }
+
+  // Build all cycle boundaries: [start, end] for each cycle
+  const cycleStarts = getCycleStarts();
+  const allCycleStartDates = [
+    p2s,
+    ...cycleStarts.map(cs => { const cd = new Date(cs+'T00:00:00'); cd.setHours(0,0,0,0); return cd; })
+  ];
+
+  // Find which cycle this date belongs to
+  for (let i = allCycleStartDates.length - 1; i >= 0; i--) {
+    const cStart = allCycleStartDates[i];
+    const cEnd = new Date(cStart); cEnd.setDate(cStart.getDate() + 41);
+    if (d >= cStart && d <= cEnd) {
+      const rawCycle = i + 1;
+      const cycle = Math.max(1, rawCycle + getCycleOffset());
+      const daysInCycle = Math.floor((d - cStart) / 86400000);
+      const weekInCycle = Math.floor(daysInCycle / 7) + 1;
+      return { phase:'phase2', cycle, weekInCycle, isDeload: isDeloadWeek(weekInCycle) };
+    }
+  }
+
+  return null; // date is between cycles or beyond last cycle
 }
 
 function getCurrentPhase() {
@@ -2398,6 +2612,18 @@ function fmtDisplay(d) {
 <div class="modal-overlay" id="day-modal" onclick="if(event.target===this)closeModal()">
   <div class="modal-sheet">
     <div id="day-modal-body"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirm-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-sheet" style="max-height:auto">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:#ff7070;margin-bottom:8px">⚠️ Resetuj program</div>
+    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px">
+      Czy na pewno chcesz zacząć od Fazy 1?<br>
+      <strong style="color:var(--text)">Wszystkie odznaczone treningi i historia faz zostaną usunięte.</strong>
+    </p>
+    <button class="modal-btn btn-danger" onclick="resetFullProgramConfirmed()">⟲ Tak, zaczynam od Fazy 1</button>
+    <button class="modal-btn btn-secondary" onclick="document.getElementById('confirm-modal').classList.remove('open')">Anuluj</button>
   </div>
 </div>
 
@@ -2629,57 +2855,25 @@ function buildTracker(preselect) {
 
 
 function buildStatusBar(status, opts) {
-  // opts: { showLink, showProgressBar, showHint }
   const o = opts || {};
   if (!getStartDate() || !status) return '';
 
   const isPhase1 = status.phase === 'phase1';
-  const week = status.weekInCycle;
   const cycle = isPhase1 ? 1 : status.cycle;
-  const totalWks = isPhase1 ? 4 : 6;
-  const pct = Math.round((week / totalWks) * 100);
-  const isDeloadNow = !isPhase1 && isDeloadWeek(week);
-  const weeksLeft = totalWks - week;
-
   const accentCol  = isPhase1 ? 'var(--accent)' : 'var(--accent2)';
   const accentBg   = isPhase1 ? 'rgba(200,245,66,0.08)' : 'rgba(66,245,167,0.08)';
   const accentBord = isPhase1 ? 'rgba(200,245,66,0.2)'  : 'rgba(66,245,167,0.2)';
-
   const title = isPhase1 ? 'FAZA 1 — ROZRUCH' : `FAZA 2 — CYKL ${cycle}`;
-  const sub = isPhase1
-    ? `Tydzień ${week}/4 · ${weeksLeft > 0 ? `jeszcze ${weeksLeft} ${weeksLeft===1?'tydzień':'tygodnie'}` : 'ostatni tydzień!'}`
-    : isDeloadNow
-      ? `Tydzień ${week}/6 — <span style="color:var(--accent3)">DELOAD 🔄</span>`
-      : `Tydzień ${week}/6 · ${weeksLeft > 0 ? `jeszcze ${weeksLeft} ${weeksLeft===1?'tydzień':'tygodnie'}` : 'ostatni tydzień — potem deload!'}`;
-
+  const sub = isPhase1 ? 'Program rozruchowy · 4 tygodnie' : `Program docelowy · Cykl ${cycle} · 6 tygodni`;
   const link = o.showLink && !isPhase1
     ? `<span style="font-size:11px;color:var(--accent);cursor:pointer;text-decoration:underline;display:block;margin-top:4px" onclick="switchPhase('cycle')">Zobacz plan cyklu →</span>`
     : '';
 
-  let html = `<div style="background:${accentBg};border:1px solid ${accentBord};border-radius:8px;padding:12px 16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between">
-    <div>
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:${accentCol}">${title}</div>
-      <div style="font-size:12px;color:var(--muted);margin-top:2px">${sub}</div>
-      ${link}
-    </div>
-    <div style="font-family:'DM Mono',monospace;font-size:32px;color:${accentCol};padding-left:16px">${week}/${totalWks}</div>
+  return `<div style="background:${accentBg};border:1px solid ${accentBord};border-radius:8px;padding:12px 16px;margin-bottom:16px">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:${accentCol}">${title}</div>
+    <div style="font-size:12px;color:var(--muted);margin-top:3px">${sub}</div>
+    ${link}
   </div>`;
-
-  if (o.showProgressBar !== false) {
-    const barColor = isDeloadNow ? 'var(--accent3)' : accentCol;
-    html += `<div style="background:var(--card);border:1px solid var(--border);border-radius:6px;padding:12px 16px;margin-bottom:16px">
-      <div style="display:flex;justify-content:space-between;font-size:11px;font-family:'DM Mono',monospace;color:var(--muted);margin-bottom:8px">
-        <span>POSTĘP ${isPhase1 ? 'FAZY 1' : 'CYKLU '+cycle}${isDeloadNow ? ' — DELOAD' : ''}</span>
-        <span>${pct}%</span>
-      </div>
-      <div style="background:var(--surface);border-radius:4px;height:8px;overflow:hidden">
-        <div style="background:${barColor};height:100%;width:${pct}%;border-radius:4px;transition:width .3s"></div>
-      </div>
-      ${o.showHint && isPhase1 ? `<div style="font-size:11px;color:var(--muted);margin-top:8px">Po ukończeniu Fazy 1 automatycznie startuje Faza 2 — Cykl 1</div>` : ''}
-    </div>`;
-  }
-
-  return html;
 }
 
 
@@ -2733,9 +2927,9 @@ function buildCyclePlan() {
   };
   const isDeloadWeekNow = !isPhase1 && isDeloadWeek(week);
 
-  // ── STATUS BAR + PROGRESS BAR (shared component) ──
-  let html = dayTitle('BIEŻĄCY CYKL', isPhase1 ? 'FAZA 1 · TYDZIEŃ '+week+' Z 4' : 'FAZA 2 · CYKL '+cycle+' · TYDZIEŃ '+week+' Z 6', '');
-  html += buildStatusBar(status, { showLink: false, showProgressBar: true, showHint: true });
+  // ── STATUS BAR ──
+  let html = dayTitle('BIEŻĄCY CYKL', isPhase1 ? 'FAZA 1' : 'FAZA 2 · CYKL '+cycle, '');
+  html += buildStatusBar(status, { showLink: false });
 
   // ── EXERCISE TABLES PER DAY ──
   html += `<div class="section-title" style="font-size:18px">Plan treningowy — ${isPhase1?'Faza 1':'Cykl '+cycle}</div>`;
@@ -2793,6 +2987,26 @@ function buildCyclePlan() {
     </div>`;
   }
 
+  // ── TRANSITION BANNER in cycle plan ──
+  const tsCycle = getTransitionStatus();
+  if (tsCycle && tsCycle.ready) {
+    html += `<div style="background:rgba(200,245,66,0.08);border:2px solid var(--accent);border-radius:10px;padding:16px;margin-top:24px">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent)">
+        🏁 ${tsCycle.phaseLabel} ukończona!
+      </div>
+      <div style="font-size:13px;color:var(--muted);margin:6px 0">
+        Wszystkie ${tsCycle.totalTraining} treningi zaliczone. Gotowy na <strong style="color:var(--text)">${tsCycle.nextLabel}</strong>?
+      </div>
+      <button class="modal-btn btn-primary" style="margin:8px 0 0" onclick="confirmPhaseTransition()">
+        ✓ Zaczynam ${tsCycle.nextLabel}
+      </button>
+    </div>`;
+  } else if (tsCycle && !tsCycle.ready) {
+    html += `<div class="note-box" style="margin-top:16px">
+      <strong>Postęp treningów:</strong> ${tsCycle.doneTraining}/${tsCycle.totalTraining} — zalicz wszystkie treningi żeby przejść do ${tsCycle.nextLabel}
+    </div>`;
+  }
+
   // ── CYCLE CONTROLS ──
   const offset = getCycleOffset();
   if (isPhase1) {
@@ -2810,11 +3024,11 @@ function buildCyclePlan() {
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
       <button class="modal-btn btn-secondary" style="margin:0" onclick="resetCycleBack(1)">← Cofnij o 1 cykl</button>
-      <button class="modal-btn btn-secondary" style="margin:0" onclick="resetCycleBack(2)">← Cofnij o 2 cykle</button>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
       <button class="modal-btn btn-secondary" style="margin:0" onclick="resetCycleForward(1)">Przesuń o 1 cykl →</button>
-      ${offset !== 0 ? `<button class="modal-btn btn-danger" style="margin:0" onclick="clearCycleOffset()">✕ Resetuj (powrót do Cyklu ${rawCycle})</button>` : '<div></div>'}
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+      ${offset !== 0 ? `<button class="modal-btn btn-danger" style="margin:0" onclick="clearCycleOffset()">✕ Resetuj offset (Cykl ${rawCycle})</button>` : '<div></div>'}
+      <button class="modal-btn btn-danger" style="margin:0" onclick="resetFullProgram()">⟲ Zacznij od Fazy 1</button>
     </div>`;
   }
 
