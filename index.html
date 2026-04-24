@@ -2,3053 +2,740 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="IronBell">
-<meta name="theme-color" content="#0d0f0e">
-<title>IronBell Protocol</title>
-<link rel="apple-touch-icon" href="data:image/png;base64,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">
-<link rel="manifest" id="pwa-manifest">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script>
-// Inject manifest dynamically (needed for single-file PWA)
-(function(){
-  var manifest = {"name": "IronBell Protocol", "short_name": "IronBell", "description": "Program treningowy kettlebell \u2014 4 dni w tygodniu", "start_url": ".", "display": "standalone", "background_color": "#0d0f0e", "theme_color": "#0d0f0e", "orientation": "portrait", "icons": [{"src": "data:image/png;base64,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", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"}, {"src": "data:image/png;base64,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", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}]};
-  var blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
-  var url = URL.createObjectURL(blob);
-  document.getElementById('pwa-manifest').href = url;})();
-</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KB Protocol</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0d0f0e;
-    --surface: #151918;
-    --card: #1c2220;
-    --border: #2a3330;
-    --accent: #c8f542;
-    --accent2: #42f5a7;
-    --accent3: #f5a842;
-    --text: #e8ede9;
-    --muted: #6b7d74;
-    --danger: #f54242;
-    --warm: #f5c842;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'DM Sans', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* NOISE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
-  }
-
-  header {
-    position: relative;
-    z-index: 10;
-    padding: 48px 40px 32px;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, #0a0c0b 0%, transparent 100%);
-  }
-
-  .header-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--accent);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-
-  h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(48px, 8vw, 96px);
-    letter-spacing: 2px;
-    line-height: 0.9;
-    color: var(--text);
-  }
-
-  h1 span {
-    color: var(--accent);
-  }
-
-  .header-sub {
-    margin-top: 16px;
-    color: var(--muted);
-    font-size: 14px;
-    font-weight: 300;
-    max-width: 540px;
-    line-height: 1.6;
-  }
-
-  .kb-badges {
-    display: flex;
-    gap: 6px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-  }
-
-  .kb-badge {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 5px 11px;
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--muted);
-    cursor: pointer;
-    user-select: none;
-    transition: all .15s;
-  }
-
-  .kb-badge.owned {
-    background: rgba(66,245,167,0.1);
-    border-color: rgba(66,245,167,0.4);
-    color: var(--accent2);
-  }
-
-  .kb-badge:hover {
-    border-color: var(--accent2);
-    color: var(--accent2);
-  }
-
-  /* PHASE NAV */
-  .phase-nav {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    gap: 0;
-    border-bottom: 1px solid var(--border);
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  .phase-nav::-webkit-scrollbar { display: none; }
-
-  .phase-btn {
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    padding: 18px 28px;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-    text-transform: uppercase;
-  }
-
-  .phase-btn:hover { color: var(--text); }
-
-  .phase-btn.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-    background: rgba(200,245,66,0.04);
-  }
-
-  /* MAIN LAYOUT */
-  main {
-    position: relative;
-    z-index: 10;
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    min-height: calc(100vh - 220px);
-  }
-
-  main.no-sidebar {
-    grid-template-columns: 1fr;
-  }
-
-  /* DAY SIDEBAR */
-  .day-sidebar {
-    border-right: 1px solid var(--border);
-    padding: 24px 0;
-  }
-
-  main.no-sidebar .day-sidebar {
-    display: none;
-  }
-
-  .day-btn {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    width: 100%;
-    background: none;
-    border: none;
-    border-left: 3px solid transparent;
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    padding: 14px 20px;
-    cursor: pointer;
-    text-align: left;
-    transition: all 0.2s;
-  }
-
-  .day-btn:hover { color: var(--text); background: rgba(255,255,255,0.02); }
-
-  .day-btn.active {
-    color: var(--text);
-    border-left-color: var(--accent);
-    background: rgba(200,245,66,0.04);
-  }
-
-  .day-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-    flex-shrink: 0;
-    transition: background 0.2s;
-  }
-
-  .day-btn.active .day-dot { background: var(--accent); }
-  .day-btn.rest .day-dot { background: var(--accent2); }
-  .day-btn.rest.active .day-dot { background: var(--accent2); }
-  .day-btn.rest.active { border-left-color: var(--accent2); color: var(--accent2); }
-
-  .day-type {
-    font-size: 10px;
-    font-family: 'DM Mono', monospace;
-    letter-spacing: 1px;
-    opacity: 0.6;
-    display: block;
-    margin-top: 2px;
-  }
-
-  /* CONTENT */
-  .content {
-    padding: 32px 40px;
-    overflow-y: auto;
-  }
-
-  .phase-panel { display: none; }
-  .phase-panel.active { display: block; }
-
-  .day-content { display: none; }
-  .day-content.active { display: block; }
-
-  /* SECTION BLOCKS */
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 28px;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .block {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 16px;
-    overflow: hidden;
-  }
-
-  .block-header {
-    padding: 14px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    user-select: none;
-    border-bottom: 1px solid transparent;
-    transition: background 0.15s;
-  }
-
-  .block-header:hover { background: rgba(255,255,255,0.02); }
-  .block-header.open { border-bottom-color: var(--border); }
-
-  .block-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    padding: 3px 8px;
-    border-radius: 3px;
-    text-transform: uppercase;
-  }
-
-  .tag-warmup { background: rgba(245,168,66,0.15); color: var(--accent3); border: 1px solid rgba(245,168,66,0.25); }
-  .tag-main { background: rgba(200,245,66,0.1); color: var(--accent); border: 1px solid rgba(200,245,66,0.2); }
-  .tag-cooldown { background: rgba(66,245,167,0.1); color: var(--accent2); border: 1px solid rgba(66,245,167,0.2); }
-  .tag-mobility { background: rgba(66,133,245,0.1); color: #7ab3f5; border: 1px solid rgba(66,133,245,0.2); }
-  .tag-notes { background: rgba(200,200,200,0.08); color: var(--muted); border: 1px solid var(--border); }
-
-  .block-title {
-    font-weight: 600;
-    font-size: 14px;
-    flex: 1;
-  }
-
-  .block-toggle {
-    color: var(--muted);
-    font-size: 18px;
-    transition: transform 0.2s;
-  }
-
-  .block-header.open .block-toggle { transform: rotate(180deg); }
-
-  .block-body {
-    display: none;
-    padding: 20px;
-  }
-
-  .block-body.open { display: block; }
-
-  /* EXERCISE TABLE */
-  .ex-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-  }
-
-  .ex-table th {
-    text-align: left;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    padding: 0 12px 10px;
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .ex-table td {
-    padding: 10px 12px;
-    vertical-align: top;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-  }
-
-  .ex-table tr:last-child td { border-bottom: none; }
-
-  .ex-name {
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .ex-focus {
-    font-size: 11px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  .ex-sets {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--accent);
-    white-space: nowrap;
-  }
-
-  .ex-weight {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--accent3);
-  }
-
-  .ex-notes {
-    font-size: 12px;
-    color: var(--muted);
-    font-style: italic;
-  }
-
-  /* YOUTUBE LINK */
-  .yt-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    margin-top: 5px;
-    padding: 3px 8px;
-    border-radius: 3px;
-    background: rgba(255,60,60,0.10);
-    border: 1px solid rgba(255,60,60,0.22);
-    color: #ff7070;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.5px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    white-space: nowrap;
-  }
-  .yt-btn:hover {
-    background: rgba(255,60,60,0.22);
-    color: #ffaaaa;
-  }
-  .yt-btn svg { flex-shrink: 0; }
-
-  /* STRETCH LIST */
-  .stretch-list {
-    list-style: none;
-    display: grid;
-    gap: 8px;
-  }
-
-  .stretch-list li {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  .stretch-list li::before {
-    content: '→';
-    color: var(--accent2);
-    flex-shrink: 0;
-    font-family: 'DM Mono', monospace;
-    margin-top: 1px;
-  }
-
-  .stretch-time {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-    margin-left: auto;
-    white-space: nowrap;
-    padding-left: 12px;
-  }
-
-  .stretch-yt {
-    margin-left: 8px;
-    flex-shrink: 0;
-  }
-
-  /* PROGRESSION BOX */
-  .progression-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 12px;
-    margin-top: 8px;
-  }
-
-  .prog-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    padding: 14px 16px;
-  }
-
-  .prog-week {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22px;
-    color: var(--accent);
-    letter-spacing: 1px;
-  }
-
-  .prog-desc {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 4px;
-    line-height: 1.5;
-  }
-
-  /* OVERVIEW */
-  .overview-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 16px;
-    margin-bottom: 32px;
-  }
-
-  .overview-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px;
-  }
-
-  .overview-card h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 20px;
-    letter-spacing: 1px;
-    color: var(--accent);
-    margin-bottom: 10px;
-  }
-
-  .overview-card p, .overview-card li {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  .overview-card ul { list-style: none; }
-  .overview-card li::before { content: '• '; color: var(--accent); }
-
-  /* WEEK SCHEDULE */
-  .week-row {
-    display: grid;
-    grid-template-columns: 80px 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 4px;
-    margin-bottom: 4px;
-    align-items: center;
-  }
-
-  .week-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
-  }
-
-  .day-cell {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    padding: 6px 8px;
-    font-size: 11px;
-    text-align: center;
-  }
-
-  .day-cell.train { border-color: rgba(200,245,66,0.3); color: var(--accent); background: rgba(200,245,66,0.05); }
-  .day-cell.rest { border-color: rgba(66,245,167,0.3); color: var(--accent2); background: rgba(66,245,167,0.05); }
-  .day-cell.off { color: var(--muted); }
-
-  .day-header-cell {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    text-align: center;
-    padding: 4px;
-    letter-spacing: 1px;
-  }
-
-  /* NOTE BOX */
-  .note-box {
-    background: rgba(200,245,66,0.04);
-    border: 1px solid rgba(200,245,66,0.15);
-    border-radius: 6px;
-    padding: 14px 16px;
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.6;
-    margin-top: 16px;
-  }
-
-  .note-box strong { color: var(--accent); }
-
-  /* SCROLL HINT */
-  @media (max-width: 768px) {
-    main { grid-template-columns: 1fr; }
-    .day-sidebar { 
-      display: flex; 
-      overflow-x: auto; 
-      border-right: none; 
-      border-bottom: 1px solid var(--border);
-      padding: 12px 0;
-    }
-    main.no-sidebar .day-sidebar { display: none; }
-    .day-btn { white-space: nowrap; border-left: none; border-bottom: 3px solid transparent; }
-    .day-btn.active { border-left-color: transparent; border-bottom-color: var(--accent); }
-    .content { padding: 20px; }
-    header { padding: 28px 20px 20px; }
-    .phase-btn { padding: 14px 18px; }
-  }
-
-  .highlight-row td { background: rgba(200,245,66,0.03); }
-
-  .divider {
-    height: 1px;
-    background: var(--border);
-    margin: 24px 0;
-  }
-
-  /* ======= CALENDAR ======= */
-  .cal-header {
-    display: flex; align-items: center; justify-content: space-between;
-    margin-bottom: 16px;
-  }
-  .cal-nav-btn {
-    background: var(--card); border: 1px solid var(--border); color: var(--text);
-    border-radius: 6px; padding: 8px 14px; font-size: 18px; cursor: pointer;
-    transition: background .15s;
-  }
-  .cal-nav-btn:hover { background: var(--border); }
-  .cal-month-label {
-    font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: var(--accent);
-  }
-  .cal-grid {
-    display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; margin-bottom: 20px;
-    width: 100%;
-  }
-  .cal-dow {
-    text-align: center; font-family: 'DM Mono', monospace; font-size: 9px;
-    color: var(--muted); letter-spacing: 0; padding: 4px 0;
-  }
-  .cal-day {
-    background: var(--card); border: 1px solid var(--border); border-radius: 5px;
-    min-height: 52px; padding: 4px 3px; cursor: pointer; transition: border-color .15s;
-    position: relative; overflow: hidden;
-  }
-  .cal-day:hover { border-color: var(--accent); }
-  .cal-day.empty { background: transparent; border-color: transparent; cursor: default; }
-  .cal-day.today { border-color: var(--accent); background: rgba(200,245,66,0.05); }
-  .cal-day.has-training { border-color: rgba(200,245,66,0.4); }
-  .cal-day.has-mobility { border-color: rgba(66,245,167,0.4); }
-  .cal-day.done { background: rgba(200,245,66,0.07); }
-  .cal-day.cal-other-cycle { background: var(--surface); }
-  .cal-day-num {
-    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
-  }
-  .cal-day.today .cal-day-num { color: var(--accent); font-weight: 600; }
-  .cal-day-pill {
-    font-size: 9px; font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px;
-    border-radius: 3px; padding: 2px 4px; margin-top: 3px; display: block;
-    text-align: center; white-space: nowrap; overflow: hidden;
-  }
-  .pill-a    { background: rgba(200,245,66,0.18); color: var(--accent); border: 1px solid rgba(200,245,66,0.3); }
-  .pill-b    { background: rgba(66,180,245,0.15); color: #42b8f5; border: 1px solid rgba(66,180,245,0.3); }
-  .pill-c    { background: rgba(245,168,66,0.15); color: var(--accent3); border: 1px solid rgba(245,168,66,0.3); }
-  .pill-d    { background: rgba(245,100,66,0.12); color: #f57842; border: 1px solid rgba(245,100,66,0.25); }
-  .pill-mobility { background: rgba(66,245,167,0.12); color: var(--accent2); border: 1px solid rgba(66,245,167,0.25); }
-  .pill-rest { background: rgba(255,255,255,0.04); color: var(--muted); border: 1px solid var(--border); }
-  .pill-deload { background: rgba(245,168,66,0.15); color: var(--accent3); border: 1px solid rgba(245,168,66,0.3); }
-  .pill-pause { background: rgba(245,66,66,0.12); color: #ff7070; border: 1px solid rgba(245,66,66,0.25); }
-  .pill-train { background: rgba(200,245,66,0.15); color: var(--accent); }
-  .pill-done { background: rgba(200,245,66,0.25); color: #0d0f0e; }
-  .cal-done-dot {
-    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-    position: absolute; top: 6px; right: 6px;
-  }
-
-  /* day modal */
-  .modal-overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-    z-index: 500; align-items: flex-end; justify-content: center;
-  }
-  .modal-overlay.open { display: flex; }
-  .modal-sheet {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 16px 16px 0 0; width: 100%; max-width: 600px;
-    padding: 24px 20px 40px; max-height: 80vh; overflow-y: auto;
-  }
-  .modal-title {
-    font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 2px;
-    color: var(--accent); margin-bottom: 4px;
-  }
-  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-  .modal-close {
-    float: right; background: none; border: none; color: var(--muted);
-    font-size: 24px; cursor: pointer; margin-top: -4px;
-  }
-  .modal-btn {
-    display: block; width: 100%; padding: 13px; border-radius: 8px;
-    font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 14px;
-    cursor: pointer; margin-bottom: 10px; transition: opacity .15s;
-  }
-  .modal-btn:hover { opacity: .85; }
-  .btn-primary { background: var(--accent); color: #0d0f0e; border: none; }
-  .btn-secondary { background: var(--card); color: var(--text); border: 1px solid var(--border); }
-  .btn-danger { background: rgba(245,66,66,0.12); color: #ff7070; border: 1px solid rgba(245,66,66,0.25); }
-
-  /* schedule strip */
-  .sched-strip {
-    display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 20px;
-    scrollbar-width: none;
-  }
-  .sched-strip::-webkit-scrollbar { display: none; }
-  .sched-card {
-    flex-shrink: 0; background: var(--card); border: 1px solid var(--border);
-    border-radius: 8px; padding: 12px 14px; min-width: 110px; cursor: pointer;
-    transition: border-color .15s;
-  }
-  .sched-card:hover { border-color: var(--accent); }
-  .sched-card.today-card { border-color: var(--accent); background: rgba(200,245,66,0.06); }
-  .sched-date { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); }
-  .sched-label { font-weight:600; font-size:13px; margin-top:4px; }
-  .sched-type { font-size:11px; color:var(--muted); margin-top:2px; }
-
-  /* ======= TRACKER ======= */
-  .tracker-ex-list { display: grid; gap: 10px; margin-bottom: 20px; }
-  .tracker-ex-card {
-    background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 14px;
-  }
-  .tracker-ex-name { font-weight: 600; font-size: 14px; margin-bottom: 10px; }
-  .tracker-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-  .tracker-input-group { display: flex; flex-direction: column; gap: 4px; }
-  .tracker-input-label {
-    font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1px;
-  }
-  .tracker-input {
-    background: var(--surface); border: 1px solid var(--border); color: var(--text);
-    border-radius: 5px; padding: 8px 10px; font-size: 14px; font-family: 'DM Sans', sans-serif;
-    width: 100%;
-  }
-  .tracker-input:focus { outline: none; border-color: var(--accent); }
-  select.tracker-input option { background: var(--surface); color: var(--text); }
-  .save-btn {
-    background: var(--accent); color: #0d0f0e; border: none; border-radius: 8px;
-    padding: 14px; font-weight: 700; font-size: 15px; width: 100%; cursor: pointer;
-    font-family: 'DM Sans', sans-serif; transition: opacity .15s;
-  }
-  .save-btn:hover { opacity: .85; }
-
-  /* charts */
-  .chart-select-row {
-    display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap;
-  }
-  .chart-ex-btn {
-    background: var(--card); border: 1px solid var(--border); color: var(--muted);
-    border-radius: 5px; padding: 6px 12px; font-size: 12px; cursor: pointer;
-    font-family: 'DM Sans', sans-serif; transition: all .15s; white-space: nowrap;
-  }
-  .chart-ex-btn.active { background: rgba(200,245,66,0.1); border-color: var(--accent); color: var(--accent); }
-  .chart-wrap {
-    background: var(--card); border: 1px solid var(--border); border-radius: 8px;
-    padding: 16px; margin-bottom: 16px;
-  }
-  .chart-title {
-    font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted);
-    letter-spacing: 1px; margin-bottom: 12px;
-  }
-  canvas.prog-chart { width: 100% !important; }
-  .history-list { display: grid; gap: 6px; }
-  .history-row {
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--card); border: 1px solid var(--border); border-radius: 6px;
-    padding: 10px 14px; font-size: 13px;
-  }
-  .history-date { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--muted); }
-  .history-val { font-family: 'DM Mono', monospace; color: var(--accent); }
-  .history-del { background:none; border:none; color:var(--muted); cursor:pointer; font-size:16px; }
-  .empty-state {
-    text-align: center; padding: 40px 20px; color: var(--muted); font-size: 13px; line-height: 2;
-  }
-  .empty-state .big { font-size: 36px; }
-
-
-  /* SUB NAV */
-  .sub-btn {
-    background: none; border: none; border-bottom: 3px solid transparent;
-    color: var(--muted); font-family: 'DM Sans', sans-serif; font-size: 13px;
-    font-weight: 500; padding: 12px 18px; cursor: pointer; white-space: nowrap;
-    transition: all .15s;
-  }
-  .sub-btn:hover { color: var(--text); }
-  .sub-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .sub-panel { display: none; }
-  .sub-panel.active { display: block; }
-
+:root{--bg:#0a0a0a;--surface:#141414;--card:#1c1c1c;--border:#2a2a2a;--accent:#e8ff47;--accent2:#47ffd4;--accent3:#ff6b47;--muted:#555;--text:#e8e8e8;--text2:#999}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;display:flex;flex-direction:column}
+nav{display:flex;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--surface)}
+.nav-btn{flex:1;padding:14px 8px;background:none;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.nav-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-btn:hover:not(.active){color:var(--text2)}
+main{flex:1;overflow-y:auto;overflow-x:hidden}
+.screen{display:none;padding:20px;max-width:600px;margin:0 auto}
+.screen.active{display:block}
+.screen-title{font-family:'Bebas Neue',sans-serif;font-size:42px;letter-spacing:3px;color:var(--accent);line-height:1;margin-bottom:4px}
+.screen-sub{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;margin-bottom:24px}
+.badge{display:inline-block;padding:3px 10px;border-radius:4px;font-size:11px;font-family:'DM Mono',monospace;font-weight:500;letter-spacing:1px}
+.badge-L{background:rgba(71,255,212,.12);color:var(--accent2);border:1px solid rgba(71,255,212,.25)}
+.badge-H{background:rgba(255,107,71,.12);color:var(--accent3);border:1px solid rgba(255,107,71,.25)}
+
+/* PROGRESSION BANNER */
+.prog-banner{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:20px}
+.prog-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.prog-step-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.prog-step-val{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:2px;color:var(--accent);line-height:1}
+.prog-weights{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;margin-top:5px;line-height:1.6}
+.prog-actions{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.prog-btn{padding:7px 14px;background:none;border:1px solid var(--border);color:var(--text2);border-radius:6px;font-size:11px;font-family:'DM Mono',monospace;cursor:pointer;transition:all .2s;letter-spacing:1px;white-space:nowrap}
+.prog-btn.up{border-color:var(--accent);color:var(--accent)}
+.prog-btn:hover{border-color:var(--text)}
+.prog-btn.up:hover{background:var(--accent);color:#000}
+.prog-bar-wrap{background:var(--surface);border-radius:4px;height:4px;overflow:hidden}
+.prog-bar{height:100%;background:linear-gradient(90deg,var(--accent2),var(--accent));border-radius:4px;transition:width .4s}
+.prog-bar-label{display:flex;justify-content:space-between;font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);margin-top:5px}
+
+/* DAY CARDS */
+.day-card{background:var(--card);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.day-card:hover{border-color:var(--muted)}
+.day-card.today{border-color:var(--accent)}
+.day-header{display:flex;align-items:center;gap:12px;padding:14px 16px}
+.day-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:2px;width:36px;flex-shrink:0}
+.day-type{flex:1}
+.day-type-label{font-size:13px;font-weight:600;margin-bottom:4px}
+.day-exercises{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;line-height:1.7}
+.day-chevron{color:var(--muted);font-size:18px;transition:transform .2s;flex-shrink:0}
+.day-card.open .day-chevron{transform:rotate(180deg)}
+.day-detail{display:none;padding:0 16px 16px;border-top:1px solid var(--border)}
+.day-detail.open{display:block}
+.ex-row{display:flex;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--border)}
+.ex-row:last-child{border-bottom:none}
+.ex-name{font-size:13px;font-weight:600;margin-bottom:3px}
+.ex-detail{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;line-height:1.6}
+.ex-note{font-size:11px;color:var(--muted);margin-top:4px;font-style:italic;line-height:1.4}
+.start-btn{width:100%;margin-top:14px;padding:13px;background:var(--accent);color:#000;border:none;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;cursor:pointer;transition:opacity .2s}
+.start-btn:hover{opacity:.85}
+
+/* TIMER */
+.timer-wrap{display:flex;flex-direction:column;align-items:center;padding:10px 0}
+.timer-ex-info{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 16px;width:100%;margin-bottom:16px}
+.timer-ex-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--accent);margin-bottom:4px}
+.timer-ex-sub{font-size:12px;color:var(--text2);font-family:'DM Mono',monospace}
+.timer-phase{font-family:'DM Mono',monospace;font-size:13px;letter-spacing:3px;text-transform:uppercase;margin-bottom:12px}
+.timer-phase.work{color:var(--accent)}
+.timer-phase.rest{color:var(--accent2)}
+.timer-phase.ready{color:var(--muted)}
+.timer-phase.done{color:var(--accent2)}
+.timer-circle{position:relative;width:200px;height:200px;margin-bottom:20px}
+.timer-svg{transform:rotate(-90deg)}
+.timer-track{fill:none;stroke:var(--border);stroke-width:8}
+.timer-prog{fill:none;stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset .9s linear,stroke .3s}
+.timer-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.timer-time{font-family:'Bebas Neue',sans-serif;font-size:56px;letter-spacing:2px;line-height:1}
+.timer-round{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:4px}
+.timer-controls{display:flex;gap:10px;margin-bottom:20px}
+.t-btn{padding:10px 22px;border-radius:8px;border:1px solid var(--border);background:var(--card);color:var(--text);font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;transition:all .2s}
+.t-btn.primary{background:var(--accent);color:#000;border-color:var(--accent)}
+.t-btn:hover:not(.primary){border-color:var(--text2)}
+.t-btn.primary:hover{opacity:.85}
+.timer-settings{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;width:100%}
+.settings-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;margin-bottom:14px}
+.setting-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.setting-row:last-child{margin-bottom:0}
+.setting-label{font-size:13px;font-weight:500}
+.setting-controls{display:flex;align-items:center;gap:8px}
+.s-btn{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s}
+.s-btn:hover{border-color:var(--accent)}
+.s-val{font-family:'DM Mono',monospace;font-size:14px;width:50px;text-align:center;color:var(--accent)}
+
+/* CALENDAR */
+.cal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.cal-month{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:3px;color:var(--accent)}
+.cal-nav{background:none;border:1px solid var(--border);color:var(--text);border-radius:6px;width:32px;height:32px;cursor:pointer;font-size:16px;transition:border-color .2s}
+.cal-nav:hover{border-color:var(--accent)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:16px}
+.cal-dow{text-align:center;font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);padding:4px 0;letter-spacing:1px}
+.cal-day{aspect-ratio:1;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:6px;font-size:12px;font-family:'DM Mono',monospace;cursor:pointer;border:1px solid transparent;transition:all .15s;gap:2px}
+.cal-day.other{color:var(--border);pointer-events:none}
+.cal-day.today{border-color:var(--accent);color:var(--accent)}
+.cal-day.done{background:rgba(71,255,212,.1);border-color:rgba(71,255,212,.3);color:var(--accent2)}
+.cal-day.skipped{background:rgba(255,107,71,.08);border-color:rgba(255,107,71,.2);color:var(--accent3)}
+.cal-day:not(.other):hover{border-color:var(--muted)}
+.cal-dot{width:4px;height:4px;border-radius:50%}
+.cal-day.done .cal-dot{background:var(--accent2)}
+.cal-day.skipped .cal-dot{background:var(--accent3)}
+.cal-day.train:not(.done):not(.skipped) .cal-dot{background:var(--border)}
+.cal-legend{display:flex;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.cal-legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2);font-family:'DM Mono',monospace}
+.cal-legend-dot{width:8px;height:8px;border-radius:50%}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:14px}
+.stat-val{font-family:'Bebas Neue',sans-serif;font-size:32px;color:var(--accent);letter-spacing:2px}
+.stat-label{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.history-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px}
+.history-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:68px;flex-shrink:0}
+.history-info{flex:1}
+.history-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.history-sub{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace}
+.history-status{font-size:11px;font-family:'DM Mono',monospace;font-weight:600}
+.status-done{color:var(--accent2)}
+.status-skip{color:var(--accent3)}
+.empty-state{text-align:center;padding:40px 0;color:var(--muted);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:1px;line-height:2.2}
+
+/* MODALS */
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:100;align-items:flex-end;justify-content:center}
+.modal-bg.open{display:flex}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:16px 16px 0 0;padding:24px 20px;width:100%;max-width:600px;max-height:85vh;overflow-y:auto;position:relative}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;margin-bottom:4px}
+.modal-sub{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;margin-bottom:20px}
+.modal-btn{width:100%;padding:13px;border-radius:8px;border:none;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;margin-bottom:8px;transition:opacity .2s}
+.modal-btn:hover{opacity:.85}
+.modal-btn.primary{background:var(--accent2);color:#000}
+.modal-btn.secondary{background:var(--card);color:var(--text);border:1px solid var(--border)}
+.modal-btn.danger{background:var(--accent3);color:#fff}
+.modal-close{position:absolute;top:16px;right:20px;background:none;border:none;color:var(--muted);font-size:24px;cursor:pointer}
+
+/* STEP LIST */
+.step-list{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.step-item{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:8px;border:1px solid var(--border);background:var(--card);cursor:pointer;transition:all .2s}
+.step-item:hover{border-color:var(--text2)}
+.step-item.active{border-color:var(--accent);background:rgba(232,255,71,.04)}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--muted);width:26px;flex-shrink:0;text-align:center}
+.step-item.active .step-num{color:var(--accent)}
+.step-info{flex:1}
+.step-title{font-size:13px;font-weight:600;margin-bottom:2px}
+.step-detail{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace}
+.step-sep{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;padding:8px 4px 4px;border-top:1px solid var(--border);margin-top:4px}
+
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-label">Program treningowy / Kettlebell</div>
-  <h1>IRON<span>BELL</span><br>PROTOCOL</h1>
-  <p class="header-sub">
-    4 dni treningowe · Nacisk na plecy, szyję, łopatki i klatkę piersiową · Progresja liniowo-falowa · Mobility w dni odpoczynku
-  </p>
-  <div style="margin-top:16px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:8px">MOJE KETTLEBELLE — kliknij żeby zaznaczyć/odznaczyć</div>
-  <div class="kb-badges" id="kb-badges-container"></div>
-</header>
-
-<!-- PHASE NAV -->
-<nav class="phase-nav">
-  <button class="phase-btn active" onclick="switchPhase('overview')">📖 Przegląd</button>
-  <button class="phase-btn" onclick="switchPhase('cycle')">🎯 Bieżący Cykl</button>
-  <button class="phase-btn" onclick="switchPhase('tracker')">📈 Progres</button>
-  <button class="phase-btn" onclick="switchPhase('calendar')">📅 Kalendarz</button>
+<nav>
+  <button class="nav-btn active" onclick="showScreen('plan')">PLAN</button>
+  <button class="nav-btn" onclick="showScreen('timer')">TIMER</button>
+  <button class="nav-btn" onclick="showScreen('calendar')">KALENDARZ</button>
 </nav>
 
-<!-- MAIN CONTENT AREA -->
 <main>
+<div id="screen-plan" class="screen active"></div>
 
-  <!-- SIDEBAR — days (shown only in training phases) -->
-  <aside class="day-sidebar" id="daySidebar">
-    <!-- content injected by JS -->
-  </aside>
-
-  <!-- CONTENT PANELS -->
-  <div class="content">
-
-    <!-- =================== OVERVIEW =================== -->
-    <div class="phase-panel active" id="panel-overview">
-
-      <!-- SUB NAV -->
-      <div style="display:flex;gap:0;border-bottom:1px solid var(--border);margin-bottom:24px;overflow-x:auto;scrollbar-width:none">
-        <button class="sub-btn active" onclick="switchSub('sub-info')">ℹ️ O programie</button>
-        <button class="sub-btn" onclick="switchSub('sub-phase1')">Faza 1</button>
-        <button class="sub-btn" onclick="switchSub('sub-phase2')">Faza 2</button>
-        <button class="sub-btn" onclick="switchSub('sub-mobility')">Mobility</button>
-        <button class="sub-btn" onclick="switchSub('sub-progression')">Progresja</button>
-      </div>
-
-      <!-- SUB PANELS -->
-      <div id="sub-info" class="sub-panel active">
-      <div class="section-title">Jak działa ten program</div>
-
-      <div class="overview-grid">
-        <div class="overview-card">
-          <h3>Struktura tygodnia</h3>
-          <p>4 dni treningowe z kettlebell + 3 dni mobility/odpoczynku. Zalecany schemat:</p>
-          <br>
-          <ul>
-            <li><strong style="color:var(--accent)">Pn</strong> — Trening A (Plecy + Pull)</li>
-            <li><strong style="color:var(--accent)">Wt</strong> — Trening B (Klatka + Push)</li>
-            <li><strong style="color:var(--accent2)">Śr</strong> — Mobility REST</li>
-            <li><strong style="color:var(--accent)">Cz</strong> — Trening C (Plecy — siła)</li>
-            <li><strong style="color:var(--accent)">Pt</strong> — Trening D (Full body)</li>
-            <li><strong style="color:var(--accent2)">Sb</strong> — Mobility REST</li>
-            <li><strong style="color:var(--accent2)">Nd</strong> — Mobility (regeneracja)</li>
-          </ul>
-        </div>
-
-        <div class="overview-card">
-          <h3>Filozofia programu</h3>
-          <ul>
-            <li>Faza 1 to nauka wzorców ruchu i adaptacja stawów</li>
-            <li>Faza 2 to progresja — więcej objętości i ciężaru</li>
-            <li>Plecy (szyja, łopatki) w każdej sesji treningowej</li>
-            <li>Klatka piersiowa ćwiczona funkcjonalnie (push patterns)</li>
-            <li>Mobility 3×/tydzień poprawia zakres ruchu i regenerację</li>
-          </ul>
-        </div>
-
-        <div class="overview-card">
-          <h3>Dobór ciężaru</h3>
-          <ul>
-            <li>Ciężar powinien być wyzwaniem, ale technika > wszystko</li>
-            <li>Zaczynaj od niższego ciężaru niż myślisz</li>
-            <li>RPE 6-7 w Fazie 1, RPE 7-8 w Fazie 2</li>
-            <li>Kiedy ostatnia seria jest łatwa — idź wyżej</li>
-          </ul>
-        </div>
-
-        <div class="overview-card">
-          <h3>Skróty w tabelach</h3>
-          <ul>
-            <li><strong style="color:var(--accent)">ALAC</strong> — alternujące ręce co cast</li>
-            <li><strong style="color:var(--accent)">TGU</strong> — Turkish Get-Up</li>
-            <li><strong style="color:var(--accent)">RPE</strong> — subiektywny wysiłek 1-10</li>
-            <li><strong style="color:var(--accent)">sec</strong> — sekundy izometrii</li>
-            <li><strong style="color:var(--accent)">e/s</strong> — each side (każda strona)</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="section-title">Harmonogram tygodniowy</div>
-
-      <div style="overflow-x:auto">
-        <div class="week-row">
-          <div class="week-label"></div>
-          <div class="day-header-cell">Pon</div>
-          <div class="day-header-cell">Wt</div>
-          <div class="day-header-cell">Śr</div>
-          <div class="day-header-cell">Czw</div>
-          <div class="day-header-cell">Pt</div>
-          <div class="day-header-cell">Sob</div>
-          <div class="day-header-cell">Nd</div>
-        </div>
-        <div class="week-row">
-          <div class="week-label">Faza 1</div>
-          <div class="day-cell train">Trening A</div>
-          <div class="day-cell train">Trening B</div>
-          <div class="day-cell rest">Mob. I</div>
-          <div class="day-cell train">Trening C</div>
-          <div class="day-cell train">Trening D</div>
-          <div class="day-cell rest">Mob. II</div>
-          <div class="day-cell rest">Mob. III</div>
-        </div>
-        <div class="week-row">
-          <div class="week-label">Faza 2</div>
-          <div class="day-cell train">Trening A</div>
-          <div class="day-cell train">Trening B</div>
-          <div class="day-cell rest">Mob. I</div>
-          <div class="day-cell train">Trening C</div>
-          <div class="day-cell train">Trening D</div>
-          <div class="day-cell rest">Mob. II</div>
-          <div class="day-cell rest">Mob. III</div>
-        </div>
-      </div>
-
-      <div class="note-box">
-        <strong>Wskazówka:</strong> Pn + Wt = treningi, Śr = Mobility I (biodra + core), Cz + Pt = treningi, Sb = Mobility II (klatka + rotacje), Nd = Mobility III (regeneracja + wyciszenie).
-      </div>
-
-      </div><!-- /sub-info -->
-
-      <!-- SUB: FAZA 1 -->
-      <div id="sub-phase1" class="sub-panel">
-        <div id="days-phase1-inner"></div>
-      </div>
-
-      <!-- SUB: FAZA 2 -->
-      <div id="sub-phase2" class="sub-panel">
-        <div id="days-phase2-inner"></div>
-      </div>
-
-      <!-- SUB: MOBILITY -->
-      <div id="sub-mobility" class="sub-panel">
-        <div id="mobility-content"></div>
-      </div>
-
-      <!-- SUB: PROGRESSION -->
-      <div id="sub-progression" class="sub-panel">
-        <div id="progression-content"></div>
-      </div>
-
-    </div><!-- /panel-overview -->
-
-    <!-- =================== CYCLE PLAN =================== -->
-    <div class="phase-panel" id="panel-cycle">
-      <div id="cycle-content"></div>
+<div id="screen-timer" class="screen">
+  <div class="screen-title">TIMER</div>
+  <div class="screen-sub">INTERWAŁOWY</div>
+  <div class="timer-wrap">
+    <div id="timer-ex-info" class="timer-ex-info" style="display:none">
+      <div id="timer-ex-name" class="timer-ex-name"></div>
+      <div id="timer-ex-sub" class="timer-ex-sub"></div>
     </div>
-
-    <!-- =================== CALENDAR =================== -->
-    <div class="phase-panel" id="panel-calendar">
-      <div id="calendar-content"></div>
+    <div class="timer-phase ready" id="timer-phase">GOTOWY</div>
+    <div class="timer-circle">
+      <svg class="timer-svg" viewBox="0 0 200 200" width="200" height="200">
+        <circle class="timer-track" cx="100" cy="100" r="88"/>
+        <circle class="timer-prog" id="timer-prog" cx="100" cy="100" r="88"
+          stroke-dasharray="553" stroke-dashoffset="0" stroke="var(--accent)"/>
+      </svg>
+      <div class="timer-center">
+        <div class="timer-time" id="timer-display">60</div>
+        <div class="timer-round" id="timer-round-info">RUNDA 1</div>
+      </div>
     </div>
-
-    <!-- =================== TRACKER =================== -->
-    <div class="phase-panel" id="panel-tracker">
-      <div id="tracker-content"></div>
+    <div class="timer-controls">
+      <button class="t-btn" onclick="resetTimer()">RESET</button>
+      <button class="t-btn primary" id="timer-toggle-btn" onclick="toggleTimer()">START</button>
+      <button class="t-btn" onclick="skipPhase()">SKIP</button>
+    </div>
+    <div class="timer-settings">
+      <div class="settings-title">Ustawienia timera</div>
+      <div class="setting-row">
+        <span class="setting-label">Praca</span>
+        <div class="setting-controls">
+          <button class="s-btn" onclick="adjustSetting('work',-5)">−</button>
+          <span class="s-val" id="work-val">60s</span>
+          <button class="s-btn" onclick="adjustSetting('work',5)">+</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">Odpoczynek</span>
+        <div class="setting-controls">
+          <button class="s-btn" onclick="adjustSetting('rest',-5)">−</button>
+          <span class="s-val" id="rest-val">30s</span>
+          <button class="s-btn" onclick="adjustSetting('rest',5)">+</button>
+        </div>
+      </div>
+      <div class="setting-row">
+        <span class="setting-label">Rundy</span>
+        <div class="setting-controls">
+          <button class="s-btn" onclick="adjustSetting('rounds',-1)">−</button>
+          <span class="s-val" id="rounds-val">4</span>
+          <button class="s-btn" onclick="adjustSetting('rounds',1)">+</button>
+        </div>
+      </div>
     </div>
   </div>
+</div>
+
+<div id="screen-calendar" class="screen"></div>
 </main>
 
+<!-- MODAL: log session -->
+<div class="modal-bg" id="modal-log">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-log')">×</button>
+    <div class="modal-title" id="modal-log-title"></div>
+    <div class="modal-sub" id="modal-log-sub"></div>
+    <button class="modal-btn primary" onclick="logSession('done')">✓ WYKONANE</button>
+    <button class="modal-btn danger" onclick="logSession('skipped')">✗ POMINIĘTE</button>
+    <button class="modal-btn secondary" onclick="closeModal('modal-log')">ANULUJ</button>
+  </div>
+</div>
+
+<!-- MODAL: progression -->
+<div class="modal-bg" id="modal-prog">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal('modal-prog')">×</button>
+    <div class="modal-title">PROGRESJA</div>
+    <div class="modal-sub">WYBIERZ KROK PROGRAMU</div>
+    <div id="step-list" class="step-list"></div>
+    <button class="modal-btn secondary" onclick="closeModal('modal-prog')">ANULUJ</button>
+  </div>
+</div>
+
 <script>
-// ==========================================
-//  DATA
-// ==========================================
+// ═══════════════════════════════════════════════════════════
+// PROGRESSION STEPS
+// 12 steps: 3 weight stages × 4 volume levels
+// intRounds: rounds for interval exercises (60s/30s)
+// tguSets:   sets for TGU (1L+1P per set, 30s rest between)
+// ═══════════════════════════════════════════════════════════
+const STEPS = [
+  { step:1,  L:6,  H:8,  SL:8,  SH:12, intRounds:4,  tguSets:3, etap:1 },
+  { step:2,  L:6,  H:8,  SL:8,  SH:12, intRounds:6,  tguSets:3, etap:1 },
+  { step:3,  L:6,  H:8,  SL:8,  SH:12, intRounds:8,  tguSets:4, etap:1 },
+  { step:4,  L:6,  H:8,  SL:8,  SH:12, intRounds:10, tguSets:5, etap:1 },
+  { step:5,  L:8,  H:12, SL:12, SH:16, intRounds:4,  tguSets:3, etap:2 },
+  { step:6,  L:8,  H:12, SL:12, SH:16, intRounds:6,  tguSets:3, etap:2 },
+  { step:7,  L:8,  H:12, SL:12, SH:16, intRounds:8,  tguSets:4, etap:2 },
+  { step:8,  L:8,  H:12, SL:12, SH:16, intRounds:10, tguSets:5, etap:2 },
+  { step:9,  L:12, H:16, SL:16, SH:16, intRounds:4,  tguSets:3, etap:3 },
+  { step:10, L:12, H:16, SL:16, SH:16, intRounds:6,  tguSets:3, etap:3 },
+  { step:11, L:12, H:16, SL:16, SH:16, intRounds:8,  tguSets:4, etap:3 },
+  { step:12, L:12, H:16, SL:16, SH:16, intRounds:10, tguSets:5, etap:3 },
+];
 
-// phase1Days and phase2Days are built lazily after all functions are defined
-let phase1Days, phase2Days;
-
-// ==========================================
-//  BUILDERS — PHASE 1
-// ==========================================
-
-// ==========================================
-//  YOUTUBE QUERY MAP
-//  key = fragment nazwy ćwiczenia (lowercase)
-//  value = query wyszukiwania YouTube
-// ==========================================
-const YT = {
-  // KETTLEBELL MAIN
-  'kb deadlift (dwuręczny)':        'kettlebell deadlift two hand tutorial',
-  'kb deadlift z pauzą':            'kettlebell deadlift pause tutorial',
-  'kb deadlift (ciężki)':           'kettlebell deadlift heavy tutorial',
-  'kb bent-over row (jedna ręka)':  'kettlebell single arm bent over row tutorial',
-  'kb bent-over row (jedna ręka) — tempo': 'kettlebell single arm row tempo tutorial',
-  'kb halo':                        'kettlebell halo exercise tutorial',
-  'kb halo lekki':                  'kettlebell halo exercise tutorial',
-  'kb halo (6kg)':                  'kettlebell halo exercise tutorial',
-  'kb floor press (jedna ręka)':    'kettlebell single arm floor press tutorial',
-  'kb floor press (dwuręczny)':     'kettlebell double floor press tutorial',
-  'kb floor press (jedna ręka) — tempo': 'kettlebell floor press tempo technique',
-  'farmer carry (jedna ręka)':     'single arm farmer carry kettlebell tutorial',
-  'kb floor press (obie ręce na jednym kb)': 'kettlebell two hand floor press tutorial',
-  'kb deadlift (obie ręce na jednym kb)': 'kettlebell two hand deadlift tutorial',
-  'kb deadlift (obie ręce na jednym kb) — ciężki': 'kettlebell deadlift heavy tutorial',
-  'kb swing (obie ręce na jednym kb)': 'kettlebell two hand swing tutorial',
-  'a1. kb swing (obie ręce)':       'kettlebell two hand swing tutorial',
-  'kb scapular shrug':              'scapular shrug exercise tutorial kettlebell',
-  'kb swing dwuręczny':             'kettlebell two hand swing tutorial',
-  'kb swing (jedna ręka)':         'kettlebell one arm swing tutorial',
-  'kb swing (jedna ręka) — serie siłowe': 'kettlebell one arm swing power tutorial',
-  'kb swing (dwuręczny)':           'kettlebell two hand swing tutorial',
-  'kb high pull':                   'kettlebell high pull tutorial',
-  'kb high pull → press (combo)':   'kettlebell high pull to press combo tutorial',
-  'kb gorilla row':                 'kettlebell gorilla row tutorial',
-  'kb suitcase deadlift':           'kettlebell suitcase deadlift tutorial',
-  'kb suitcase carry + overhead':   'kettlebell suitcase carry overhead tutorial',
-  'prone y-t-w (bez ciężaru)':      'prone YTW exercise scapula tutorial',
-  'kb press overhead (jedna ręka)': 'kettlebell single arm overhead press tutorial',
-  'kb chest fly (podłoga)':         'kettlebell chest fly floor tutorial',
-  'kb push-up hold — hands on kb':  'push up on kettlebell scapular stability tutorial',
-  'kb pull-over (w leżeniu)':       'kettlebell pullover lying tutorial',
-  'kb renegade row':                'kettlebell renegade row tutorial',
-  'kb goblet squat':                'kettlebell goblet squat tutorial',
-  'kb single arm press':            'kettlebell single arm press tutorial',
-  'kb swing (jedna ręka, alac)':   'kettlebell hand to hand swing tutorial',
-  'kb tgu (turkish get-up)':        'kettlebell turkish get up tutorial',
-  'tgu (turkish get-up)':           'kettlebell turkish get up tutorial',
-  'tgu (skrócony — do pozycji łuku)': 'kettlebell turkish get up half tutorial',
-  'kb lateral raise (obie ręce)':   'kettlebell lateral raise tutorial',
-  'kb windmill':                    'kettlebell windmill tutorial',
-  'kb romanian deadlift (1-noga)':  'kettlebell single leg romanian deadlift tutorial',
-  'kb clean':                       'kettlebell clean tutorial',
-  'kb arnold-style press (rotacja)':'kettlebell arnold press tutorial',
-  'kb bottoms-up press':            'kettlebell bottoms up press tutorial',
-  'kb chest fly + pull-over (superset)': 'kettlebell chest fly pullover superset tutorial',
-  'kb push-up (ręce na kb)':        'push up on kettlebell tutorial',
-  'kb press overhead (jedna ręka)': 'kettlebell single arm overhead press tutorial',
-  'scapular push-up (leżenie przodem)': 'scapular push up prone serratus tutorial',
-  'izometria szyi — 4 kierunki':     'neck isometric exercises tutorial',
-  // COMBO / PHASE 2
-  'a1. kb swing (dwuręczny)':       'kettlebell two hand swing tutorial',
-  'a2. kb floor press':             'kettlebell floor press tutorial',
-  'a3. kb row (bent-over)':         'kettlebell bent over row tutorial',
-  'a4. goblet squat':               'kettlebell goblet squat tutorial',
-  'b1. kb clean + press (combo)':   'kettlebell clean and press combo tutorial',
-  'b2. kb windmill':                'kettlebell windmill tutorial',
-  'b3. kb halo':                    'kettlebell halo exercise tutorial',
-  'b4. tgu (skrócony — do pozycji łuku)': 'kettlebell turkish get up half tutorial',
-  // WARMUP / BODYWEIGHT
-  'cat-cow':                        'cat cow stretch spine tutorial',
-  'cat-cow z zatrzymaniami':        'cat cow breathing exercise tutorial',
-  'thoracic rotation':              'thoracic rotation exercise tutorial',
-  'wall angels':                    'wall angels exercise tutorial',
-  'wall angels pogłębione':         'wall angels full range tutorial',
-  'scapular push-up':               'scapular push up serratus tutorial',
-  'band pull-apart':                'band pull apart exercise tutorial',
-  'bird-dog':                       'bird dog exercise tutorial',
-  'bird-dog z kb hold':             'bird dog exercise tutorial',
-  'glute bridge':                   'glute bridge exercise tutorial',
-  'dead bug':                       'dead bug exercise tutorial',
-  'dead bug pogłębiony':            'dead bug exercise advanced tutorial',
-  "world's greatest stretch":       'worlds greatest stretch tutorial',
-  'inchworm walk-out':              'inchworm exercise tutorial',
-  'inchworm z push-up':             'inchworm push up combo tutorial',
-  'push-up plus':                   'push up plus serratus activation tutorial',
-  'wall slide':                     'wall slide scapular exercise tutorial',
-  'arm circles':                    'arm circles warmup shoulder',
-  'thoracic extension':             'thoracic extension foam roller tutorial',
-  'thoracic extension na wałku':    'thoracic extension foam roller tutorial',
-  'quadruped shoulder cars':        'shoulder CARs controlled articular rotation tutorial',
-  'serratus punch':                 'serratus punch activation tutorial',
-  'hip hinge z kettlebell':         'hip hinge pattern kettlebell tutorial',
-  'squat to stand':                 'squat to stand hip hinge mobility',
-  'lunge + twist tułowia':          'lunge with thoracic rotation tutorial',
-  'hip circle':                     'hip circles mobility warmup',
-  'scapular cars':                  'scapular CARs controlled articular rotation tutorial',
-  'scapular cars w klęku':          'scapular CARs controlled articular rotation tutorial',
-  'kb complex rozgrzewkowy':        'kettlebell complex warmup tutorial',
-  'thoracic cars stojąc':           'thoracic CARs rotation tutorial',
-  // STRETCHES / COOLDOWN
-  'doorway stretch':                'doorway pec stretch tutorial',
-  'doorway pec stretch':            'doorway pec stretch tutorial',
-  'doorway lat stretch':            'doorway lat stretch tutorial',
-  'thread the needle':              'thread the needle stretch thoracic tutorial',
-  "child's pose z rozciągniętymi":  'childs pose lat stretch tutorial',
-  "child's pose z ruchomymi":       'childs pose lat stretch tutorial',
-  'neck side stretch':              'neck side stretch tutorial',
-  'levator scapulae stretch':       'levator scapulae stretch tutorial',
-  'levator scapulae + upper trap':  'levator scapulae upper trap stretch tutorial',
-  'foam roll':                      'foam rolling back tutorial',
-  'cross-body shoulder stretch':    'cross body shoulder stretch tutorial',
-  'overhead triceps stretch':       'overhead triceps stretch tutorial',
-  'prone chest opener':             'prone chest stretch tutorial',
-  'rotacja piersiowa w klęku':      'quadruped thoracic rotation tutorial',
-  'supine knee-to-chest':           'supine knee to chest stretch tutorial',
-  'pigeon pose':                    'pigeon pose hip stretch tutorial',
-  'seated forward fold':            'seated forward fold hamstring stretch tutorial',
-  'upper trap stretch':             'upper trapezius stretch tutorial',
-  'neck rotation':                  'neck rotation mobility exercise',
-  'standing quad stretch':          'standing quad stretch tutorial',
-  'hip flexor lunge stretch':       'hip flexor lunge stretch tutorial',
-  'lunge hip flexor stretch':       'hip flexor lunge stretch tutorial',
-  'figure-4 stretch':               'figure 4 piriformis stretch tutorial',
-  'lying spinal twist':             'supine spinal twist stretch tutorial',
-  'supine hamstring stretch':       'supine hamstring stretch tutorial',
-  '90/90 hip stretch':              '90 90 hip stretch tutorial',
-  'thoracic rotation leżąc':        'thoracic rotation lying down stretch',
-  'standing forward fold':          'standing forward fold hamstring stretch',
-  'sleeper stretch':                'sleeper stretch posterior capsule shoulder',
-  'suboccipital release':           'suboccipital release technique tutorial',
-  'happy baby pose':                'happy baby yoga pose tutorial',
-  'supine spinal twist':            'supine spinal twist yoga stretch',
-  'savasana':                       'savasana relaxation technique',
-  // MOBILITY SPECIFIC
-  '90-90 breathing':                '90 90 breathing postural restoration tutorial',
-  'box breathing':                  'box breathing technique tutorial',
-  'supine dead bug':                'dead bug breathing activation tutorial',
-  '90/90 hip sit':                  '90 90 hip sit mobility tutorial',
-  'kneeling hip flexor stretch':    'kneeling hip flexor posterior tilt stretch',
-  'deep squat hold':                'deep squat hold mobility tutorial',
-  'hip cars':                       'hip CARs controlled articular rotation tutorial',
-  'frog stretch':                   'frog stretch hip mobility tutorial',
-  'side-lying rotation':            'side lying thoracic rotation tutorial',
-  'pallof press':                   'pallof press core stability tutorial',
-  'mcgill side plank':              'McGill side plank tutorial',
-  'open book':                      'open book thoracic rotation stretch tutorial',
-  'thoracic cars stojąc':           'thoracic CARs rotation tutorial',
-  'quadruped thread the needle':    'thread the needle stretch tutorial',
-  'shoulder cars':                  'shoulder CARs rotation tutorial',
-  'neck cars':                      'neck CARs cervical rotation tutorial',
-  'prone neck lift':                'prone neck lift deep cervical flexors',
-  'sternocleidomastoid stretch':    'sternocleidomastoid SCM stretch tutorial',
+const WARMUPS = {
+  mon: { dur:13, links:[
+    { label:'Swing warmup', url:'https://www.youtube.com/watch?v=yRTIwttiPFo' },
+    { label:'TGU warmup',   url:'https://www.youtube.com/watch?v=xmLrg1kUvU0' },
+  ]},
+  tue: { dur:12, links:[
+    { label:'C&P warmup',   url:'https://www.youtube.com/watch?v=uodkIIcXtRk' },
+    { label:'Squat warmup', url:'https://www.youtube.com/watch?v=DodDS67fhLc' },
+  ]},
+  thu: { dur:13, links:[
+    { label:'Swing warmup', url:'https://www.youtube.com/watch?v=yRTIwttiPFo' },
+    { label:'TGU warmup',   url:'https://www.youtube.com/watch?v=xmLrg1kUvU0' },
+  ]},
+  fri: { dur:12, links:[
+    { label:'C&P warmup',   url:'https://www.youtube.com/watch?v=uodkIIcXtRk' },
+    { label:'Squat warmup', url:'https://www.youtube.com/watch?v=DodDS67fhLc' },
+  ]},
 };
 
-function ytIcon() {
-  return `<svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.49 3.5 12 3.5 12 3.5s-7.49 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.09 0 12 0 12s0 3.91.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.51 20.5 12 20.5 12 20.5s7.49 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.91 24 12 24 12s0-3.91-.5-5.81zM9.75 15.5V8.5l6.25 3.5-6.25 3.5z"/></svg>`;
-}
+const COOLDOWNS = {
+  mon: { dur:13, links:[
+    { label:'Lower Body', url:'https://www.youtube.com/watch?v=tAd1q2PskVs' },
+    { label:'Upper Body', url:'https://www.youtube.com/watch?v=S5w1GDdQP5o' },
+  ]},
+  tue: { dur:19, links:[
+    { label:'Lower Body', url:'https://www.youtube.com/watch?v=hV9a2B4gD2A' },
+    { label:'Upper Body', url:'https://www.youtube.com/watch?v=OUlBO3g0OIY' },
+  ]},
+  thu: { dur:13, links:[
+    { label:'Lower Body', url:'https://www.youtube.com/watch?v=tAd1q2PskVs' },
+    { label:'Upper Body', url:'https://www.youtube.com/watch?v=OUlBO3g0OIY' },
+  ]},
+  fri: { dur:19, links:[
+    { label:'Lower Body', url:'https://www.youtube.com/watch?v=hV9a2B4gD2A' },
+    { label:'Upper Body', url:'https://www.youtube.com/watch?v=S5w1GDdQP5o' },
+  ]},
+};
 
-function ytUrl(name) {
-  const key = name.toLowerCase().replace(/\s+/g, ' ').trim();
-  // try exact match
-  if (YT[key]) return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(YT[key]);
-  // try partial match
-  for (const k of Object.keys(YT)) {
-    if (key.includes(k) || k.includes(key)) {
-      return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(YT[k]);
-    }
-  }
-  // fallback: search by name
-  const cleaned = name.replace(/[()–—→×]/g, ' ').replace(/\s+/g,' ').trim();
-  return 'https://www.youtube.com/results?search_query=' + encodeURIComponent(cleaned + ' tutorial');
-}
-
-function ytLink(name) {
-  return `<a class="yt-btn" href="${ytUrl(name)}" target="_blank" rel="noopener">${ytIcon()} YT</a>`;
-}
-
-function exTable(rows) {
-  return `<table class="ex-table">
-    <thead><tr>
-      <th style="width:36%">Ćwiczenie</th>
-      <th>Serie × Powt.</th>
-      <th>Ciężar</th>
-      <th>Uwagi</th>
-    </tr></thead>
-    <tbody>
-      ${rows.map(r => `<tr ${r.highlight?'class="highlight-row"':''}>
-        <td>
-          <div class="ex-name">${r.name}</div>
-          <div class="ex-focus">${r.focus||''}</div>
-          ${ytLink(r.name)}
-        </td>
-        <td><span class="ex-sets">${r.sets}</span></td>
-        <td><span class="ex-weight">${r.weight}</span></td>
-        <td><span class="ex-notes">${r.notes||''}</span></td>
-      </tr>`).join('')}
-    </tbody>
-  </table>`;
-}
-
-function stretchList(items) {
-  return `<ul class="stretch-list">${items.map(i => {
-    // extract first word-group as exercise name for YT
-    const exName = i.name.split('—')[0].split('(')[0].split('×')[0].trim();
-    return `<li>
-      <span>${i.name}</span>
-      <span style="display:flex;align-items:center;gap:6px;margin-left:auto;flex-shrink:0;padding-left:12px">
-        <a class="yt-btn" href="${ytUrl(exName)}" target="_blank" rel="noopener">${ytIcon()} YT</a>
-        <span class="stretch-time" style="margin-left:0;padding-left:0">${i.time}</span>
-      </span>
-    </li>`;
-  }).join('')}</ul>`;
-}
-
-function block(tag, title, bodyHtml, defaultOpen=false) {
-  const tagClass = `tag-${tag}`;
-  const tagLabels = { warmup:'ROZGRZEWKA', main:'TRENING GŁÓWNY', cooldown:'COOLDOWN', mobility:'MOBILITY', notes:'UWAGI' };
-  return `
-  <div class="block">
-    <div class="block-header ${defaultOpen?'open':''}" onclick="toggleBlock(this)">
-      <span class="block-tag ${tagClass}">${tagLabels[tag]||tag.toUpperCase()}</span>
-      <span class="block-title">${title}</span>
-      <span class="block-toggle">▾</span>
-    </div>
-    <div class="block-body ${defaultOpen?'open':''}">
-      ${bodyHtml}
-    </div>
-  </div>`;
-}
-
-function dayTitle(title, subtitle, duration) {
-  return `<div style="margin-bottom:24px">
-    <div class="header-label">${subtitle}</div>
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:2px;line-height:1">${title}</div>
-    <div style="color:var(--muted);font-size:12px;font-family:'DM Mono',monospace;margin-top:6px">⏱ ${duration}</div>
-  </div>`;
-}
-
-function buildP1A() {
-  return dayTitle('TRENING A', 'FAZA 1 / PLECY + PULL', '~45–50 min') +
-  block('warmup', 'Rozgrzewka ogólna + aktywacja łopatek', `
-    ${stretchList([
-      {name:'Marsz w miejscu z wymachami ramion (przód–tył, koła)', time:'2 min'},
-      {name:'Cat-Cow — płynne falowanie kręgosłupem', time:'10 powt.'},
-      {name:'Thoracic rotation — na czworaka, ręka za głową', time:'8e/s'},
-      {name:'Wall Angels — plecy do ściany, ślizganie ramion', time:'12 powt.'},
-      {name:'Band Pull-Apart (zastąp: kettlebell hold 4kg, opór rąk)', time:'15 powt.'},
-      {name:'Scapular push-up — aktywacja dolnych trapezów', time:'10 powt.'},
-    ])}
-  `, true) +
-  block('main', 'Trening główny', `
-    ${exTable([
-      {name:'KB Deadlift (obie ręce na jednym KB)', focus:'Plecy dolne, hamstrings — nauka pozycji', sets:'3×8', weight:'12–16kg', notes:'Obie dłonie na rączce, plecy proste, broda wysunięta'},
-      {name:'KB Bent-Over Row (jedna ręka)', focus:'Środkowa część pleców, tylny deltoid', sets:'3×8 e/s', weight:'8–12kg', notes:'Łokieć prowadzi ruch, ściągaj łopatkę'},
-      {name:'KB Halo', focus:'Łopatki, stożek rotatorów, szyja', sets:'3×8 e/s', weight:'6–8kg', notes:'Powoli, nie kompensuj tułowiem'},
-      {name:'KB Floor Press (jedna ręka)', focus:'Klatka, stożek rotatorów', sets:'3×8 e/s', weight:'8–12kg', notes:'Łokieć 45° od tułowia'},
-      {name:'Farmer Carry (jedna ręka)', focus:'Trapezy, stabilizacja pleców, antyrotacja', sets:'3×20m e/s', weight:'12–16kg', notes:'KB zwisa przy nodze, barki poziomo — nie przechylaj się'},
-      {highlight:true, name:'KB Scapular Shrug (unoszenie łopatek)', focus:'Dolne trapezy, serratus anterior', sets:'3×12', weight:'8–12kg', notes:'Tylko ruch łopatki — bez zginania łokcia'},
-    ])}
-  `, true) +
-  block('cooldown', 'Cooldown — rozciąganie pracujących partii', `
-    ${stretchList([
-      {name:'Doorway stretch (klatka / pec minor)', time:'2×30 sek'},
-      {name:'Thread the Needle — rotacja piersiowa w leżeniu', time:'45 sek e/s'},
-      {name:'Child\'s Pose z rozciągniętymi ramionami — lat stretch', time:'60 sek'},
-      {name:'Neck side stretch — szyja na bok, ręka na głowie', time:'30 sek e/s'},
-      {name:'Levator scapulae stretch — głowa w dół-na bok-do przodu', time:'30 sek e/s'},
-      {name:'Foam roll / piłka na rhomboids i środkowych trapezach', time:'2 min'},
-    ])}
-  `, true);
-}
-
-function buildP1B() {
-  return dayTitle('TRENING B', 'FAZA 1 / KLATKA + PUSH', '~45–50 min') +
-  block('warmup', 'Rozgrzewka — mobilność klatki i barków', `
-    ${stretchList([
-      {name:'Arm circles — rosnące koła ramieniem', time:'20 każde'},
-      {name:'Thoracic extension na wałku / podłodze', time:'10 powt.'},
-      {name:'Quadruped shoulder CARs (kółka ramieniem)', time:'5 e/s'},
-      {name:'Inchworm walk-out', time:'5 powt.'},
-      {name:'Push-up plus (plus protraction)', time:'10 powt.'},
-      {name:'Wall slide — ściskanie łopatek przy ścianie', time:'12 powt.'},
-    ])}
-  `, true) +
-  block('main', 'Trening główny', `
-    ${exTable([
-      {name:'KB Floor Press (obie ręce na jednym KB)', focus:'Klatka, triceps — nauka wzorca push', sets:'3×10', weight:'8–12kg', notes:'Obie dłonie na jednej rączce, przerwa 1 sek na dole'},
-      {name:'KB Press overhead (jedna ręka)', focus:'Barki, górna klatka, trapezy', sets:'3×8 e/s', weight:'8–12kg', notes:'Napnij core, broda cofnięta'},
-      {name:'KB Chest Fly (podłoga)', focus:'Pec major — stretch i kontrakcja', sets:'3×10', weight:'6–8kg', notes:'Łokcie lekko ugięte przez cały czas'},
-      {name:'KB Push-up hold — hands on KB', focus:'Stabilność łopatek + pec', sets:'3×8', weight:'2× 8–12kg', notes:'Ściskaj rączki — serratus aktywny'},
-      {name:'KB Pull-over (w leżeniu)', focus:'Klatka dolna, lat, serratus', sets:'3×10', weight:'8–12kg', notes:'Trzymaj plecy płasko przy podłodze'},
-      {highlight:true, name:'KB Renegade Row', focus:'Stabilizacja łopatek + plecy + core', sets:'3×6 e/s', weight:'8–12kg', notes:'Minimalne obracanie bioder'},
-    ])}
-  `, true) +
-  block('cooldown', 'Cooldown — rozciąganie klatki i barków', `
-    ${stretchList([
-      {name:'Doorway pec stretch (oba kąty — nisko i wysoko)', time:'30 sek e/s ×2'},
-      {name:'Cross-body shoulder stretch', time:'30 sek e/s'},
-      {name:'Overhead triceps stretch', time:'30 sek e/s'},
-      {name:'Prone chest opener (sphinx + głowa uniesiona)', time:'60 sek'},
-      {name:'Rotacja piersiowa w klęku podpartym', time:'30 sek e/s'},
-      {name:'Foam roll klatka piersiowa — wzdłuż kręgosłupa', time:'2 min'},
-    ])}
-  `, true);
-}
-
-function buildP1C() {
-  return dayTitle('TRENING C', 'FAZA 1 / PLECY — SIŁA', '~45–50 min') +
-  block('warmup', 'Rozgrzewka — aktywacja głębokich stabilizatorów pleców', `
-    ${stretchList([
-      {name:'Bird-Dog (naprzemienny) — powoli', time:'10 e/s'},
-      {name:'Glute bridge — aktywacja pośladków i LS', time:'15 powt.'},
-      {name:'Dead bug — oddychanie + stabilizacja', time:'8 e/s'},
-      {name:'World\'s Greatest Stretch — 1 powtórzenie wolno', time:'5 e/s'},
-      {name:'KB Halo lekki (4kg)', time:'5 e/s'},
-    ])}
-  `, true) +
-  block('main', 'Trening główny', `
-    ${exTable([
-      {name:'KB Romanian Deadlift (1-noga)', focus:'Hamstrings, plecy dolne, stabilizacja', sets:'3×6 e/s', weight:'8–12kg', notes:'Powoli na dół (3 sek), napięty core'},
-      {name:'KB Swing (obie ręce na jednym KB)', focus:'Cały łańcuch tylny — siła', sets:'4×12', weight:'12–16kg', notes:'Obie dłonie na rączce, napnij glutes na górze, plecy proste'},
-      {name:'KB High Pull', focus:'Trapezy górne, tylny deltoid', sets:'3×8 e/s', weight:'8–12kg', notes:'Łokieć prowadzi — nie chwyt'},
-      {name:'KB Gorilla Row', focus:'Cały grzbiet — power', sets:'3×6 e/s', weight:'12–16kg', notes:'Naprzemienny row z kettlebell na podłodze'},
-      {name:'KB Suitcase Deadlift', focus:'Kwadraty lędźwi, boczna stabilizacja', sets:'3×8 e/s', weight:'12–16kg', notes:'Nie pochylaj się na bok — przeciwdziałaj'},
-      {highlight:true, name:'Prone Y-T-W (bez ciężaru)', focus:'Dolne trapezy, rotatory łopatki', sets:'2×8 każda litera', weight:'bez ciężaru', notes:'Napinaj plecy — nie szyję'},
-    ])}
-  `, true) +
-  block('cooldown', 'Cooldown — plecy dolne, hamstrings, trapezy', `
-    ${stretchList([
-      {name:'Supine knee-to-chest stretch obustronny', time:'60 sek'},
-      {name:'Pigeon pose / figura 4 (glutes + piriformis)', time:'60 sek e/s'},
-      {name:'Seated forward fold z prostymi nogami', time:'60 sek'},
-      {name:'Upper trap stretch — głowa na bok + ciągnięcie', time:'30 sek e/s'},
-      {name:'Neck rotation — powolna, aktywna', time:'5 e/s'},
-      {name:'Foam roll cały grzbiet (od LS do Th12)', time:'3 min'},
-    ])}
-  `, true);
-}
-
-function buildP1D() {
-  return dayTitle('TRENING D', 'FAZA 1 / FULL BODY', '~50–55 min') +
-  block('warmup', 'Rozgrzewka kompleksowa', `
-    ${stretchList([
-      {name:'Jumping jacks / wysokie kolana', time:'2 min'},
-      {name:'Hip circle / leg swing w przód-tył i bok', time:'10 e/s'},
-      {name:'Lunge + twist tułowia', time:'5 e/s'},
-      {name:'Arm swings krzyżowe i otwarte', time:'20 powt.'},
-      {name:'Squat to stand (hamstring mobilizacja)', time:'8 powt.'},
-    ])}
-  `, true) +
-  block('main', 'Trening główny', `
-    ${exTable([
-      {name:'KB Goblet Squat', focus:'Quads, glutes, core, mobilność bioder', sets:'3×10', weight:'8–12kg', notes:'Pięty na podłodze, klatka prosto'},
-      {name:'KB Single Arm Press', focus:'Barki, górna klatka, stabilizacja', sets:'3×8 e/s', weight:'8–12kg', notes:'Lekki offset – trenuj balance'},
-      {name:'KB Swing (jedna ręka, ALAC)', focus:'Cały łańcuch tylny', sets:'3×10 e/s', weight:'8–12kg', notes:'Zmiana ręki w powietrzu — zaawansowane'},
-      {name:'KB TGU (Turkish Get-Up)', focus:'Pełna integracja, szyja, łopatka, core', sets:'3×3 e/s', weight:'6–8kg', notes:'Super powoli — każda faza osobno'},
-      {name:'KB Lateral Raise (obie ręce)', focus:'Deltoid środkowy, trapezy', sets:'3×12', weight:'4–6kg', notes:'Małe ciężary — kontrola'},
-      {highlight:true, name:'KB Windmill', focus:'Łopatka, rotacja piersiowa, bok', sets:'3×5 e/s', weight:'6–8kg', notes:'Wzrok na kettlebell przez cały czas'},
-    ])}
-  `, true) +
-  block('cooldown', 'Cooldown — full body', `
-    ${stretchList([
-      {name:'Standing quad stretch', time:'30 sek e/s'},
-      {name:'Hip flexor lunge stretch z tułowiem do góry', time:'45 sek e/s'},
-      {name:'Figure-4 stretch na podłodze', time:'45 sek e/s'},
-      {name:'Doorway pec + serratus stretch', time:'30 sek'},
-      {name:'Child\'s pose z rękoma bokiem (lat stretch)', time:'60 sek e/s'},
-      {name:'Lying spinal twist', time:'45 sek e/s'},
-    ])}
-  `, true);
-}
-
-// ==========================================
-//  BUILDERS — PHASE 2
-// ==========================================
-
-function buildP2A() {
-  return dayTitle('TRENING A', 'FAZA 2 / PLECY + PULL — ZAAWANSOWANY', '~55–65 min') +
-  block('warmup', 'Aktywacja łopatko-barkowo-szyjna', `
-    ${stretchList([
-      {name:'Scapular CARs — pełne koła łopatką', time:'10 e/s'},
-      {name:'KB Halo (6kg) wolny', time:'6 e/s'},
-      {name:'Wall Angels z tarciemem', time:'15 powt.'},
-      {name:'Band / rączka pull-apart', time:'20 powt.'},
-      {name:'Prone Y-T-W bez ciężaru', time:'8 każda'},
-    ])}
-  `, true) +
-  block('main', 'Trening główny — zwiększona intensywność', `
-    ${exTable([
-      {name:'KB Swing (jedna ręka)', focus:'Cały łańcuch tylny + koordynacja', sets:'5×10 e/s', weight:'12–16kg', notes:'Maksymalna eksplozja bioder'},
-      {name:'KB Bent-Over Row (jedna ręka) — tempo 3-1-1', focus:'Grzbiet, tylne deltoidy', sets:'4×10 e/s', weight:'12–16kg', notes:'3 sek na dół, 1 sek hold, 1 góra'},
-      {name:'KB High Pull → Press (combo)', focus:'Trapezy, deltoid, górna klatka', sets:'4×6 e/s', weight:'12kg', notes:'Płynne połączenie ruchu'},
-      {name:'KB Gorilla Row', focus:'Power pleców', sets:'4×8 e/s', weight:'12–16kg', notes:'Zwiększaj tempo stopniowo'},
-      {name:'KB Renegade Row', focus:'Stabilność łopatek, plecy, core', sets:'3×8 e/s', weight:'12kg', notes:'Tempo spokojne, zero rotacji'},
-      {highlight:true, name:'Scapular Push-up (leżenie przodem)', focus:'Serratus anterior, dolne trapezy', sets:'3×12', weight:'masa ciała', notes:'Ręce pod barkami, unoś i opuszczaj tylko łopatki — ramiona proste'},
-      {name:'Izometria szyi — 4 kierunki', focus:'Głębokie stabilizatory szyi', sets:'2×4 kierunki', weight:'masa ciała', notes:'Patrz szczegóły poniżej'},
-    ])}
-  `, true) +
-  block('notes', 'Izometria szyi — szczegóły', `
-    <p style="font-size:13px;color:var(--muted);line-height:1.9">
-      <strong style="color:var(--accent)">Jak wykonać:</strong> Siedź lub stój prosto. Przyłóż dłoń do głowy i delikatnie oprzyj głowę o rękę — <em>nie pozwól głowie się ruszyć</em>. Utrzymaj napięcie 5–8 sekund, powtórz 5 razy w każdym kierunku.<br><br>
-      <strong style="color:var(--accent2)">Kierunek 1 — przód:</strong> Dłoń na czole, głowa pcha do przodu<br>
-      <strong style="color:var(--accent2)">Kierunek 2 — tył:</strong> Dłoń z tyłu głowy, głowa pcha do tyłu<br>
-      <strong style="color:var(--accent2)">Kierunek 3 — lewa:</strong> Dłoń na lewej skroni, głowa pcha w lewo<br>
-      <strong style="color:var(--accent2)">Kierunek 4 — prawa:</strong> Dłoń na prawej skroni, głowa pcha w prawo<br><br>
-      <strong style="color:var(--danger)">Uwaga:</strong> Siła nacisku dłoni = lekka. Głowa <em>nie rusza się wcale</em> — to czysta izometria. Żadnego bólu, tylko lekkie zmęczenie mięśni.
-    </p>
-  `) +
-  block('cooldown', 'Cooldown — plecy, łopatki, szyja', `
-    ${stretchList([
-      {name:'Thread the needle pogłębiony z utrzymaniem', time:'60 sek e/s'},
-      {name:'Doorway lat stretch z pochyleniem', time:'45 sek e/s'},
-      {name:'Upper / lower trap stretch (ręka za plecy)', time:'30 sek e/s'},
-      {name:'Neck flexion / lateral flexion / rotation', time:'30 sek e/s'},
-      {name:'Suboccipital release — palce pod potylicą w leżeniu', time:'2 min'},
-      {name:'Foam roll grzbiet + szyjno-piersiowe przejście', time:'3 min'},
-    ])}
-  `, true);
-}
-
-function buildP2B() {
-  return dayTitle('TRENING B', 'FAZA 2 / KLATKA + PUSH — ZAAWANSOWANY', '~55–65 min') +
-  block('warmup', 'Aktywacja klatki i barków', `
-    ${stretchList([
-      {name:'Thoracic extension z wałkiem × 5 pozycji', time:'10 powt. każda'},
-      {name:'Quadruped shoulder CARs', time:'6 e/s'},
-      {name:'Inchworm z push-up', time:'5 powt.'},
-      {name:'KB Halo (6kg)', time:'5 e/s'},
-      {name:'Serratus punch (leżenie, pch KB do sufitu)', time:'12 powt.'},
-    ])}
-  `, true) +
-  block('main', 'Trening główny', `
-    ${exTable([
-      {name:'KB Floor Press (jedna ręka) — tempo 3-1-2', focus:'Klatka, triceps — time under tension', sets:'4×8 e/s', weight:'12–16kg', notes:'3s w dół, 1s hold, 2s góra'},
-      {name:'KB Press Overhead (jedna ręka)', focus:'Barki, górna klatka', sets:'4×8 e/s', weight:'12–16kg', notes:'Pełny lockout — napięty lat'},
-      {name:'KB Chest Fly + Pull-over (superset)', focus:'Klatka, serratus, lat', sets:'3×10+10', weight:'6–8kg', notes:'Bez przerwy między ćwiczeniami'},
-      {name:'KB Push-up (ręce na KB)', focus:'Klatka, triceps, serratus', sets:'4×10–12', weight:'2× 8–12kg', notes:'Pełny zakres, kontrolowany'},
-      {name:'KB Arnold-style Press (rotacja)', focus:'Barki, górna klatka, trapezy', sets:'3×10 e/s', weight:'8–12kg', notes:'Rotuj nadgarstek przy uniesieniu'},
-      {highlight:true, name:'KB Bottoms-Up Press', focus:'Stożek rotatorów, stabilizacja barku', sets:'3×6 e/s', weight:'8kg', notes:'Kettlebell do góry nogami — concentracja'},
-    ])}
-  `, true) +
-  block('cooldown', 'Cooldown — klatka, barki, serratus', `
-    ${stretchList([
-      {name:'Doorway pec stretch (niski, środkowy, wysoki kąt)', time:'30 sek każdy'},
-      {name:'Sleeper stretch — tylna torebka stawu ramiennego', time:'45 sek e/s'},
-      {name:'Cross-body shoulder stretch', time:'30 sek e/s'},
-      {name:'Prone chest opener (sphinx + twist)', time:'45 sek e/s'},
-      {name:'Overhead lat + serratus stretch (pod drzwiami)', time:'45 sek'},
-      {name:'Foam roll klatka i boczna ściana klatki', time:'2 min'},
-    ])}
-  `, true);
-}
-
-function buildP2C() {
-  return dayTitle('TRENING C', 'FAZA 2 / PLECY — SIŁA ZAAWANSOWANA', '~55–65 min') +
-  block('warmup', 'Aktywacja łańcucha tylnego', `
-    ${stretchList([
-      {name:'KB Deadlift z pauzą (6kg) × 5', time:'rozgrzewka'},
-      {name:'Hip hinge z kettlebell — wzorzec', time:'10 powt.'},
-      {name:'Glute bridge z izometrią 5 sek', time:'8 powt.'},
-      {name:'Bird-Dog z KB hold (4kg)', time:'6 e/s'},
-    ])}
-  `, true) +
-  block('main', 'Trening główny — siłowy', `
-    ${exTable([
-      {name:'KB Swing (jedna ręka) — serie siłowe', focus:'Cały łańcuch tylny', sets:'6×8 e/s', weight:'16kg', notes:'Przerwa 60 sek między seriami'},
-      {name:'KB Deadlift (obie ręce na jednym KB) — ciężki', focus:'Plecy dolne, nogi — baza siłowa', sets:'5×5', weight:'16kg', notes:'Obie dłonie na rączce, napnij wszystko'},
-      {name:'KB Romanian Deadlift (1-noga)', focus:'Hamstrings, stabilizacja', sets:'4×8 e/s', weight:'12–16kg', notes:'Wolno i kontrolowanie'},
-      {name:'KB Clean', focus:'Łańcuch tylny — power + koordynacja', sets:'4×6 e/s', weight:'12–16kg', notes:'Kb śliźgi wzdłuż nogi, nie łuk'},
-      {name:'KB Suitcase Carry + Overhead', focus:'Kwadraty lędźwi, boczna stabilizacja', sets:'3×20m e/s', weight:'12–16kg', notes:'Zmień pozycję co 20m'},
-      {highlight:true, name:'TGU (Turkish Get-Up)', focus:'Integracja — łopatka, szyja, core, rotacja', sets:'3×4 e/s', weight:'8–12kg', notes:'Każda faza 2 sek minimum'},
-    ])}
-  `, true) +
-  block('cooldown', 'Cooldown — łańcuch tylny full', `
-    ${stretchList([
-      {name:'Standing forward fold z rotacją', time:'60 sek'},
-      {name:'Supine hamstring stretch z pasem / ręcznikiem', time:'45 sek e/s'},
-      {name:'90/90 hip stretch', time:'60 sek e/s'},
-      {name:'Thoracic rotation leżąc', time:'45 sek e/s'},
-      {name:'Full body foam roll (od stóp do thoracic)', time:'4 min'},
-    ])}
-  `, true);
-}
-
-function buildP2D() {
-  return dayTitle('TRENING D', 'FAZA 2 / FULL BODY — INTEGRACJA', '~60 min') +
-  block('warmup', 'Rozgrzewka zintegrowana', `
-    ${stretchList([
-      {name:'Jump rope / jumping jacks', time:'2 min'},
-      {name:'KB Complex rozgrzewkowy (4kg): swing 5 + clean 5 + press 5', time:'2 rundy'},
-      {name:'Thoracic CARs stojąc', time:'5 e/s'},
-      {name:'World\'s Greatest Stretch', time:'3 e/s'},
-    ])}
-  `, true) +
-  block('main', 'Trening główny — obwodowy', `
-    <p style="font-size:13px;color:var(--muted);margin-bottom:14px;line-height:1.6">
-      <strong style="color:var(--accent)">FORMAT:</strong> 2 rundy z 4 ćwiczeń (A1-A4) bez przerwy, przerwa 90 sek po rundzie. Następnie 2 rundy B1-B4.
-    </p>
-    ${exTable([
-      {name:'A1. KB Swing (obie ręce)', focus:'', sets:'15 powt.', weight:'16kg', notes:'Obie dłonie na jednej rączce'},
-      {name:'A2. KB Floor Press', focus:'', sets:'10 e/s', weight:'12–16kg', notes:''},
-      {name:'A3. KB Row (bent-over)', focus:'', sets:'10 e/s', weight:'12–16kg', notes:''},
-      {name:'A4. Goblet Squat', focus:'', sets:'12 powt.', weight:'12–16kg', notes:''},
-      {highlight:true, name:'B1. KB Clean + Press (combo)', focus:'', sets:'6 e/s', weight:'12–16kg', notes:''},
-      {name:'B2. KB Windmill', focus:'', sets:'5 e/s', weight:'8kg', notes:''},
-      {name:'B3. KB Halo', focus:'', sets:'6 e/s', weight:'8kg', notes:''},
-      {name:'B4. TGU (skrócony — do pozycji łuku)', focus:'', sets:'3 e/s', weight:'8–12kg', notes:''},
-    ])}
-  `, true) +
-  block('cooldown', 'Cooldown — full body, nacisk na biodra i plecy', `
-    ${stretchList([
-      {name:'Lunge hip flexor stretch z ramieniem do góry', time:'45 sek e/s'},
-      {name:'Figure-4 / pigeon pose', time:'60 sek e/s'},
-      {name:'Seated spinal rotation', time:'30 sek e/s'},
-      {name:'Child\'s pose z ruchomymi rękoma', time:'90 sek'},
-      {name:'Supine twist z kolankmi', time:'45 sek e/s'},
-      {name:'Foam roll full body', time:'4 min'},
-    ])}
-  `, true);
-}
-
-// ==========================================
-//  MOBILITY CONTENT
-// ==========================================
-
-let currentMobVariant = 1;
-
-function showMobilityVariant(v) {
-  currentMobVariant = v;
-  document.getElementById('mobility-content').innerHTML = buildMobility();
-}
-
-function buildMobility() {
-  const v = currentMobVariant;
-  const tabs = [1,2,3].map(i => `
-    <button onclick="showMobilityVariant(${i})" style="flex:1;padding:10px;background:${i===v?'rgba(66,245,167,0.15)':'var(--card)'};border:1px solid ${i===v?'var(--accent2)':'var(--border)'};color:${i===v?'var(--accent2)':'var(--muted)'};border-radius:6px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer">
-      ${i===1?'Śr — Biodra + Core':i===2?'Sb — Klatka + Rotacje':'Nd — Regeneracja'}
-    </button>`).join('');
-
-  const philosophy = `<div class="note-box" style="margin-bottom:24px">
-    <strong>Filozofia:</strong> Sesje mobility to praca nad jakością ruchu i redukcja napięć. Wykonuj spokojnie, z oddechem, bez forsowania. Poczucie "dobrego bólu" jest ok — ostry ból nigdy.
-  </div>`;
-
-  if (v === 1) return `
-  ${dayTitle('MOBILITY I', 'ŚRODA — BIODRA + CORE', '~35 min')}
-  <div style="display:flex;gap:8px;margin-bottom:20px">${tabs}</div>
-  ${philosophy}
-  ${block('mobility', 'BLOK 1 — Oddychanie i aktywacja (5 min)', stretchList([
-    {name:'90-90 breathing — leżenie, kolana ugięte, ręce na brzuchu. Wdech 4s, zatrzymanie 2s, wydech 6s', time:'2 min'},
-    {name:'Supine dead bug — aktywacja głębokiego core', time:'8 e/s'},
-    {name:'Glute bridge z izometrią 5 sek na górze', time:'10 powt.'},
-  ]), true)}
-  ${block('mobility', 'BLOK 2 — Biodra i miednica (12 min)', stretchList([
-    {name:'90/90 hip sit — obracaj tułów nad przednią i tylną nogą', time:'60 sek e/s'},
-    {name:'Pigeon pose progresywny — puls + statyczny', time:'90 sek e/s'},
-    {name:'Kneeling hip flexor stretch z posteriornym tilt miednicy', time:'60 sek e/s'},
-    {name:'Deep squat hold z łokciami rozpychającymi kolana', time:'90 sek'},
-    {name:'Hip CARs (kółka biodrem stojąc przy ścianie)', time:'5 e/s'},
-    {name:'Frog stretch — powolne pełzanie w przód i tył', time:'60 sek'},
-  ]), true)}
-  ${block('mobility', 'BLOK 3 — Core i kręgosłup lędźwiowy (10 min)', stretchList([
-    {name:'Cat-Cow z zatrzymaniami i głębokim oddechem', time:'10 powt.'},
-    {name:'Dead bug pogłębiony — extend and return', time:'8 e/s'},
-    {name:'Side-lying rotation (kolana razem, obróć górne ramię)', time:'60 sek e/s'},
-    {name:'McGill side plank — utrzymanie 20 sek', time:'5 e/s'},
-    {name:'Pallof press izometryczny (użyj KB jako oporu lub taśmy)', time:'10 sek × 6 e/s'},
-  ]), true)}
-  ${block('mobility', 'BLOK 4 — Wyciszenie (5 min)', stretchList([
-    {name:'Supine knee-to-chest obustronny', time:'60 sek'},
-    {name:'Supine spinal twist', time:'45 sek e/s'},
-    {name:'Savasana z relaksacją progresywną', time:'2 min'},
-  ]), true)}`;
-
-  if (v === 2) return `
-  ${dayTitle('MOBILITY II', 'SOBOTA — KLATKA + ROTACJE', '~35 min')}
-  <div style="display:flex;gap:8px;margin-bottom:20px">${tabs}</div>
-  ${philosophy}
-  ${block('mobility', 'BLOK 1 — Oddychanie i rozgrzewka (5 min)', stretchList([
-    {name:'Box breathing z rozluźnieniem szczęki i barków', time:'2 min'},
-    {name:'Arm circles — rosnące koła, obie ręce naprzemiennie', time:'20 powt.'},
-    {name:'Inchworm walk-out bez push-up', time:'5 powt.'},
-  ]), true)}
-  ${block('mobility', 'BLOK 2 — Klatka piersiowa i kręgosłup piersiowy (12 min)', stretchList([
-    {name:'Thoracic extension na podłodze (zwinięty koc pod Th)', time:'5 pozycji × 10 powt.'},
-    {name:'Open book / book opener — rotacja leżąc na boku', time:'60 sek e/s'},
-    {name:'Thoracic CARs stojąc (pełne koła klatką)', time:'5 e/s'},
-    {name:'Doorway pec stretch — 3 kąty (niski, środkowy, wysoki)', time:'30 sek każdy'},
-    {name:'Quadruped thread the needle z utrzymaniem', time:'45 sek e/s'},
-  ]), true)}
-  ${block('mobility', 'BLOK 3 — Łopatki i barki (10 min)', stretchList([
-    {name:'Wall angels pogłębione — pełen zakres przy ścianie', time:'15 powt.'},
-    {name:'Scapular CARs w klęku podpartym', time:'6 e/s'},
-    {name:'Shoulder CARs (pełne powolne koła ramieniem)', time:'3 e/s'},
-    {name:'Sleeper stretch — tylna torebka stawu ramiennego', time:'45 sek e/s'},
-    {name:'Cross-body shoulder stretch', time:'30 sek e/s'},
-  ]), true)}
-  ${block('mobility', 'BLOK 4 — Wyciszenie (5 min)', stretchList([
-    {name:'Child\'s pose z rękoma wyciągniętymi bokiem (lat stretch)', time:'60 sek e/s'},
-    {name:'Prone chest opener — sphinx z lekkim skrętem', time:'45 sek e/s'},
-    {name:'Happy baby pose z kołysaniem', time:'90 sek'},
-  ]), true)}`;
-
-  return `
-  ${dayTitle('MOBILITY III', 'NIEDZIELA — REGENERACJA', '~30 min')}
-  <div style="display:flex;gap:8px;margin-bottom:20px">${tabs}</div>
-  ${philosophy}
-  ${block('mobility', 'BLOK 1 — Oddychanie i wyciszenie układu nerwowego (8 min)', stretchList([
-    {name:'90-90 breathing z wydłużonym wydechem (wdech 4s, wydech 8s)', time:'4 min'},
-    {name:'Box breathing — 4s wdech, 4s zatrzymanie, 4s wydech, 4s pauza', time:'3 min'},
-    {name:'Suboccipital release — palce pod kością potyliczną w leżeniu', time:'2 min'},
-  ]), true)}
-  ${block('mobility', 'BLOK 2 — Pełne ciało — długie rozciąganie (15 min)', stretchList([
-    {name:'Pigeon pose — długi, bez pulsu, totalny relaks', time:'2 min e/s'},
-    {name:'Supine hamstring stretch z paskiem/ręcznikiem', time:'60 sek e/s'},
-    {name:'Figure-4 stretch na plecach', time:'60 sek e/s'},
-    {name:'Kneeling hip flexor — głęboki, z rękami nad głową', time:'60 sek e/s'},
-    {name:'Seated forward fold — głowa opuszczona, bez siłowania', time:'90 sek'},
-    {name:'Neck lateral flexion + rotation — aktywna, powolna', time:'5 e/s każdy kierunek'},
-  ]), true)}
-  ${block('mobility', 'BLOK 3 — Wyciszenie i integracja (7 min)', stretchList([
-    {name:'Lying spinal twist — bez pośpiechu, poczuj każdy kręg', time:'60 sek e/s'},
-    {name:'Child\'s pose z głębokim oddechem', time:'2 min'},
-    {name:'Savasana z relaksacją progresywną od stóp do głowy', time:'3 min'},
-  ]), true)}`;
-}
-
-// ==========================================
-//  PROGRESSION CONTENT
-// ==========================================
-
-function buildProgression(inline) {
-  return `
-  ${inline ? '' : dayTitle('PROGRESJA', 'OD ROZRUCHU DO PROGRAMU DOCELOWEGO', '')}
-  <div class="note-box" style="margin-bottom:20px">
-    <strong>Aktualna struktura programu:</strong> Faza 1 (4 tygodnie rozruchu) → Faza 2 (cykle po 6 tygodni, w nieskończoność).
-    Tydzień 6 każdego cyklu Fazy 2 to automatyczny <strong style="color:var(--accent3)">deload</strong>: połowa serii, ciężar -1 KB, powtórzenia bez zmian.
-    Progresja między cyklami zależy od posiadanych kettlebelli — aplikacja automatycznie dobiera ciężar, powtórzenia lub serie.
-  </div>
-
-  <div class="section-title">FAZA 1 — Rozruch (Tydzień 1–4)</div>
-
-  <div class="progression-grid">
-    <div class="prog-card">
-      <div class="prog-week">TYG 1</div>
-      <div class="prog-desc">Nauka wzorców. 3 serie każdego ćwiczenia. Ciężar lekki–umiarkowany (RPE 5-6). Skupienie 100% na technice.</div>
-    </div>
-    <div class="prog-card">
-      <div class="prog-week">TYG 2</div>
-      <div class="prog-desc">Te same ćwiczenia. Podniesienie ciężaru o 1 poziom (np. 8→12kg) tam gdzie technika była dobra. RPE 6-7.</div>
-    </div>
-    <div class="prog-card">
-      <div class="prog-week">TYG 3</div>
-      <div class="prog-desc">Dodaj 1 serię do każdego ćwiczenia głównego (→ 4 serie). Ciężar utrzymany lub lekko wyżej. RPE 7.</div>
-    </div>
-    <div class="prog-card">
-      <div class="prog-week">TYG 4</div>
-      <div class="prog-desc">Konsolidacja. Utrzymaj ciężary z tygodnia 3. Skup się na jakości ruchu i płynności. RPE 7. Przygotowanie do Fazy 2 — Cykl 1.</div>
-    </div>
-  </div>
-
-  <div class="divider"></div>
-  <div class="section-title">FAZA 2 — Program Docelowy (cykle po 6 tygodni)</div>
-
-  <div class="progression-grid">
-    <div class="prog-card">
-      <div class="prog-week">TYG 1</div>
-      <div class="prog-desc">Start cyklu. Wchodzisz z ciężarami wynikającymi z progresji (Cykl 1 = baza z Fazy 2, każdy kolejny cykl wyżej). RPE 7. Skupienie na formie i tempie.</div>
-    </div>
-    <div class="prog-card">
-      <div class="prog-week">TYG 2</div>
-      <div class="prog-desc">Solidna praca. Te same ciężary co w tygodniu 1. Poprawa płynności i kontroli ruchu. RPE 7–8.</div>
-    </div>
-    <div class="prog-card">
-      <div class="prog-week">TYG 3</div>
-      <div class="prog-desc">Wzrost intensywności. Tempo pracy rośnie, skracaj przerwy o 10–15 sek. RPE 8. Ostatnia seria każdego ćwiczenia powinna być wymagająca.</div>
-    </div>
-    <div class="prog-card">
-      <div class="prog-week">TYG 4</div>
-      <div class="prog-desc">Szczytowy tydzień. Maksymalna koncentracja i intensywność. RPE 8–9. Zapisz w głowie jak czujesz się przy tych ciężarach — to punkt odniesienia.</div>
-    </div>
-    <div class="prog-card">
-      <div class="prog-week">TYG 5</div>
-      <div class="prog-desc">Utrzymanie. Ciężary bez zmian, RPE wraca do 7–8. Ciało konsoliduje adaptacje z tygodnia 4. Dobra technika, bez heroizmu.</div>
-    </div>
-    <div class="prog-card" style="border-color:rgba(245,168,66,0.4);background:rgba(245,168,66,0.04)">
-      <div class="prog-week" style="color:var(--accent3)">TYG 6 — DELOAD 🔄</div>
-      <div class="prog-desc">Automatyczny deload: serie ×0.5, ciężar -1 poziom KB, powtórzenia bez zmian. RPE 5–6. Ciało odpoczywa i superkompensuje — następny cykl będzie silniejszy.</div>
-    </div>
-  </div>
-
-  <div class="note-box" style="margin-top:16px">
-    <strong>Progresja między cyklami</strong> jest automatyczna i zależy od Twoich kettlebelli:<br>
-    1. Jeśli następny KB jest dostępny (max +4kg) → <strong style="color:var(--accent2)">zwiększ ciężar</strong><br>
-    2. Jeśli nie ma wyższego KB → <strong style="color:var(--accent2)">+2 powtórzenia</strong> na serię<br>
-    3. Gdy powtórzenia osiągną 15 → <strong style="color:var(--accent2)">+1 seria</strong>, reset powtórzeń<br>
-    4. Gdy wszystko maxed → skok do następnego dostępnego KB
-  </div>
-
-  <div class="divider"></div>
-  <div class="section-title">TABELA PROGRESJI — CIĘŻAR STARTOWY</div>
-
-  <table class="ex-table" style="margin-top:0">
-    <thead><tr>
-      <th>Ćwiczenie</th>
-      <th>Faza 1</th>
-      <th>F2 Cykl 1 (baza)</th>
-      <th>F2 Cykl 2+</th>
-    </tr></thead>
-    <tbody>
-      <tr><td><div class="ex-name">KB Swing (jedna ręka)</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 5×10</td><td class="ex-weight">auto ↑</td></tr>
-      <tr><td><div class="ex-name">KB Bent-Over Row</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 4×10</td><td class="ex-weight">auto ↑</td></tr>
-      <tr><td><div class="ex-name">KB Floor Press</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 4×8</td><td class="ex-weight">auto ↑</td></tr>
-      <tr><td><div class="ex-name">KB Press Overhead</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 4×8</td><td class="ex-weight">auto ↑</td></tr>
-      <tr><td><div class="ex-name">KB Deadlift</div></td><td class="ex-weight">12–16kg</td><td class="ex-weight">16kg × 5×5</td><td class="ex-weight">auto ↑</td></tr>
-      <tr><td><div class="ex-name">KB Clean</div></td><td class="ex-weight">8–12kg</td><td class="ex-weight">12kg × 4×6</td><td class="ex-weight">auto ↑</td></tr>
-      <tr><td><div class="ex-name">TGU</div></td><td class="ex-weight">6–8kg</td><td class="ex-weight">8kg × 3×3</td><td class="ex-weight">auto ↑</td></tr>
-      <tr><td><div class="ex-name">KB Windmill</div></td><td class="ex-weight">6–8kg</td><td class="ex-weight">8kg × 3×5</td><td class="ex-weight">auto ↑</td></tr>
-    </tbody>
-  </table>
-
-  <div class="note-box" style="margin-top:20px">
-    <strong>Zasada ciężaru:</strong> Nie skacz do wyższego ciężaru dopóki nie wykonasz wszystkich zaplanowanych serii i powtórzeń z <em>czystą techniką</em>. Priorytetem jest ruch, nie ciężar. Kettlebell uczy cierpliwości. 🔔
-  </div>
-  `;
-}
-
-// ==========================================
-//  RENDER & NAVIGATION
-// ==========================================
-
-let currentPhase = 'overview';
-let currentDayP1 = 'p1-a';
-let currentDayP2 = 'p2-a';
-
-function renderDays(phase, days, containerId, sidebarId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  container.innerHTML = days.map(d => `
-    <div class="day-content ${d.id === (phase==='phase1'?currentDayP1:currentDayP2) ? 'active' : ''}" id="content-${d.id}">
-      ${d.content}
-    </div>
-  `).join('');
-}
-
-function renderDaysInto(phase, days, containerId) {
-  const container = document.getElementById(containerId);
-  if (!container) return;
-  // Add day selector tabs + content
-  const currentDay = phase === 'phase1' ? currentDayP1 : currentDayP2;
-  const tabsHtml = days.map(d =>
-    `<button class="day-btn ${d.id===currentDay?'active':''}" onclick="switchDaySub('${phase}','${d.id}')">
-      <span class="day-dot"></span>
-      <span>${d.label}<span class="day-type">${d.sub}</span></span>
-    </button>`
-  ).join('');
-  const contentHtml = days.map(d =>
-    `<div class="day-content ${d.id===currentDay?'active':''}" id="sub-content-${d.id}">${d.content}</div>`
-  ).join('');
-  container.innerHTML = `
-    <div style="display:flex;gap:0;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--border);margin-bottom:20px">${tabsHtml}</div>
-    ${contentHtml}`;
-}
-
-function switchDaySub(phase, dayId) {
-  if (phase === 'phase1') currentDayP1 = dayId;
-  else currentDayP2 = dayId;
-  const days = phase === 'phase1' ? phase1Days : phase2Days;
-  days.forEach(d => {
-    const el = document.getElementById('sub-content-' + d.id);
-    if (el) el.classList.toggle('active', d.id === dayId);
-  });
-  // update tab buttons
-  const container = document.getElementById(phase==='phase1'?'days-phase1-inner':'days-phase2-inner');
-  if (container) container.querySelectorAll('.day-btn').forEach((btn,i) => {
-    btn.classList.toggle('active', days[i].id === dayId);
-  });
-}
-
-function renderSidebar(phase) {
-  const sidebar = document.getElementById('daySidebar');
-  const mainEl = document.querySelector('main');
-  let days, currentDay;
-
-  if (phase === 'phase1') {
-    days = phase1Days;
-    currentDay = currentDayP1;
-  } else if (phase === 'phase2') {
-    days = phase2Days;
-    currentDay = currentDayP2;
-  } else {
-    sidebar.innerHTML = '';
-    mainEl.classList.add('no-sidebar');
-    return;
-  }
-
-  mainEl.classList.remove('no-sidebar');
-  sidebar.innerHTML = days.map(d => `
-    <button class="day-btn ${d.isRest?'rest':''} ${d.id===currentDay?'active':''}" onclick="switchDay('${phase}','${d.id}')">
-      <span class="day-dot"></span>
-      <span>
-        ${d.label}
-        <span class="day-type">${d.sub}</span>
-      </span>
-    </button>
-  `).join('');
-}
-
-function switchPhase(phase) {
-  currentPhase = phase;
-
-  // Nav buttons
-  document.querySelectorAll('.phase-btn').forEach((btn, i) => {
-    const phases = ['overview','cycle','tracker','calendar'];
-    btn.classList.toggle('active', phases[i] === phase);
-  });
-
-  // Panels
-  document.querySelectorAll('.phase-panel').forEach(p => {
-    p.classList.toggle('active', p.id === `panel-${phase}`);
-  });
-
-  // Sidebar — only overview sub-panels use internal day switching, main nav never shows sidebar
-  renderSidebar(null);
-
-  // Init content if needed
-  if (phase === 'overview') {
-    // init sub-panels lazily
-    if (!document.getElementById('days-phase1-inner').innerHTML) {
-      renderDaysInto('phase1', phase1Days, 'days-phase1-inner');
-    }
-    if (!document.getElementById('days-phase2-inner').innerHTML) {
-      renderDaysInto('phase2', phase2Days, 'days-phase2-inner');
-    }
-    if (!document.getElementById('mobility-content').innerHTML) {
-      document.getElementById('mobility-content').innerHTML = buildMobility();
-    }
-    if (!document.getElementById('progression-content').innerHTML) {
-      document.getElementById('progression-content').innerHTML = buildProgression(true);
-    }
-  }
-  if (phase === 'cycle') { buildCyclePlan(); }
-  if (phase === 'calendar') { buildCalendar(); }
-  if (phase === 'tracker') { buildTracker(selectedProgressEx||'KB Swing (jedna ręka)'); }
-  // save phase preference for training days
-}
-
-function switchDay(phase, dayId) {
-  if (phase === 'phase1') currentDayP1 = dayId;
-  else currentDayP2 = dayId;
-
-  // Update content visibility
-  const prefix = phase === 'phase1' ? 'p1-' : 'p2-';
-  ['a','b','c','d'].forEach(l => {
-    const el = document.getElementById(`content-${prefix}${l}`);
-    if (el) el.classList.toggle('active', `${prefix}${l}` === dayId);
-  });
-
-  renderSidebar(phase);
-}
-
-function openTrainingDay(phase, subId, dayId) {
-  closeModal();
-  switchPhase('overview');
-  // Ensure sub-panels are rendered before switching
-  if (!document.getElementById('days-phase1-inner').innerHTML) {
-    renderDaysInto('phase1', phase1Days, 'days-phase1-inner');
-  }
-  if (!document.getElementById('days-phase2-inner').innerHTML) {
-    renderDaysInto('phase2', phase2Days, 'days-phase2-inner');
-  }
-  switchSub(subId);
-  switchDaySub(phase, dayId);
-  // Scroll to top
-  document.querySelector('.content').scrollTop = 0;
-}
-
-function openMobilityDay(variant) {
-  closeModal();
-  switchPhase('overview');
-  if (!document.getElementById('mobility-content').innerHTML) {
-    document.getElementById('mobility-content').innerHTML = buildMobility();
-  }
-  switchSub('sub-mobility');
-  showMobilityVariant(variant);
-  document.querySelector('.content').scrollTop = 0;
-}
-
-
-function toggleBlock(header) {
-  header.classList.toggle('open');
-  header.nextElementSibling.classList.toggle('open');
-}
-
-// Build day arrays here — AFTER all functions (YT, exTable, builders) are defined
-phase1Days = [
-  { id:'p1-a', label:'Trening A', sub:'Plecy + Pull',    isRest:false, content:buildP1A() },
-  { id:'p1-b', label:'Trening B', sub:'Klatka + Push',   isRest:false, content:buildP1B() },
-  { id:'p1-c', label:'Trening C', sub:'Plecy — siła',    isRest:false, content:buildP1C() },
-  { id:'p1-d', label:'Trening D', sub:'Full Body',        isRest:false, content:buildP1D() },
-];
-phase2Days = [
-  { id:'p2-a', label:'Trening A', sub:'Plecy + Pull',    isRest:false, content:buildP2A() },
-  { id:'p2-b', label:'Trening B', sub:'Klatka + Push',   isRest:false, content:buildP2B() },
-  { id:'p2-c', label:'Trening C', sub:'Plecy — siła',    isRest:false, content:buildP2C() },
-  { id:'p2-d', label:'Trening D', sub:'Full Body',        isRest:false, content:buildP2D() },
+const WEEK = [
+  { key:'mon', name:'PN', type:'train', label:'Swing L + TGU H',
+    exercises:[
+      { name:'Rozgrzewka', fmt:'fixed', detail:'5–10 min' },
+      { name:'Swing', fmt:'interval', w:'L', note:'Eksplozja bioder — nie ramion. Plecy neutralne przez cały ruch.' },
+      { name:'Turkish Get-Up', fmt:'tgu', w:'H', note:'Każda faza osobno i świadomie. Wzrok na kettlebell.' },
+      { name:'Cooldown', fmt:'fixed', detail:'5–10 min' },
+    ]},
+  { key:'tue', name:'WT', type:'train', label:'Clean & Press H + Squat L',
+    exercises:[
+      { name:'Rozgrzewka', fmt:'fixed', detail:'5–10 min' },
+      { name:'Clean & Press', fmt:'interval', w:'H', note:'KB blisko ciała w cleanie — nie biceps curl. Naprzemiennie ręce co rundę.' },
+      { name:'Squat (Goblet)', fmt:'interval', w:'L', squat:true, note:'Pięty na ziemi, pełen zakres. Łokcie wciskają kolana na zewnątrz.' },
+      { name:'Cooldown', fmt:'fixed', detail:'5–10 min' },
+    ]},
+  { key:'wed', name:'ŚR', type:'rest', label:'ODPOCZYNEK' },
+  { key:'thu', name:'CZ', type:'train', label:'Swing H + TGU L',
+    exercises:[
+      { name:'Rozgrzewka', fmt:'fixed', detail:'5–10 min' },
+      { name:'Swing', fmt:'interval', w:'H', note:'Cięższy kettlebell — mniej powt./rundę. Technika ponad wszystko.' },
+      { name:'Turkish Get-Up', fmt:'tgu', w:'L', note:'Lżejszy ciężar — pracuj nad płynnością przejść między fazami.' },
+      { name:'Cooldown', fmt:'fixed', detail:'5–10 min' },
+    ]},
+  { key:'fri', name:'PT', type:'train', label:'Clean & Press L + Squat H',
+    exercises:[
+      { name:'Rozgrzewka', fmt:'fixed', detail:'5–10 min' },
+      { name:'Clean & Press', fmt:'interval', w:'L', note:'Lżejszy ciężar — więcej powt./rundę. Skup się na płynności cleana.' },
+      { name:'Squat (Goblet)', fmt:'interval', w:'H', squat:true, note:'Kontrola głębokości pod wyższym ciężarem.' },
+      { name:'Cooldown', fmt:'fixed', detail:'5–10 min' },
+    ]},
+  { key:'sat', name:'SB', type:'rest', label:'ODPOCZYNEK' },
+  { key:'sun', name:'ND', type:'rest', label:'ODPOCZYNEK' },
 ];
 
-// Init UI
-switchPhase('overview');
-
-// ==========================================
-//  SCHEDULE — 7-day rolling plan
-// ==========================================
-
-// Training pattern: A, REST(mob), B, REST(mob), C, D, REST(mob)  → cycle of 7
-const WEEK_PATTERN = [
-  { type:'train', label:'Trening A', short:'A', pillClass:'pill-a', sub:'Plecy + Pull',   phase1:'phase1', day:'p1-a', phase2:'p2-a' },
-  { type:'train', label:'Trening B', short:'B', pillClass:'pill-b', sub:'Klatka + Push',  phase1:'phase1', day:'p1-b', phase2:'p2-b' },
-  { type:'mob',   label:'Mobility I',   short:'Mob I',   pillClass:'pill-mobility', mobVariant:1, sub:'Biodra + Core' },
-  { type:'train', label:'Trening C', short:'C', pillClass:'pill-c', sub:'Plecy — siła',   phase1:'phase1', day:'p1-c', phase2:'p2-c' },
-  { type:'train', label:'Trening D', short:'D', pillClass:'pill-d', sub:'Full Body',       phase1:'phase1', day:'p1-d', phase2:'p2-d' },
-  { type:'mob',   label:'Mobility II',  short:'Mob II',  pillClass:'pill-mobility', mobVariant:2, sub:'Klatka + Rotacje' },
-  { type:'mob',   label:'Mobility III', short:'Mob III', pillClass:'pill-mobility', mobVariant:3, sub:'Regeneracja' },
-];
-
-// Programme start date stored in localStorage
-function getStartDate() {
-  const s = localStorage.getItem('ib_start');
-  if (s) return new Date(s);
-  return null;
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+function loadState() {
+  try { return JSON.parse(localStorage.getItem('kb2_state')) || { step:1, sessions:{} }; }
+  catch { return { step:1, sessions:{} }; }
 }
-function setStartDate(d) {
-  localStorage.setItem('ib_start', d.toISOString().split('T')[0]);
+function saveState() { localStorage.setItem('kb2_state', JSON.stringify(state)); }
+
+let state = loadState();
+let pendingLogDate = null;
+let pendingLogDayKey = null;
+let calYear = new Date().getFullYear();
+let calMonth = new Date().getMonth();
+
+function curStep() { return STEPS[Math.min(state.step,STEPS.length)-1]; }
+function kg(w, isSquat) {
+  const s = curStep();
+  if (isSquat) return w==='L' ? s.SL : s.SH;
+  return w==='L' ? s.L : s.H;
 }
-// Map day-of-week (0=Sun,1=Mon,...6=Sat) to pattern index
-// Pn(1)=A, Wt(2)=B, Śr(3)=Mob, Cz(4)=C, Pt(5)=D, Sb(6)=Mob, Nd(0)=Rest
-const DOW_TO_PATTERN = { 1:0, 2:1, 3:2, 4:3, 5:4, 6:5, 0:6 };
-
-function getDayOffset(date) {
-  const start = getStartDate();
-  if (!start) return null;
-  // normalize both to midnight to avoid timezone issues
-  const d = new Date(date); d.setHours(0,0,0,0);
-  const s = new Date(start); s.setHours(0,0,0,0);
-  const diff = Math.floor((d - s) / 86400000);
-  if (diff < 0) return null;
-  return diff;
-}
-function getPatternForDate(date) {
-  if (!getStartDate()) return null;
-  // only show pattern from start date onwards
-  const off = getDayOffset(date);
-  if (off === null) return null;
-  // use day-of-week, Mon=0 in our pattern
-  const dow = date.getDay(); // 0=Sun,1=Mon,...
-  return WEEK_PATTERN[DOW_TO_PATTERN[dow]];
-}
-
-// Completed days
-function getDone() {
-  try { return JSON.parse(localStorage.getItem('ib_done') || '[]'); } catch { return []; }
-}
-function markDone(dateStr, done) {
-  let arr = getDone();
-  if (done) { if (!arr.includes(dateStr)) arr.push(dateStr); }
-  else arr = arr.filter(x => x !== dateStr);
-  localStorage.setItem('ib_done', JSON.stringify(arr));
-}
-function isDone(dateStr) { return getDone().includes(dateStr); }
-
-// ==========================================
-//  CALENDAR RENDERER
-// ==========================================
-
-let calYear, calMonth;
-
-function buildCalendar() {
-  const today = new Date();
-  if (calYear === undefined) { calYear = today.getFullYear(); calMonth = today.getMonth(); }
-
-  const startDate = getStartDate();
-  const el = document.getElementById('calendar-content');
-
-  // Schedule strip (next 10 days)
-  const stripDays = [];
-  for (let i = 0; i < 14; i++) {
-    const d = new Date(today); d.setDate(today.getDate() + i);
-    stripDays.push(d);
-  }
-
-  const stripHtml = stripDays.map(d => {
-    const ds = fmtDate(d);
-    const pat = getPatternForDate(d);
-    const isToday = ds === fmtDate(today);
-    const done = isDone(ds);
-    const label = pat ? pat.label : '—';
-    const sub = pat ? pat.sub : (startDate ? '' : 'Ustaw start →');
-    const pillClass = pat ? pat.pillClass : 'pill-rest';
-    return `<div class="sched-card ${isToday?'today-card':''}" onclick="openDayModal('${ds}')">
-      <div class="sched-date">${isToday?'DZIŚ':fmtShort(d)}</div>
-      <div class="sched-label" style="${done?'color:var(--accent2)':''}">${done?'✓ '+label:label}</div>
-      <div class="sched-type">${sub}</div>
-    </div>`;
-  }).join('');
-
-  // Grid calendar
-  const firstDay = new Date(calYear, calMonth, 1);
-  const lastDay = new Date(calYear, calMonth + 1, 0);
-  const startDow = (firstDay.getDay() + 6) % 7; // Mon=0
-  const monthNames = ['Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
-                      'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień'];
-  const dows = ['Pn','Wt','Śr','Cz','Pt','Sb','Nd'];
-
-  let cells = dows.map(d => `<div class="cal-dow">${d}</div>`).join('');
-  // empty cells before
-  for (let i = 0; i < startDow; i++) cells += `<div class="cal-day empty"></div>`;
-  // day cells
-  // Determine current cycle date range for highlighting
-  const curStatus = getProgramStatus();
-  let cycleStart = null, cycleEnd = null;
-  if (curStatus && getStartDate()) {
-    if (curStatus.phase === 'phase1') {
-      cycleStart = new Date(getStartDate()); cycleStart.setHours(0,0,0,0);
-      cycleEnd = new Date(cycleStart); cycleEnd.setDate(cycleStart.getDate() + 27);
-    } else {
-      // Use actual cycle start dates
-      const p2s = getPhase2Start();
-      const cycleStarts = getCycleStarts();
-      const allStarts = [p2s, ...cycleStarts.map(cs => new Date(cs+'T00:00:00'))];
-      const idx = Math.min(curStatus.cycle - 1, allStarts.length - 1);
-      cycleStart = new Date(allStarts[idx]); cycleStart.setHours(0,0,0,0);
-      cycleEnd = new Date(cycleStart); cycleEnd.setDate(cycleStart.getDate() + 41);
-    }
-  }
-
-  for (let day = 1; day <= lastDay.getDate(); day++) {
-    const d = new Date(calYear, calMonth, day);
-    const ds = fmtDate(d);
-    const isToday = ds === fmtDate(today);
-    const fp = getPhaseForDate(d);
-    const inCurrentCycle = cycleStart && cycleEnd && d >= cycleStart && d <= cycleEnd;
-    const pat = inCurrentCycle ? getPatternForDate(d) : null;
-    const done = isDone(ds);
-    let cls = 'cal-day';
-    if (isToday) cls += ' today';
-    if (!inCurrentCycle && fp) cls += ' cal-other-cycle';
-    if (inCurrentCycle && pat && pat.type==='train') cls += ' has-training';
-    if (inCurrentCycle && pat && pat.type==='mob') cls += ' has-mobility';
-    if (done) cls += ' done';
-    const fp2 = getPhaseForDate(d);
-    const isDeload = fp2 && fp2.phase==='phase2' && fp2.isDeload && inCurrentCycle;
-    const paused = isPaused();
-    const pillClass = isDeload ? 'pill-deload' : (pat ? pat.pillClass : '');
-    const pillLabel = isDeload ? 'Deload' : (pat ? pat.short : '');
-    const pill = inCurrentCycle && pat ? `<div class="cal-day-pill ${pillClass}">${pillLabel}</div>` : '';
-    const dot = done ? `<div class="cal-done-dot"></div>` : '';
-    cells += `<div class="${cls}" onclick="${inCurrentCycle||isToday?`openDayModal('${ds}')`:''}" style="${!inCurrentCycle&&fp?'opacity:0.3;cursor:default':''}">
-      <div class="cal-day-num">${day}</div>${pill}${dot}
-    </div>`;
-  }
-
-  // find next Monday
-  const todayD = new Date(); todayD.setHours(0,0,0,0);
-  const dow = todayD.getDay(); // 0=Sun
-  const daysToMon = dow === 1 ? 0 : (8 - dow) % 7 || 7;
-  const nextMon = new Date(todayD); nextMon.setDate(todayD.getDate() + daysToMon);
-  const nextMonStr = fmtDate(nextMon);
-  const isMonday = dow === 1;
-
-  const status = getProgramStatus();
-  const curPhase = status ? status.phase : (getStartDate() ? 'phase1' : null);
-
-  // Status bar
-  const phaseToggle = buildStatusBar(status, { showLink: true });
-
-  const paused = isPaused();
-  const pauseData = getPauseData();
-  const today2 = fmtDate(new Date());
-
-  const pauseSection = startDate ? `
-    <div style="margin-top:10px">
-      ${paused ? `
-        <div style="background:rgba(245,66,66,0.08);border:1px solid rgba(245,66,66,0.2);border-radius:6px;padding:12px;margin-bottom:8px">
-          <div style="font-family:'Bebas Neue',sans-serif;color:#ff7070;font-size:16px;letter-spacing:1px">⏸ PROGRAM WSTRZYMANY od ${pauseData.pausedOn}</div>
-          <div style="font-size:12px;color:var(--muted);margin:6px 0">Podaj datę powrotu żeby wznowić:</div>
-          <input type="date" id="resume-date-input" value="${today2}" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:7px 10px;font-size:13px;width:100%;margin-bottom:8px">
-          <button class="modal-btn btn-primary" style="margin-top:0" onclick="resumeProgram(document.getElementById('resume-date-input').value)">▶ Wznów program</button>
-        </div>` :
-        `<button class="modal-btn btn-secondary" style="margin-top:0" onclick="pauseProgram()">⏸ Wstrzymaj program (kontuzja / urlop)</button>`
-      }
-    </div>` : '';
-
-  const setupHtml = `
-    <div class="note-box" style="margin-bottom:20px">
-      <strong>${startDate ? 'Data startu programu' : 'Ustaw datę startu programu'}</strong><br>
-      Plan (A/B/Mobility/C/D) jest przypisany do dni tygodnia — możesz zacząć w dowolnym dniu.
-      <br><br>
-      <input type="date" id="start-date-input" style="background:var(--surface);border:1px solid var(--border);color:var(--text);border-radius:5px;padding:8px 12px;font-size:14px;width:100%;margin-bottom:8px" value="${startDate ? fmtDate(startDate) : nextMonStr}">
-      <button class="modal-btn btn-primary" style="margin-top:4px" onclick="saveStartDate()">${startDate ? 'Zmień datę startu' : 'Zapisz datę startu'}</button>
-      ${pauseSection}
-    </div>`;
-
-  // ── TRANSITION BANNER ──
-  const ts = getTransitionStatus();
-  let transitionBanner = '';
-  if (ts && ts.ready) {
-    transitionBanner = `
-      <div style="background:rgba(200,245,66,0.08);border:2px solid var(--accent);border-radius:10px;padding:16px;margin-bottom:20px">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent)">
-          🏁 ${ts.phaseLabel} ukończona!
-        </div>
-        <div style="font-size:13px;color:var(--muted);margin:6px 0">
-          Wszystkie ${ts.totalTraining} treningi zaliczone. Gotowy na <strong style="color:var(--text)">${ts.nextLabel}</strong>?
-        </div>
-        <button class="modal-btn btn-primary" style="margin:8px 0 0" onclick="confirmPhaseTransition()">
-          ✓ Zaczynam ${ts.nextLabel}
-        </button>
-      </div>`;
-  }
-
-  el.innerHTML = `
-    ${dayTitle('KALENDARZ', 'TWÓJ PLAN TRENINGOWY', '')}
-    ${phaseToggle}
-    ${transitionBanner}
-    ${setupHtml}
-    <div class="section-title" style="font-size:20px">Najbliższe dni</div>
-    <div class="sched-strip">${stripHtml}</div>
-    <div class="cal-header">
-      <button class="cal-nav-btn" onclick="calPrev()">‹</button>
-      <div class="cal-month-label">${monthNames[calMonth]} ${calYear}</div>
-      <button class="cal-nav-btn" onclick="calNext()">›</button>
-    </div>
-    <div class="cal-grid">${cells}</div>
-    <div class="note-box">
-      <strong>Legenda:</strong>
-      <span class="cal-day-pill pill-a" style="margin-left:8px;display:inline-block">A</span>
-      <span class="cal-day-pill pill-b" style="margin-left:4px;display:inline-block">B</span>
-      <span class="cal-day-pill pill-c" style="margin-left:4px;display:inline-block">C</span>
-      <span class="cal-day-pill pill-d" style="margin-left:4px;display:inline-block">D</span>
-      <span class="cal-day-pill pill-mobility" style="margin-left:4px;display:inline-block">Mob I/II/III</span>
-      &nbsp;· Zielona kropka = ukończony
-    </div>
-    <button class="modal-btn btn-secondary" style="margin-top:12px" onclick="clearDoneOnly()">🗑 Wyczyść odznaczone dni</button>
-  `;
-
-}
-
-function calPrev() { calMonth--; if(calMonth<0){calMonth=11;calYear--;} buildCalendar(); }
-function calNext() { calMonth++; if(calMonth>11){calMonth=0;calYear++;} buildCalendar(); }
-
-function saveStartDate() {
-  const inp = document.getElementById('start-date-input');
-  if (!inp || !inp.value) return;
-  setStartDate(new Date(inp.value));
-  buildCalendar();
-}
-function resetStartDate() {
-  localStorage.removeItem('ib_start');
-  clearPhaseTransitions();
-  buildCalendar();
-}
-
-// ── DAY MODAL ──────────────────────────────────────────────────────────────
-function openDayModal(dateStr) {
-  const date = new Date(dateStr + 'T00:00:00');
-  const pat = getPatternForDate(date);
-  const done = isDone(dateStr);
-  const overlay = document.getElementById('day-modal');
-  const body = document.getElementById('day-modal-body');
-
-  let content = `<div style="display:flex;align-items:flex-start;justify-content:space-between">
-    <div>
-      <div class="modal-title">${pat ? pat.label : fmtDisplay(date)}</div>
-      <div class="modal-sub">${(()=>{ const fp=getPhaseForDate(date); if(!fp) return fmtDisplay(date); if(fp.phase==='phase1') return fmtDisplay(date)+' · <span style="color:var(--accent);font-family:\'DM Mono\',monospace;font-size:11px">FAZA 1</span>'; return fmtDisplay(date)+' · <span style="color:var(--accent2);font-family:\'DM Mono\',monospace;font-size:11px">FAZA 2 · CYK '+fp.cycle+'</span>'; })()}${pat ? ' · ' + pat.sub : ''}</div>
-    </div>
-    <button class="modal-close" onclick="closeModal()">×</button>
-  </div>`;
-
-  if (!getStartDate()) {
-    content += `<p style="color:var(--muted);font-size:13px">Najpierw ustaw datę startu programu w kalendarzu.</p>`;
-  } else if (!pat) {
-    content += `<p style="color:var(--muted);font-size:13px">Ten dzień jest przed startem programu.</p>`;
-  } else {
-    const doneBtn = done
-      ? `<button class="modal-btn btn-danger" onclick="toggleDone('${dateStr}', false)">✗ Oznacz jako niewykonany</button>`
-      : `<button class="modal-btn btn-primary" onclick="toggleDone('${dateStr}', true)">✓ Oznacz jako wykonany</button>`;
-
-    let navBtn = '';
-    if (pat.type === 'train') {
-      const fp = getPhaseForDate(date);
-      const phase = fp ? fp.phase : 'phase1';
-      const dayId = phase === 'phase2' ? pat.phase2 : pat.day;
-      const subId = phase === 'phase2' ? 'sub-phase2' : 'sub-phase1';
-      navBtn = `<button class="modal-btn btn-secondary" onclick="openTrainingDay('${phase}','${subId}','${dayId}')">→ Otwórz plan treningu</button>`;
-      if (fp && fp.phase === 'phase2') {
-        navBtn += `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('cycle')">🎯 Plan cyklu ${fp.cycle}</button>`;
-      }
-      navBtn += `<button class="modal-btn btn-secondary" onclick="closeModal();switchPhase('tracker')">📊 Progres</button>`;
-    } else if (pat.type === 'mob') {
-      const mv = pat.mobVariant || 1;
-      navBtn = `<button class="modal-btn btn-secondary" onclick="openMobilityDay(${mv})">→ Otwórz sesję Mobility</button>`;
-    }
-
-    content += doneBtn + navBtn;
-  }
-
-  body.innerHTML = content;
-  overlay.classList.add('open');
-}
-
-
-// ─── PAUSE / RESUME ───────────────────────────────────
-function getPauseData() {
-  try { return JSON.parse(localStorage.getItem('ib_pause') || 'null'); } catch { return null; }
-}
-function setPauseData(data) {
-  if (data) localStorage.setItem('ib_pause', JSON.stringify(data));
-  else localStorage.removeItem('ib_pause');
-}
-
-function pauseProgram() {
-  const pd = getPauseData();
-  if (pd && pd.paused) return; // already paused
-  setPauseData({ paused: true, pausedOn: fmtDate(new Date()) });
-  buildCalendar();
-}
-
-function resumeProgram(resumeDateStr) {
-  const pd = getPauseData();
-  if (!pd || !pd.paused) return;
-  const pausedOn = new Date(pd.pausedOn + 'T00:00:00');
-  const resumeOn = new Date(resumeDateStr + 'T00:00:00');
-  const pauseDays = Math.floor((resumeOn - pausedOn) / 86400000);
-  // Shift start date forward by pauseDays
-  const start = getStartDate();
-  if (start) {
-    const newStart = new Date(start);
-    newStart.setDate(newStart.getDate() + pauseDays);
-    setStartDate(newStart);
-  }
-  setPauseData(null);
-  buildCalendar();
-}
-
-function isPaused() {
-  const pd = getPauseData();
-  return pd && pd.paused;
-}
-
-// ─── CYCLE RESET ──────────────────────────────────────
-// Offset stored in localStorage — shifts effective cycle number
-function getCycleOffset() {
-  return parseInt(localStorage.getItem('ib_cycle_offset') || '0');
-}
-function setCycleOffset(n) {
-  localStorage.setItem('ib_cycle_offset', String(n));
-}
-function resetCycleBack(steps) {
-  setCycleOffset(getCycleOffset() - steps);
-  buildCyclePlan();
-  buildCalendar();
-}
-function resetCycleForward(steps) {
-  setCycleOffset(getCycleOffset() + steps);
-  buildCyclePlan();
-  buildCalendar();
-}
-function clearCycleOffset() {
-  setCycleOffset(0);
-  buildCyclePlan();
-  buildCalendar();
-}
-
-function clearDoneOnly() {
-  localStorage.removeItem('ib_done');
-  buildCyclePlan();
-  buildCalendar();
-}
-
-function resetFullProgram() {
-  // confirm() is blocked in PWA/webview — use custom modal
-  const overlay = document.getElementById('confirm-modal');
-  if (overlay) overlay.classList.add('open');
-}
-
-function resetFullProgramConfirmed() {
-  document.getElementById('confirm-modal').classList.remove('open');
-  localStorage.removeItem('ib_cycle_offset');
-  localStorage.removeItem('ib_start');
-  clearPhaseTransitions();
-  localStorage.removeItem('ib_done');
-  buildCyclePlan();
-  buildCalendar();
-}
-
-
-// ─── PHASE TRANSITION STORAGE ─────────────────────────
-function getPhase2Start() {
-  const s = localStorage.getItem('ib_phase2_start');
-  return s ? new Date(s + 'T00:00:00') : null;
-}
-function setPhase2Start(dateStr) {
-  localStorage.setItem('ib_phase2_start', dateStr);
-}
-
-function getCycleStarts() {
-  try { return JSON.parse(localStorage.getItem('ib_cycle_starts') || '[]'); } catch { return []; }
-}
-function addCycleStart(dateStr) {
-  const arr = getCycleStarts();
-  arr.push(dateStr);
-  localStorage.setItem('ib_cycle_starts', JSON.stringify(arr));
-}
-function clearPhaseTransitions() {
-  localStorage.removeItem('ib_phase2_start');
-  localStorage.removeItem('ib_cycle_starts');
-}
-
-// ─── TRANSITION READINESS ─────────────────────────────
-// Returns info about whether current phase can be advanced
-// Get all days in phase (all 28/42 days, no date limit)
-function getTrainingDaysInPhase(phaseStartDate, durationDays) {
-  const days = [];
-  for (let i = 0; i < durationDays; i++) {
-    const d = new Date(phaseStartDate);
-    d.setDate(phaseStartDate.getDate() + i);
-    days.push(fmtDate(d));
-  }
-  return days;
-}
-
-function getTransitionStatus() {
-  const start = getStartDate();
-  if (!start) return null;
-  const p2start = getPhase2Start();
-  const cycleStarts = getCycleStarts();
-
-  let phaseStartDate, phaseDuration, phaseLabel, nextLabel, phaseType, currentCycle;
-
-  if (!p2start) {
-    phaseStartDate = new Date(start); phaseStartDate.setHours(0,0,0,0);
-    phaseDuration = 28; // 4 weeks
-    phaseLabel = 'Faza 1';
-    nextLabel = 'Faza 2 — Cykl 1';
-    phaseType = 'phase1';
-    currentCycle = null;
-  } else {
-    const p2s = new Date(p2start); p2s.setHours(0,0,0,0);
-    currentCycle = cycleStarts.length + 1;
-    const cycleStart = cycleStarts.length > 0
-      ? new Date(cycleStarts[cycleStarts.length-1] + 'T00:00:00')
-      : p2s;
-    cycleStart.setHours(0,0,0,0);
-    phaseStartDate = cycleStart;
-    phaseDuration = 42; // 6 weeks
-    phaseLabel = `Faza 2 — Cykl ${currentCycle}`;
-    nextLabel = `Faza 2 — Cykl ${currentCycle + 1}`;
-    phaseType = 'phase2';
-  }
-
-  // Training days up to today (past + today)
-  const pastTrainingDays = getTrainingDaysInPhase(phaseStartDate, phaseDuration);
-  const totalTraining = pastTrainingDays.length;
-  const doneTraining = pastTrainingDays.filter(d => isDone(d)).length;
-
-  // Ready when ALL 28 (Phase 1) or 42 (Phase 2 cycle) days are marked done
-  const minRequired = phaseType === 'phase1' ? 28 : 42;
-  const allDone = totalTraining >= minRequired && doneTraining === totalTraining;
-
-  if (!allDone) {
-    return {
-      ready: false,
-      phaseType,
-      phaseLabel,
-      nextLabel,
-      currentCycle,
-      doneTraining,
-      totalTraining,
-    };
-  }
-
-  return {
-    ready: true,
-    phaseType,
-    phaseLabel,
-    nextLabel,
-    currentCycle,
-    doneTraining,
-    totalTraining,
-  };
-}
-
-// Confirm phase transition
-function confirmPhaseTransition() {
-  const ts = getTransitionStatus();
-  if (!ts || !ts.ready) return;
-
-  if (ts.phaseType === 'phase1') {
-    // Phase 2 starts day after Phase 1 ends (start + 28 days)
-    const s = new Date(getStartDate()); s.setHours(0,0,0,0);
-    s.setDate(s.getDate() + 28);
-    setPhase2Start(fmtDate(s));
-  } else {
-    // Next cycle starts day after current cycle ends (cycleStart + 42 days)
-    const cycleStarts = getCycleStarts();
-    const p2s = new Date(getPhase2Start()); p2s.setHours(0,0,0,0);
-    const lastCycleStart = cycleStarts.length > 0
-      ? new Date(cycleStarts[cycleStarts.length-1] + 'T00:00:00')
-      : p2s;
-    lastCycleStart.setHours(0,0,0,0);
-    lastCycleStart.setDate(lastCycleStart.getDate() + 42);
-    addCycleStart(fmtDate(lastCycleStart));
-  }
-  buildCalendar();
-  buildCyclePlan();
-}
-
-
-// ─── PHASE SYSTEM ────────────────────────────────────
-// Returns {phase, cycle, weekInCycle, totalDays}
-function getProgramStatus() {
-  const start = getStartDate();
-  if (!start) return null;
-  const today = new Date(); today.setHours(0,0,0,0);
-  const s = new Date(start); s.setHours(0,0,0,0);
-  const totalDays = Math.floor((today - s) / 86400000);
-  if (totalDays < 0) return null;
-
-  const p2start = getPhase2Start();
-
-  // Still in Phase 1 (either time hasn't elapsed OR user hasn't confirmed)
-  if (!p2start) {
-    const week = Math.min(4, Math.floor(totalDays/7)+1);
-    return { phase:'phase1', cycle:1, weekInCycle: week, totalDays };
-  }
-
-  // Phase 2
-  const p2s = new Date(p2start); p2s.setHours(0,0,0,0);
-  const cycleStarts = getCycleStarts();
-
-  // Current cycle start date
-  const cycleStartDate = cycleStarts.length > 0
-    ? new Date(cycleStarts[cycleStarts.length-1] + 'T00:00:00')
-    : p2s;
-  cycleStartDate.setHours(0,0,0,0);
-
-  const rawCycle = cycleStarts.length + 1; // 1-based
-  const cycle = Math.max(1, rawCycle + getCycleOffset());
-  const daysInCycle = Math.floor((today - cycleStartDate) / 86400000);
-  const weekInCycle = Math.min(6, Math.floor(daysInCycle/7)+1);
-
-  return { phase:'phase2', cycle, weekInCycle, totalDays, isDeload: isDeloadWeek(weekInCycle) };
-}
-
-function getPhaseForDate(date) {
-  const start = getStartDate();
-  if (!start) return null;
-  const d = new Date(date); d.setHours(0,0,0,0);
-  const s = new Date(start); s.setHours(0,0,0,0);
-  if (d < s) return null;
-
-  const p2start = getPhase2Start();
-  if (!p2start) {
-    // Still in phase 1 — check if within 28 days
-    const p1end = new Date(s); p1end.setDate(s.getDate() + 27);
-    if (d <= p1end) return { phase:'phase1', cycle:1 };
-    return null; // beyond phase 1, phase 2 not started yet
-  }
-
-  const p2s = new Date(p2start); p2s.setHours(0,0,0,0);
-
-  // Before phase 2 started
-  if (d < p2s) {
-    return { phase:'phase1', cycle:1 };
-  }
-
-  // Build all cycle boundaries: [start, end] for each cycle
-  const cycleStarts = getCycleStarts();
-  const allCycleStartDates = [
-    p2s,
-    ...cycleStarts.map(cs => { const cd = new Date(cs+'T00:00:00'); cd.setHours(0,0,0,0); return cd; })
-  ];
-
-  // Find which cycle this date belongs to
-  for (let i = allCycleStartDates.length - 1; i >= 0; i--) {
-    const cStart = allCycleStartDates[i];
-    const cEnd = new Date(cStart); cEnd.setDate(cStart.getDate() + 41);
-    if (d >= cStart && d <= cEnd) {
-      const rawCycle = i + 1;
-      const cycle = Math.max(1, rawCycle + getCycleOffset());
-      const daysInCycle = Math.floor((d - cStart) / 86400000);
-      const weekInCycle = Math.floor(daysInCycle / 7) + 1;
-      return { phase:'phase2', cycle, weekInCycle, isDeload: isDeloadWeek(weekInCycle) };
-    }
-  }
-
-  return null; // date is between cycles or beyond last cycle
-}
-
-function getCurrentPhase() {
-  const status = getProgramStatus();
-  if (!status) return localStorage.getItem('ib_phase_pref') || 'phase1';
-  return status.phase;
-}
-
-function setCalPhase(phase) {
-  localStorage.setItem('ib_phase_pref', phase);
-  buildCalendar();
-}
-
-// Progression engine — picks next KB weight or adds reps/sets
-function getProgression(baseSets, baseReps, baseWeight, cycle) {
-  const owned = getOwnedKBs().sort((a,b) => a-b);
-  let weight = baseWeight;
-  let reps = baseReps;
-  let sets = baseSets;
-
-  for (let c = 1; c < cycle; c++) {
-    const nextKB = owned.find(w => w > weight);
-    if (nextKB && nextKB <= weight + 4) {
-      weight = nextKB;
-    } else if (reps < 15) {
-      reps += 2;
-    } else if (sets < 5) {
-      sets += 1;
-      reps = baseReps;
-    } else {
-      const nextAny = owned.find(w => w > weight);
-      if (nextAny) { weight = nextAny; reps = baseReps; sets = baseSets; }
-    }
-  }
-  return { weight, reps, sets };
-}
-
-// Deload: serie ×0.5, ciężar -1 poziom KB, powtórzenia bez zmian
-function getDeload(baseSets, baseReps, baseWeight, cycle) {
-  const { weight, reps, sets } = getProgression(baseSets, baseReps, baseWeight, cycle);
-  const owned = getOwnedKBs().sort((a,b) => a-b);
-  const prevKB = [...owned].reverse().find(w => w < weight) || weight;
-  return {
-    weight: prevKB,
-    reps: reps,
-    sets: Math.max(1, Math.round(sets * 0.5)),
-    isDeload: true
-  };
-}
-
-// Is the given week (1-based) within a cycle a deload week?
-function isDeloadWeek(weekInCycle) {
-  return weekInCycle === 6;
-}
-
-// Return progression OR deload depending on week
-function getWeekPlan(baseSets, baseReps, baseWeight, cycle, weekInCycle) {
-  if (isDeloadWeek(weekInCycle)) {
-    return getDeload(baseSets, baseReps, baseWeight, cycle);
-  }
-  return getProgression(baseSets, baseReps, baseWeight, cycle);
-}
-
-function closeModal() {
-  document.getElementById('day-modal').classList.remove('open');
-}
-function toggleDone(dateStr, done) {
-  markDone(dateStr, done);
-  closeModal();
-  buildCalendar();
-}
-
-// ==========================================
-//  TRACKER
-// ==========================================
-
-// Key exercises to track
-function drawLineChart(canvas, labels, data, color, label) {
-  const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth || 300;
-  const H = canvas.height;
-  canvas.width = W;
-  ctx.clearRect(0,0,W,H);
-
-  if (!data.length) return;
-
-  const PAD = { top:10, right:10, bottom:28, left:44 };
-  const cW = W - PAD.left - PAD.right;
-  const cH = H - PAD.top - PAD.bottom;
-
-  const minV = Math.min(...data) * 0.9;
-  const maxV = Math.max(...data) * 1.1 || 1;
-
-  const xStep = data.length > 1 ? cW / (data.length - 1) : cW;
-  const yScale = v => PAD.top + cH - ((v - minV) / (maxV - minV)) * cH;
-  const xScale = i => PAD.left + i * xStep;
-
-  // grid lines
-  ctx.strokeStyle = '#2a3330';
-  ctx.lineWidth = 1;
-  for (let g = 0; g <= 4; g++) {
-    const y = PAD.top + (cH / 4) * g;
-    ctx.beginPath(); ctx.moveTo(PAD.left, y); ctx.lineTo(PAD.left + cW, y); ctx.stroke();
-    const val = maxV - (maxV - minV) * (g / 4);
-    ctx.fillStyle = '#6b7d74';
-    ctx.font = '9px DM Mono, monospace';
-    ctx.textAlign = 'right';
-    ctx.fillText(Math.round(val), PAD.left - 4, y + 3);
-  }
-
-  // area fill
-  ctx.beginPath();
-  ctx.moveTo(xScale(0), yScale(data[0]));
-  data.forEach((v,i) => { if(i>0) ctx.lineTo(xScale(i), yScale(v)); });
-  ctx.lineTo(xScale(data.length-1), PAD.top + cH);
-  ctx.lineTo(xScale(0), PAD.top + cH);
-  ctx.closePath();
-  const grad = ctx.createLinearGradient(0, PAD.top, 0, PAD.top + cH);
-  grad.addColorStop(0, color + '33');
-  grad.addColorStop(1, color + '00');
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  // line
-  ctx.beginPath();
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 2;
-  ctx.lineJoin = 'round';
-  data.forEach((v,i) => { i===0 ? ctx.moveTo(xScale(i), yScale(v)) : ctx.lineTo(xScale(i), yScale(v)); });
-  ctx.stroke();
-
-  // dots
-  data.forEach((v,i) => {
-    ctx.beginPath();
-    ctx.arc(xScale(i), yScale(v), 3, 0, Math.PI*2);
-    ctx.fillStyle = color;
-    ctx.fill();
-  });
-
-  // x labels
-  ctx.fillStyle = '#6b7d74';
-  ctx.font = '9px DM Mono, monospace';
-  ctx.textAlign = 'center';
-  const step = Math.ceil(data.length / 6);
-  labels.forEach((l,i) => {
-    if (i % step === 0 || i === labels.length-1) {
-      ctx.fillText(l, xScale(i), H - 6);
-    }
-  });
-}
-
-// ==========================================
-//  DATE HELPERS
-// ==========================================
-function fmtDate(d) {
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-}
-function fmtShort(d) {
-  const dows = ['Nd','Pn','Wt','Śr','Cz','Pt','Sb'];
-  return dows[d.getDay()] + ' ' + d.getDate() + '/' + (d.getMonth()+1);
-}
-function fmtDisplay(d) {
-  const months = ['sty','lut','mar','kwi','maj','cze','lip','sie','wrz','paź','lis','gru'];
-  const dows = ['niedziela','poniedziałek','wtorek','środa','czwartek','piątek','sobota'];
-  return dows[d.getDay()] + ', ' + d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
-}
-
-</script>
-
-
-<div class="modal-overlay" id="day-modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal-sheet">
-    <div id="day-modal-body"></div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="confirm-modal" onclick="if(event.target===this)this.classList.remove('open')">
-  <div class="modal-sheet" style="max-height:auto">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;color:#ff7070;margin-bottom:8px">⚠️ Resetuj program</div>
-    <p style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px">
-      Czy na pewno chcesz zacząć od Fazy 1?<br>
-      <strong style="color:var(--text)">Wszystkie odznaczone treningi i historia faz zostaną usunięte.</strong>
-    </p>
-    <button class="modal-btn btn-danger" onclick="resetFullProgramConfirmed()">⟲ Tak, zaczynam od Fazy 1</button>
-    <button class="modal-btn btn-secondary" onclick="document.getElementById('confirm-modal').classList.remove('open')">Anuluj</button>
-  </div>
-</div>
-
-<div id="install-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;z-index:9999;background:#1c2220;border-top:1px solid #c8f542;padding:14px 20px;align-items:center;gap:12px;font-family:'DM Sans',sans-serif">
-  <span style="flex:1;font-size:13px;color:#e8ede9">Zainstaluj <strong style="color:#c8f542">IronBell</strong> jako aplikację na telefonie</span>
-  <button id="install-btn" style="background:#c8f542;color:#0d0f0e;border:none;border-radius:4px;padding:8px 16px;font-weight:600;font-size:13px;cursor:pointer">Instaluj</button>
-  <button onclick="document.getElementById('install-banner').style.display='none'" style="background:none;border:none;color:#6b7d74;font-size:20px;cursor:pointer;line-height:1">×</button>
-</div>
-<script>
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('install-banner').style.display = 'flex';
-});
-document.getElementById('install-btn').addEventListener('click', async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  document.getElementById('install-banner').style.display = 'none';
-});
-window.addEventListener('appinstalled', () => {
-  document.getElementById('install-banner').style.display = 'none';
-});
-
-// ==========================================
-//  KETTLEBELL MANAGER
-// ==========================================
-
-const ALL_KB_WEIGHTS = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36];
-const DEFAULT_OWNED = [4, 6, 8, 12, 16];
-
-function getOwnedKBs() {
-  try {
-    const s = localStorage.getItem('ib_kbs');
-    return s ? JSON.parse(s) : DEFAULT_OWNED;
-  } catch { return DEFAULT_OWNED; }
-}
-
-function saveOwnedKBs(arr) {
-  localStorage.setItem('ib_kbs', JSON.stringify(arr));
-}
-
-function toggleKB(weight) {
-  const owned = getOwnedKBs();
-  const idx = owned.indexOf(weight);
-  if (idx === -1) owned.push(weight);
-  else owned.splice(idx, 1);
-  owned.sort((a,b) => a-b);
-  saveOwnedKBs(owned);
-  renderKBBadges();
-}
-
-function renderKBBadges() {
-  const container = document.getElementById('kb-badges-container');
-  if (!container) return;
-  const owned = getOwnedKBs();
-  container.innerHTML = ALL_KB_WEIGHTS.map(w =>
-    `<span class="kb-badge ${owned.includes(w) ? 'owned' : ''}" onclick="toggleKB(${w})">${w} kg</span>`
-  ).join('');
-}
-
-// Init KB badges after all functions defined
-renderKBBadges();
-
-
-// ══════════════════════════════════════════════════
-//  CYCLE PLAN BUILDER
-// ══════════════════════════════════════════════════
-
-// Base weights/reps for Phase 2 exercises (cycle 1 baseline)
-const CYCLE_BASE = [
-  // Trening A
-  { day:'A', name:'KB Swing (jedna ręka)',          sets:5, reps:10, weight:12 },
-  { day:'A', name:'KB Bent-Over Row (jedna ręka)',  sets:4, reps:10, weight:12 },
-  { day:'A', name:'KB High Pull → Press (combo)',   sets:4, reps:6,  weight:12 },
-  { day:'A', name:'KB Gorilla Row',                 sets:4, reps:8,  weight:12 },
-  { day:'A', name:'KB Renegade Row',                sets:3, reps:8,  weight:12 },
-  // Trening B
-  { day:'B', name:'KB Floor Press (jedna ręka)',    sets:4, reps:8,  weight:12 },
-  { day:'B', name:'KB Press Overhead (jedna ręka)', sets:4, reps:8,  weight:12 },
-  { day:'B', name:'KB Push-up (ręce na KB)',        sets:4, reps:10, weight:8  },
-  { day:'B', name:'KB Bottoms-Up Press',            sets:3, reps:6,  weight:8  },
-  // Trening C
-  { day:'C', name:'KB Swing (jedna ręka) — siłowy', sets:6, reps:8,  weight:16 },
-  { day:'C', name:'KB Deadlift (obie ręce)',         sets:5, reps:5,  weight:16 },
-  { day:'C', name:'KB Romanian Deadlift (1-noga)',   sets:4, reps:8,  weight:12 },
-  { day:'C', name:'KB Clean',                        sets:4, reps:6,  weight:12 },
-  // Trening D
-  { day:'D', name:'KB Goblet Squat',                sets:3, reps:12, weight:12 },
-  { day:'D', name:'KB Single Arm Press',            sets:3, reps:8,  weight:12 },
-  { day:'D', name:'KB Windmill',                    sets:3, reps:5,  weight:8  },
-  { day:'D', name:'TGU (Turkish Get-Up)',            sets:3, reps:3,  weight:8  },
-];
-
-// ==========================================
-//  PROGRESS VISUALISATION
-// ==========================================
-
-let selectedProgressEx = 'KB Swing (jedna ręka)';
-
-function buildTracker(preselect) {
-  if (preselect) selectedProgressEx = preselect;
-  const el = document.getElementById('tracker-content');
-  if (!el) return;
-  const status = getProgramStatus();
-
-  if (!getStartDate()) {
-    el.innerHTML = dayTitle('PROGRES', 'HISTORIA I WIZUALIZACJA', '') +
-      `<div class="note-box">Najpierw ustaw datę startu w zakładce 📅 Kalendarz.</div>`;
-    return;
-  }
-
-  const isPhase1 = !status || status.phase === 'phase1';
-  const currentCycle = status && status.phase === 'phase2' ? status.cycle : 0;
-  const allExercises = [...new Set(CYCLE_BASE.map(e => e.name))];
-
-  const dropdownHtml = allExercises.map(ex =>
-    `<option value="${ex}" ${ex === selectedProgressEx ? 'selected' : ''}>${ex}</option>`
-  ).join('');
-
-  // Build chart points per cycle
-  let chartPoints = [];
-  const ex = CYCLE_BASE.find(e => e.name === selectedProgressEx);
-  if (ex) {
-    if (isPhase1) {
-      const w = status ? status.weekInCycle : 1;
-      for (let i = 1; i <= w; i++) {
-        chartPoints.push({ label:'F1·W'+i, weight:ex.weight, reps:ex.reps, sets:ex.sets, volume:ex.weight*ex.reps*ex.sets });
-      }
-    } else {
-      for (let c = 1; c <= currentCycle; c++) {
-        const p = getProgression(ex.sets, ex.reps, ex.weight, c);
-        chartPoints.push({ label:'C'+c, weight:p.weight, reps:p.reps, sets:p.sets, volume:p.weight*p.reps*p.sets });
-      }
-    }
-  }
-
-  // History rows
-  const histRows = (() => {
-    if (!ex) return '';
-    const rows = [];
-    rows.push(`<div class="history-row">
-      <div>
-        <div class="history-date">Faza 1</div>
-        <div style="font-size:13px;margin-top:2px">${ex.sets}×${ex.reps} @ <span class="history-val">${ex.weight} kg</span> <span style="font-size:11px;color:var(--muted)">(baza)</span></div>
-      </div>
-      ${isPhase1 ? '<span style="font-size:10px;color:var(--accent);font-family:\'DM Mono\',monospace">◀ TERAZ</span>' : ''}
-    </div>`);
-    const maxCycle = Math.max(currentCycle, 1);
-    for (let c = 1; c <= maxCycle; c++) {
-      const p = getProgression(ex.sets, ex.reps, ex.weight, c);
-      const prev = c === 1 ? ex : getProgression(ex.sets, ex.reps, ex.weight, c-1);
-      const delta = p.weight !== prev.weight ? `+${p.weight-prev.weight}kg` :
-                    p.reps !== prev.reps ? `+${p.reps-prev.reps} powt.` :
-                    p.sets !== prev.sets ? `+${p.sets-prev.sets} serii` : '';
-      const isCurrent = !isPhase1 && c === currentCycle;
-      rows.push(`<div class="history-row">
+function approxMin(rounds) { return Math.round(rounds*90/60); }
+
+// ═══════════════════════════════════════════════════════════
+// PLAN SCREEN
+// ═══════════════════════════════════════════════════════════
+function renderPlan() {
+  const s = curStep();
+  const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
+  const pct = Math.round((state.step / STEPS.length) * 100);
+  const isLast = state.step >= STEPS.length;
+
+  let html = `
+    <div class="screen-title">KB PROTOCOL</div>
+    <div class="screen-sub">WILDMAN ATHLETICA METHOD</div>
+    <div class="prog-banner">
+      <div class="prog-top">
         <div>
-          <div class="history-date">Faza 2 — Cykl ${c}</div>
-          <div style="font-size:13px;margin-top:2px">${p.sets}×${p.reps} @ <span class="history-val">${p.weight} kg</span>
-            ${delta ? `<span style="font-size:11px;color:var(--accent2);margin-left:6px">↑ ${delta}</span>` : ''}
+          <div class="prog-step-label">Aktualny krok</div>
+          <div class="prog-step-val">ETAP ${s.etap} — KROK ${state.step}</div>
+          <div class="prog-weights">
+            L = ${s.L}kg &nbsp;·&nbsp; H = ${s.H}kg<br>
+            Interwały: ${s.intRounds} rund (~${approxMin(s.intRounds)} min)<br>
+            TGU: ${s.tguSets} serie × 1L+1P
           </div>
         </div>
-        ${isCurrent ? '<span style="font-size:10px;color:var(--accent2);font-family:\'DM Mono\',monospace">◀ TERAZ</span>' : ''}
-      </div>`);
+        <div class="prog-actions">
+          ${!isLast
+            ? `<button class="prog-btn up" onclick="nextStep()">↑ PROGRESJA</button>`
+            : `<span style="font-size:11px;color:var(--accent2);font-family:'DM Mono',monospace">SZCZYT ✓</span>`}
+          <button class="prog-btn" onclick="openProgModal()">ZMIEŃ KROK</button>
+        </div>
+      </div>
+      <div class="prog-bar-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>
+      <div class="prog-bar-label"><span>KROK ${state.step} / ${STEPS.length}</span><span>${pct}%</span></div>
+    </div>`;
+
+  WEEK.forEach(day => {
+    const isToday = day.key === todayKey;
+    const todayCls = isToday ? ' today' : '';
+
+    if (day.type === 'rest') {
+      html += `<div class="day-card${todayCls}">
+        <div class="day-header">
+          <div class="day-name" style="color:var(--muted)">${day.name}</div>
+          <div class="day-type"><div class="day-type-label" style="color:var(--muted)">${day.label}</div></div>
+          ${isToday ? '<div style="width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);flex-shrink:0"></div>' : ''}
+        </div>
+      </div>`;
+      return;
     }
-    return rows.join('');
-  })();
 
-  const hasPoints = chartPoints.length > 1;
+    const mainExes = day.exercises.filter(e => e.w);
+    const exSummary = mainExes.map(e => {
+      const vol = e.fmt==='tgu' ? `${s.tguSets} ser.` : `${s.intRounds} rund`;
+      return `${e.name} <span class="badge badge-${e.w}">${e.w}·${kg(e.w,e.squat)}kg</span> ${vol}`;
+    }).join('<br>');
 
-  el.innerHTML = `
-    ${dayTitle('PROGRES', 'HISTORIA I WIZUALIZACJA', '')}
-
-    <div class="chart-wrap" style="margin-bottom:8px">
-      <div style="margin-bottom:12px">
-        <select class="tracker-input" style="width:100%" onchange="buildTracker(this.value)">${dropdownHtml}</select>
-      </div>
-      ${hasPoints
-        ? `<div class="chart-title">CIĘŻAR (kg)</div><canvas id="weight-chart" class="prog-chart" height="140"></canvas>`
-        : `<div class="empty-state" style="padding:20px 0"><div class="big" style="font-size:24px">📊</div>Wykres pojawi się po ukończeniu więcej niż jednego tygodnia/cyklu.</div>`}
-    </div>
-
-    ${hasPoints ? `<div class="chart-wrap" style="margin-bottom:20px">
-      <div class="chart-title">OBJĘTOŚĆ (kg × powt × serie)</div>
-      <canvas id="vol-chart" class="prog-chart" height="120"></canvas>
-    </div>` : ''}
-
-    <div class="section-title" style="font-size:18px">Historia cykli</div>
-    <div class="history-list" style="margin-bottom:24px">${histRows}</div>
-
-    <div class="section-title" style="font-size:18px">Wszystkie ćwiczenia — przegląd</div>
-    <div style="overflow-x:auto">
-      <table class="ex-table">
-        <thead><tr>
-          <th style="width:40%">Ćwiczenie</th>
-          <th>Baza (F1)</th>
-          ${!isPhase1 ? `<th>Cykl ${currentCycle}</th>` : ''}
-          <th style="color:var(--accent2)">${isPhase1 ? 'F2 Cykl 1' : 'Cykl '+(currentCycle+1)}</th>
-        </tr></thead>
-        <tbody>
-          ${CYCLE_BASE.map(e => {
-            const cur = !isPhase1 ? getProgression(e.sets, e.reps, e.weight, currentCycle) : null;
-            const nxt = getProgression(e.sets, e.reps, e.weight, isPhase1 ? 1 : currentCycle+1);
-            return `<tr>
-              <td><div class="ex-name" style="font-size:12px">${e.name}</div></td>
-              <td><span class="ex-weight">${e.weight}kg</span> <span style="color:var(--muted);font-size:11px">${e.sets}×${e.reps}</span></td>
-              ${cur ? `<td><span class="ex-weight">${cur.weight}kg</span> <span style="color:var(--muted);font-size:11px">${cur.sets}×${cur.reps}</span></td>` : ''}
-              <td><span class="ex-weight" style="color:var(--accent2)">${nxt.weight}kg</span> <span style="color:var(--muted);font-size:11px">${nxt.sets}×${nxt.reps}</span></td>
-            </tr>`;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>
-  `;
-
-  if (hasPoints) {
-    setTimeout(() => {
-      const labels = chartPoints.map(p => p.label);
-      const wCanvas = document.getElementById('weight-chart');
-      const vCanvas = document.getElementById('vol-chart');
-      if (wCanvas) drawLineChart(wCanvas, labels, chartPoints.map(p => p.weight), '#42f5a7', 'Ciężar');
-      if (vCanvas) drawLineChart(vCanvas, labels, chartPoints.map(p => p.volume), '#c8f542', 'Objętość');
-    }, 50);
-  }
-}
-
-
-function buildStatusBar(status, opts) {
-  const o = opts || {};
-  if (!getStartDate() || !status) return '';
-
-  const isPhase1 = status.phase === 'phase1';
-  const cycle = isPhase1 ? 1 : status.cycle;
-  const accentCol  = isPhase1 ? 'var(--accent)' : 'var(--accent2)';
-  const accentBg   = isPhase1 ? 'rgba(200,245,66,0.08)' : 'rgba(66,245,167,0.08)';
-  const accentBord = isPhase1 ? 'rgba(200,245,66,0.2)'  : 'rgba(66,245,167,0.2)';
-  const title = isPhase1 ? 'FAZA 1 — ROZRUCH' : `FAZA 2 — CYKL ${cycle}`;
-  const sub = isPhase1 ? 'Program rozruchowy · 4 tygodnie' : `Program docelowy · Cykl ${cycle} · 6 tygodni`;
-  const link = o.showLink && !isPhase1
-    ? `<span style="font-size:11px;color:var(--accent);cursor:pointer;text-decoration:underline;display:block;margin-top:4px" onclick="switchPhase('cycle')">Zobacz plan cyklu →</span>`
-    : '';
-
-  return `<div style="background:${accentBg};border:1px solid ${accentBord};border-radius:8px;padding:12px 16px;margin-bottom:16px">
-    <div style="font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:${accentCol}">${title}</div>
-    <div style="font-size:12px;color:var(--muted);margin-top:3px">${sub}</div>
-    ${link}
-  </div>`;
-}
-
-
-function buildCyclePlan() {
-  const el = document.getElementById('cycle-content');
-  const status = getProgramStatus();
-
-  if (!getStartDate()) {
-    el.innerHTML = dayTitle('BIEŻĄCY CYKL', 'PLAN NA AKTUALNY CYKL', '') +
-      `<div class="note-box">Najpierw ustaw datę startu w zakładce 📅 Kalendarz.</div>`;
-    return;
-  }
-
-  const isPhase1 = !status || status.phase === 'phase1';
-  const week     = status ? status.weekInCycle : 1;
-  const cycle    = isPhase1 ? 1 : status.cycle;
-  const totalWks = isPhase1 ? 4 : 6;
-  const pct      = Math.round((week / totalWks) * 100);
-
-  // Phase 1 exercise table (fixed weights from programme)
-  const PHASE1_BASE = [
-    { day:'A', name:'KB Deadlift (obie ręce)',            sets:3, reps:8,  weight:12 },
-    { day:'A', name:'KB Bent-Over Row (jedna ręka)',       sets:3, reps:8,  weight:8  },
-    { day:'A', name:'KB Halo',                             sets:3, reps:8,  weight:6  },
-    { day:'A', name:'KB Floor Press (jedna ręka)',         sets:3, reps:8,  weight:8  },
-    { day:'A', name:'Farmer Carry (jedna ręka)',           sets:3, reps:0,  weight:12, note:'3×20m' },
-    { day:'B', name:'KB Floor Press (obie ręce na jednym KB)', sets:3, reps:10, weight:8 },
-    { day:'B', name:'KB Press Overhead (jedna ręka)',      sets:3, reps:8,  weight:8  },
-    { day:'B', name:'KB Chest Fly (podłoga)',              sets:3, reps:10, weight:6  },
-    { day:'B', name:'KB Pull-over (w leżeniu)',            sets:3, reps:10, weight:8  },
-    { day:'B', name:'KB Renegade Row',                     sets:3, reps:6,  weight:8  },
-    { day:'C', name:'KB Romanian Deadlift (1-noga)',       sets:3, reps:6,  weight:8  },
-    { day:'C', name:'KB Swing (obie ręce)',                sets:4, reps:12, weight:12 },
-    { day:'C', name:'KB High Pull',                        sets:3, reps:8,  weight:8  },
-    { day:'C', name:'KB Gorilla Row',                      sets:3, reps:6,  weight:12 },
-    { day:'C', name:'KB Suitcase Deadlift',                sets:3, reps:8,  weight:12 },
-    { day:'D', name:'KB Goblet Squat',                     sets:3, reps:10, weight:8  },
-    { day:'D', name:'KB Single Arm Press',                 sets:3, reps:8,  weight:8  },
-    { day:'D', name:'KB Swing (jedna ręka, ALAC)',         sets:3, reps:10, weight:8  },
-    { day:'D', name:'TGU (Turkish Get-Up)',                sets:3, reps:3,  weight:6  },
-    { day:'D', name:'KB Windmill',                         sets:3, reps:5,  weight:6  },
-  ];
-
-  const BASE = isPhase1 ? PHASE1_BASE : CYCLE_BASE;
-  const days = ['A','B','C','D'];
-  const dayLabels = {
-    A:'Trening A — Plecy + Pull',
-    B:'Trening B — Klatka + Push',
-    C:'Trening C — Plecy siła',
-    D:'Trening D — Full Body'
-  };
-  const isDeloadWeekNow = !isPhase1 && isDeloadWeek(week);
-
-  // ── STATUS BAR ──
-  let html = dayTitle('BIEŻĄCY CYKL', isPhase1 ? 'FAZA 1' : 'FAZA 2 · CYKL '+cycle, '');
-  html += buildStatusBar(status, { showLink: false });
-
-  // ── EXERCISE TABLES PER DAY ──
-  html += `<div class="section-title" style="font-size:18px">Plan treningowy — ${isPhase1?'Faza 1':'Cykl '+cycle}</div>`;
-
-  for (const day of days) {
-    const exercises = BASE.filter(e => e.day === day);
-    const rows = exercises.map(ex => {
-      let w = ex.weight, r = ex.reps, s = ex.sets;
-      let badge = '', vsCol = '—';
-      if (!isPhase1) {
-        const prog = getProgression(s, r, w, cycle);
-        w = prog.weight; r = prog.reps; s = prog.sets;
-        const increased = w > ex.weight || r > ex.reps || s > ex.sets;
-        badge = increased ? `<span style="font-size:9px;background:rgba(66,245,167,0.15);color:var(--accent2);border:1px solid rgba(66,245,167,0.3);border-radius:3px;padding:1px 5px;margin-left:6px;font-family:'DM Mono',monospace">↑</span>` : '';
-        vsCol = w > ex.weight ? `+${w-ex.weight}kg` : r > ex.reps ? `+${r-ex.reps} powt.` : s > ex.sets ? `+${s-ex.sets} seria` : '—';
+    let exRows = '';
+    day.exercises.forEach(ex => {
+      let detail = '';
+      if (ex.fmt === 'fixed') {
+        const cd = COOLDOWNS[day.key];
+        const wu = WARMUPS[day.key];
+        if (ex.name === 'Cooldown' && cd) detail = `${cd.dur} min (lower + upper)`;
+        else if (ex.name === 'Rozgrzewka' && wu) detail = `${wu.dur} min`;
+        else detail = ex.detail;
+      } else if (ex.fmt === 'interval') {
+        detail = `${kg(ex.w,ex.squat)}kg (${ex.w})  ·  ${s.intRounds} rund  ·  60s / 30s  ·  ~${approxMin(s.intRounds)} min`;
+      } else if (ex.fmt === 'tgu') {
+        detail = `${kg(ex.w,ex.squat)}kg (${ex.w})  ·  ${s.tguSets} rundy  ·  1L+1P bez przerwy  ·  30s między rundami`;
       }
-      const setsReps = ex.note ? `<span class="ex-sets">${s}× ${ex.note}</span>` : `<span class="ex-sets">${s}×${r}</span>`;
-      return `<tr>
-        <td><div class="ex-name">${ex.name}${badge}</div></td>
-        <td>${setsReps}</td>
-        <td><span class="ex-weight">${w} kg</span></td>
-        ${!isPhase1 ? `<td><span class="ex-notes">${vsCol}</span></td>` : '<td></td>'}
-      </tr>`;
-    }).join('');
 
-    html += `<div class="block" style="margin-bottom:12px">
-      <div class="block-header open" onclick="toggleBlock(this)">
-        <span class="block-tag tag-main">TRENING ${day}</span>
-        <span class="block-title">${dayLabels[day]}</span>
-        <span class="block-toggle">▾</span>
+      // Warmup / Cooldown links
+      let cooldownLinks = '';
+      if (ex.name === 'Rozgrzewka' && WARMUPS[day.key]) {
+        const wu = WARMUPS[day.key];
+        cooldownLinks = '<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">' +
+          wu.links.map(c =>
+            `<a href="${c.url}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:6px;color:var(--text2);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent)'" onmouseout="this.style.borderColor='var(--border)'">▶ ${c.label}</a>`
+          ).join('') + '</div>';
+      }
+      if (ex.name === 'Cooldown' && COOLDOWNS[day.key]) {
+        const cd = COOLDOWNS[day.key];
+        cooldownLinks = '<div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">' +
+          cd.links.map(c =>
+            `<a href="${c.url}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:6px;color:var(--text2);text-decoration:none;font-family:'DM Mono',monospace;font-size:11px;transition:border-color .2s" onmouseover="this.style.borderColor='var(--accent2)'" onmouseout="this.style.borderColor='var(--border)'">▶ ${c.label}</a>`
+          ).join('') + '</div>';
+      }
+
+      exRows += `<div class="ex-row">
+        <div style="width:100%">
+          <div class="ex-name">${ex.name}${ex.w ? ` <span class="badge badge-${ex.w}">${ex.w}</span>` : ''}</div>
+          <div class="ex-detail">${detail}</div>
+          ${ex.note ? `<div class="ex-note">${ex.note}</div>` : ''}
+          ${cooldownLinks}
+        </div>
+      </div>`;
+    });
+
+    html += `<div class="day-card${todayCls}" id="card-${day.key}" onclick="toggleDay('${day.key}')">
+      <div class="day-header">
+        <div class="day-name">${day.name}</div>
+        <div class="day-type">
+          <div class="day-type-label">${day.label}</div>
+          <div class="day-exercises">${exSummary}</div>
+        </div>
+        <div class="day-chevron">▾</div>
       </div>
-      <div class="block-body open">
-        <table class="ex-table">
-          <thead><tr>
-            <th style="width:42%">Ćwiczenie</th>
-            <th>Serie×Powt.</th>
-            <th>Ciężar</th>
-            <th>${isPhase1 ? '' : 'vs Cykl 1'}</th>
-          </tr></thead>
-          <tbody>${rows}</tbody>
-        </table>
+      <div class="day-detail" id="detail-${day.key}">
+        ${exRows}
+        <button class="start-btn" onclick="event.stopPropagation();launchTimer('${day.key}')">▶ START TIMER</button>
       </div>
     </div>`;
-  }
-
-  // ── PHASE 1: preview of Phase 2 ──
-  if (isPhase1) {
-    html += `<div class="note-box" style="margin-top:20px">
-      <strong>Co czeka w Fazie 2?</strong><br>
-      Po zakończeniu Fazy 1 (${28 - (status?.totalDays||0)} dni) automatycznie przejdziesz do Fazy 2 — Cykl 1.
-      Ciężary wzrosną, serie będą dłuższe, a co 6 tygodni aplikacja automatycznie zwiększy obciążenie
-      bazując na Twoich kettlebell ach.<br><br>
-      <strong style="color:var(--accent)">Kettlebelle które posiadasz:</strong>
-      ${getOwnedKBs().map(w=>`<span class="kb-badge owned" style="display:inline-block;margin:2px">${w}kg</span>`).join('')}
-    </div>`;
-  }
-
-  // ── TRANSITION BANNER in cycle plan ──
-  const tsCycle = getTransitionStatus();
-  if (tsCycle && tsCycle.ready) {
-    html += `<div style="background:rgba(200,245,66,0.08);border:2px solid var(--accent);border-radius:10px;padding:16px;margin-top:24px">
-      <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent)">
-        🏁 ${tsCycle.phaseLabel} ukończona!
-      </div>
-      <div style="font-size:13px;color:var(--muted);margin:6px 0">
-        Wszystkie ${tsCycle.totalTraining} treningi zaliczone. Gotowy na <strong style="color:var(--text)">${tsCycle.nextLabel}</strong>?
-      </div>
-      <button class="modal-btn btn-primary" style="margin:8px 0 0" onclick="confirmPhaseTransition()">
-        ✓ Zaczynam ${tsCycle.nextLabel}
-      </button>
-    </div>`;
-  } else if (tsCycle && !tsCycle.ready) {
-    html += `<div class="note-box" style="margin-top:16px">
-      <strong>Postęp treningów:</strong> ${tsCycle.doneTraining}/${tsCycle.totalTraining} — zalicz wszystkie treningi żeby przejść do ${tsCycle.nextLabel}
-    </div>`;
-  }
-
-  // ── CYCLE CONTROLS ──
-  const offset = getCycleOffset();
-  if (isPhase1) {
-    html += `<div class="section-title" style="font-size:18px;margin-top:24px">Korekta cyklu</div>
-    <div class="note-box">Korekta cyklu jest dostępna dopiero w Fazie 2. Wróć tutaj po ukończeniu 4 tygodni Fazy 1.</div>`;
-  } else {
-    const rawCycle = (() => {
-      const status2 = getProgramStatus();
-      return status2 ? (status2.cycle - getCycleOffset()) : 1;
-    })();
-    html += `<div class="section-title" style="font-size:18px;margin-top:24px">Korekta cyklu</div>
-    <div class="note-box" style="margin-bottom:12px">
-      Kontuzja lub długa przerwa? Cofnij cykl żeby nie przeskakiwać na za wysoką progresję.
-      <br><span style="color:var(--muted);font-size:11px">Rzeczywisty cykl: <strong style="color:var(--text)">${rawCycle}</strong> · Wyświetlany cykl: <strong style="color:var(--accent2)">${cycle}</strong>${offset !== 0 ? ` · Offset: <strong style="color:var(--accent3)">${offset > 0 ? '+' : ''}${offset}</strong>` : ''}</span>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      <button class="modal-btn btn-secondary" style="margin:0" onclick="resetCycleBack(1)">← Cofnij o 1 cykl</button>
-      <button class="modal-btn btn-secondary" style="margin:0" onclick="resetCycleForward(1)">Przesuń o 1 cykl →</button>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-      ${offset !== 0 ? `<button class="modal-btn btn-danger" style="margin:0" onclick="clearCycleOffset()">✕ Resetuj offset (Cykl ${rawCycle})</button>` : '<div></div>'}
-      <button class="modal-btn btn-danger" style="margin:0" onclick="resetFullProgram()">⟲ Zacznij od Fazy 1</button>
-    </div>`;
-  }
-
-  el.innerHTML = html;
-}
-
-
-
-function switchSub(subId) {
-  document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
-  const panel = document.getElementById(subId);
-  if (panel) panel.classList.add('active');
-  // find matching button by onclick
-  document.querySelectorAll('.sub-btn').forEach(b => {
-    if (b.getAttribute('onclick') && b.getAttribute('onclick').includes(subId)) b.classList.add('active');
   });
+
+  document.getElementById('screen-plan').innerHTML = html;
 }
 
-</script>
+function toggleDay(key) {
+  const detail = document.getElementById('detail-'+key);
+  const card = document.getElementById('card-'+key);
+  const wasOpen = detail.classList.contains('open');
+  document.querySelectorAll('.day-detail').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.day-card').forEach(c=>c.classList.remove('open'));
+  if (!wasOpen) { detail.classList.add('open'); card.classList.add('open'); }
+}
 
+function nextStep() {
+  if (state.step < STEPS.length) { state.step++; saveState(); renderPlan(); }
+}
+
+function openProgModal() {
+  let html = '';
+  let lastEtap = 0;
+  STEPS.forEach(st => {
+    if (st.etap !== lastEtap) {
+      if (lastEtap > 0) html += '</div>';
+      html += `<div class="step-sep">ETAP ${st.etap} — L=${st.L}kg / H=${st.H}kg</div><div>`;
+      lastEtap = st.etap;
+    }
+    const isCur = st.step === state.step;
+    const dur = approxMin(st.intRounds);
+    html += `<div class="step-item ${isCur?'active':''}" onclick="setStep(${st.step})">
+      <div class="step-num">${st.step}</div>
+      <div class="step-info">
+        <div class="step-title">Krok ${st.step} — ${st.intRounds} rund interwałów, ${st.tguSets} serie TGU</div>
+        <div class="step-detail">~${dur} min / ćwiczenie &nbsp;·&nbsp; L=${st.L}kg / H=${st.H}kg</div>
+      </div>
+      ${isCur ? '<span style="color:var(--accent);font-size:14px">◀</span>' : ''}
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('step-list').innerHTML = html;
+  document.getElementById('modal-prog').classList.add('open');
+}
+
+function setStep(n) {
+  state.step = n; saveState();
+  closeModal('modal-prog');
+  renderPlan();
+}
+
+// ═══════════════════════════════════════════════════════════
+// TIMER
+// ═══════════════════════════════════════════════════════════
+let tCfg = { work:60, rest:30, rounds:4 };
+let tSt = { running:false, phase:'work', remaining:60, round:1, iv:null, finished:false };
+let tLabel = null;
+
+function launchTimer(dayKey) {
+  const day = WEEK.find(d=>d.key===dayKey);
+  const mainEx = day?.exercises.find(e=>e.fmt==='interval');
+  const s = curStep();
+  tCfg.rounds = s.intRounds;
+  if (mainEx) {
+    tLabel = { name:mainEx.name, sub:`${kg(mainEx.w,mainEx.squat)}kg (${mainEx.w})  ·  ${s.intRounds} rund  ·  ${tCfg.work}s / ${tCfg.rest}s` };
+  } else { tLabel = null; }
+  showScreen('timer');
+  resetTimer();
+}
+
+function updateTimerUI() {
+  const total = tSt.phase==='work' ? tCfg.work : tCfg.rest;
+  const pct = tSt.remaining / total;
+  const circ = 2*Math.PI*88;
+  const prog = document.getElementById('timer-prog');
+  prog.style.strokeDashoffset = circ*(1-pct);
+  prog.style.stroke = tSt.phase==='work' ? 'var(--accent)' : 'var(--accent2)';
+  const s = tSt.remaining;
+  document.getElementById('timer-display').textContent =
+    s >= 60 ? Math.floor(s/60)+':'+String(s%60).padStart(2,'0') : String(s).padStart(2,'0');
+  document.getElementById('timer-round-info').textContent = 'RUNDA '+tSt.round+' / '+tCfg.rounds;
+  const ph = document.getElementById('timer-phase');
+  if (tSt.finished) { ph.textContent='KONIEC!'; ph.className='timer-phase done'; }
+  else if (!tSt.running && tSt.remaining===total) { ph.textContent='GOTOWY'; ph.className='timer-phase ready'; }
+  else { ph.textContent=tSt.phase==='work'?'PRACA':'ODPOCZYNEK'; ph.className='timer-phase '+tSt.phase; }
+  document.getElementById('timer-toggle-btn').textContent = tSt.running?'PAUSE':'START';
+  const info = document.getElementById('timer-ex-info');
+  if (tLabel) {
+    info.style.display='block';
+    document.getElementById('timer-ex-name').textContent=tLabel.name;
+    document.getElementById('timer-ex-sub').textContent=tLabel.sub;
+  } else { info.style.display='none'; }
+}
+
+function updateSettingsUI() {
+  document.getElementById('work-val').textContent=tCfg.work+'s';
+  document.getElementById('rest-val').textContent=tCfg.rest+'s';
+  document.getElementById('rounds-val').textContent=tCfg.rounds;
+}
+
+function toggleTimer() {
+  if (tSt.finished) { resetTimer(); return; }
+  tSt.running ? pauseTimer() : startTick();
+}
+
+function startTick() {
+  tSt.running=true;
+  tSt.iv = setInterval(()=>{ tSt.remaining--; if(tSt.remaining<=0) nextPhase(); updateTimerUI(); },1000);
+  updateTimerUI();
+}
+
+function pauseTimer() { tSt.running=false; clearInterval(tSt.iv); updateTimerUI(); }
+
+function resetTimer() {
+  pauseTimer();
+  tSt={running:false,phase:'work',remaining:tCfg.work,round:1,iv:null,finished:false};
+  updateTimerUI(); updateSettingsUI();
+}
+
+function skipPhase() { if(!tSt.finished) { tSt.remaining=1; } }
+
+function nextPhase() {
+  if (tSt.phase==='work') {
+    tSt.phase='rest'; tSt.remaining=tCfg.rest; beep(440,.15);
+  } else {
+    tSt.round++;
+    if (tSt.round>tCfg.rounds) { pauseTimer(); tSt.finished=true; beep(880,.3); setTimeout(()=>beep(1100,.3),220); return; }
+    tSt.phase='work'; tSt.remaining=tCfg.work; beep(880,.2);
+  }
+}
+
+function adjustSetting(key,delta) {
+  if(key==='rounds') tCfg.rounds=Math.max(1,tCfg.rounds+delta);
+  else tCfg[key]=Math.max(5,tCfg[key]+delta);
+  if(!tSt.running&&!tSt.finished) tSt.remaining=tCfg[tSt.phase==='work'?'work':'rest'];
+  updateSettingsUI(); updateTimerUI();
+}
+
+function beep(freq,vol) {
+  try {
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    const o=ctx.createOscillator(),g=ctx.createGain();
+    o.connect(g);g.connect(ctx.destination);
+    o.frequency.value=freq;g.gain.value=vol;
+    o.start();o.stop(ctx.currentTime+.15);
+  } catch(e){}
+}
+
+// ═══════════════════════════════════════════════════════════
+// CALENDAR
+// ═══════════════════════════════════════════════════════════
+function renderCalendar() {
+  const MONTHS=['STYCZEŃ','LUTY','MARZEC','KWIECIEŃ','MAJ','CZERWIEC','LIPIEC','SIERPIEŃ','WRZESIEŃ','PAŹDZIERNIK','LISTOPAD','GRUDZIEŃ'];
+  const DAY_KEYS=['sun','mon','tue','wed','thu','fri','sat'];
+  const todayStr=new Date().toISOString().split('T')[0];
+  const sess=state.sessions;
+  const done=Object.values(sess).filter(s=>s.status==='done').length;
+  const skip=Object.values(sess).filter(s=>s.status==='skipped').length;
+  const total=done+skip;
+  const pct=total>0?Math.round(done/total*100):0;
+
+  // Build calendar grid
+  const firstDay=new Date(calYear,calMonth,1);
+  const lastDay=new Date(calYear,calMonth+1,0);
+  const startDow=(firstDay.getDay()+6)%7;
+  let calCells='';
+  ['PN','WT','ŚR','CZ','PT','SB','ND'].forEach(d=>calCells+=`<div class="cal-dow">${d}</div>`);
+  for(let i=0;i<startDow;i++) calCells+=`<div class="cal-day other"></div>`;
+  for(let d=1;d<=lastDay.getDate();d++){
+    const date=new Date(calYear,calMonth,d);
+    const ds=date.toISOString().split('T')[0];
+    const dk=DAY_KEYS[date.getDay()];
+    const isTrain=WEEK.find(w=>w.key===dk)?.type==='train';
+    const s=sess[ds];
+    const isToday=ds===todayStr;
+    let cls='cal-day';
+    if(isToday) cls+=' today';
+    if(s?.status==='done') cls+=' done';
+    else if(s?.status==='skipped') cls+=' skipped';
+    else if(isTrain) cls+=' train';
+    const dot=(isTrain||s)?'<div class="cal-dot"></div>':'';
+    calCells+=`<div class="${cls}" onclick="openLogModal('${ds}','${dk}')">${d}${dot}</div>`;
+  }
+
+  // History list
+  const DAY_LBL={mon:'Poniedziałek',tue:'Wtorek',wed:'Środa',thu:'Czwartek',fri:'Piątek',sat:'Sobota',sun:'Niedziela'};
+  const DAY_PLAN={mon:'Swing L + TGU H',tue:'C&P H + Squat L',thu:'Swing H + TGU L',fri:'C&P L + Squat H'};
+  const entries=Object.entries(sess).sort((a,b)=>b[0].localeCompare(a[0])).slice(0,30);
+  let histHtml=entries.length ? entries.map(([ds,s])=>{
+    const [y,m,d]=ds.split('-');
+    return `<div class="history-item">
+      <div class="history-date">${d}.${m}.${y}</div>
+      <div class="history-info">
+        <div class="history-title">${DAY_LBL[s.dayKey]||s.dayKey}</div>
+        <div class="history-sub">${DAY_PLAN[s.dayKey]||'—'}</div>
+      </div>
+      <div class="history-status ${s.status==='done'?'status-done':'status-skip'}">${s.status==='done'?'✓ WYKONANE':'✗ POMINIĘTE'}</div>
+    </div>`;
+  }).join('') : `<div class="empty-state">BRAK HISTORII<br>ZACZNIJ TRENOWAĆ</div>`;
+
+  document.getElementById('screen-calendar').innerHTML = `
+    <div class="screen-title">KALENDARZ</div>
+    <div class="screen-sub">HISTORIA SESJI</div>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-val">${done}</div><div class="stat-label">Wykonane</div></div>
+      <div class="stat-card"><div class="stat-val">${pct}%</div><div class="stat-label">Skuteczność</div></div>
+      <div class="stat-card"><div class="stat-val">${skip}</div><div class="stat-label">Pominięte</div></div>
+      <div class="stat-card"><div class="stat-val">${total}</div><div class="stat-label">Łącznie</div></div>
+    </div>
+    <div class="cal-header">
+      <button class="cal-nav" onclick="calPrev()">‹</button>
+      <div class="cal-month">${MONTHS[calMonth]} ${calYear}</div>
+      <button class="cal-nav" onclick="calNext()">›</button>
+    </div>
+    <div class="cal-legend">
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--accent2)"></div>WYKONANE</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--accent3)"></div>POMINIĘTE</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--border)"></div>ZAPLANOWANE</div>
+    </div>
+    <div class="cal-grid">${calCells}</div>
+    <div style="font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">Historia</div>
+    ${histHtml}`;
+}
+
+function calPrev(){calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCalendar();}
+function calNext(){calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCalendar();}
+
+function openLogModal(ds,dk){
+  pendingLogDate=ds; pendingLogDayKey=dk;
+  const DAY_LBL={mon:'Poniedziałek',tue:'Wtorek',wed:'Środa',thu:'Czwartek',fri:'Piątek',sat:'Sobota',sun:'Niedziela'};
+  const [y,m,d]=ds.split('-');
+  document.getElementById('modal-log-title').textContent=DAY_LBL[dk]||dk;
+  document.getElementById('modal-log-sub').textContent=`${d}.${m}.${y}`;
+  document.getElementById('modal-log').classList.add('open');
+}
+
+function logSession(status){
+  if(!pendingLogDate) return;
+  state.sessions[pendingLogDate]={dayKey:pendingLogDayKey,status};
+  saveState();
+  closeModal('modal-log');
+  renderCalendar();
+}
+
+// ═══════════════════════════════════════════════════════════
+// NAV
+// ═══════════════════════════════════════════════════════════
+function showScreen(name){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('screen-'+name).classList.add('active');
+  document.querySelector(`[onclick="showScreen('${name}')"]`).classList.add('active');
+  if(name==='plan') renderPlan();
+  if(name==='calendar') renderCalendar();
+  if(name==='timer'){updateTimerUI();updateSettingsUI();}
+}
+
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// INIT
+renderPlan();
+updateTimerUI();
+updateSettingsUI();
+</script>
 </body>
 </html>
